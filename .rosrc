@@ -1,0 +1,39 @@
+CATKIN_WS=$HOME/catkin_ws
+
+source /opt/ros/kinetic/setup.zsh
+source $CATKIN_WS/devel/setup.zsh
+
+ros_build () {
+  disable_conda
+  catkin_make --directory $CATKIN_WS
+  source $CATKIN_WS/devel/setup.zsh
+}
+
+ros_rebuild () {
+  disable_conda
+  rm -rf $CATKIN_WS/build $CATKIN_WS/devel
+  ros_build
+}
+
+ros_build_tests () {
+  disable_conda
+  catkin_make tests --directory $CATKIN_WS
+  source $CATKIN_WS/devel/setup.zsh
+}
+
+ros_run_tests () {
+  disable_conda
+  catkin_make run_tests --directory $CATKIN_WS
+  catkin_test_results
+}
+
+ros_lint () {
+  disable_conda
+  catkin_make roslint --directory $CATKIN_WS
+}
+
+disable_conda () {
+  if find_in_path 'conda'; then
+    conda_toggle
+  fi
+}

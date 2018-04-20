@@ -1,0 +1,21 @@
+[
+    // Toggle comments
+    { "keys": ["ctrl+r"], "command": "toggle_comment", "args": { "block": false } },
+    { "keys": ["ctrl+shift+r"], "command": "toggle_comment", "args": { "block": true } },
+
+    // Cycle tabs
+    { "keys": ["ctrl+tab"], "command": "next_view" },
+    { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+
+    // Markdown preview
+    { "keys": ["alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser":"markdown"} },
+
+    // Latex avoid tabularnewline
+    {
+        "keys": ["shift+enter"], "command": "insert_snippet", "args": {"contents": "\n\\item $0"},
+        "context": [
+            { "key": "selector", "operator": "equal", "operand": "text.tex.latex meta.environment.list"},
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true }
+        ]
+    }
+]
