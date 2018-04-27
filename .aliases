@@ -8,7 +8,7 @@ alias o='xdg-open'
 alias 3='tree -L 3'
 
 # dotfiles
-alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # git
 alias ga='git add'
