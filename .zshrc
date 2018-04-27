@@ -42,15 +42,7 @@ export ZSH_CUSTOM=$ZSH_CUSTOM
 source $ZSH/oh-my-zsh.sh
 
 ############################################################
-# start tmux                                               #
-############################################################
-
-# if command -v tmux>/dev/null; then
-#   [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
-# fi
-
-############################################################
-# external stuff                                           #
+# load stuff                                               #
 ############################################################
 
 source $HOME/.dunerc
@@ -74,4 +66,4 @@ if ! find_in_path 'conda'; then
   # export PATH=$PATH_WITH_CONDA
 fi
 
-export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules/
+export PATH=$PATH:$HOME/bin
