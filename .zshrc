@@ -66,16 +66,11 @@ source $HOME/.rosrc
 # Add conda to path if it isn't there already
 if ! find_in_path 'conda'; then
   PATH_ORIGINAL=$PATH
-
   if [ -d "$HOME/miniconda3/" ]; then
     PATH_WITH_CONDA="$HOME/miniconda3/bin:$PATH"
   elif [ -d "$HOME/anaconda3/" ]; then
     PATH_WITH_CONDA="$HOME/anaconda3/bin:$PATH"
-  else
-    echo "Couldn't find miniconda3 or anaconda3, won't add to path."
-    return 1
   fi
-
   # export PATH=$PATH_WITH_CONDA
 fi
 
