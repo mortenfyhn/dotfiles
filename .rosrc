@@ -1,7 +1,12 @@
 CATKIN_WS=$HOME/catkin_ws
 
-source /opt/ros/kinetic/setup.zsh
-source $CATKIN_WS/devel/setup.zsh
+if [ -e "$/opt/ros/kinetic/setup.zsh" ]; then
+  source /opt/ros/kinetic/setup.zsh
+fi
+
+if [ -e "$CATKIN_WS/devel/setup.zsh" ]; then
+  source $CATKIN_WS/devel/setup.zsh
+fi
 
 ros_build () {
   disable_conda
