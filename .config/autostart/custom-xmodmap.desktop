@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=CustomXmodmap
+Exec=/usr/bin/xmodmap /home/morten/.Xmodmap
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true
