@@ -11,16 +11,6 @@ BULLETTRAIN_PROMPT_ADD_NEWLINE=false
 BULLETTRAIN_PROMPT_ORDER=(status custom dir git hg cmd_exec_time)
 
 ############################################################
-# download third party stuff                               #
-############################################################
-
-if ! which diff-so-fancy > /dev/null; then
-  echo "diff-so-fancy not found, will download..."
-  sudo wget -O /usr/local/bin/diff-so-fancy https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
-  sudo chmod +x /usr/local/bin/diff-so-fancy
-fi
-
-############################################################
 # oh-my-zsh stuff                                          #
 ############################################################
 
@@ -29,6 +19,22 @@ plugins=(zsh-autosuggestions zsh-256color)
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$ZSH_CUSTOM
 source $ZSH/oh-my-zsh.sh
+
+############################################################
+# download third party stuff                               #
+############################################################
+
+if [ ! -f $ZSH_CUSTOM/themes/bullet-train.zsh-theme ]; then
+  echo "bullet-train ZSH theme not found, will download..."
+  wget -O $ZSH_CUSTOM/themes/bullet-train.zsh-theme https://raw.githubusercontent.com/mortenfyhn/bullet-train.zsh/master/bullet-train.zsh-theme
+  source $HOME/.zshrc  # Recursive zshrc, nice.
+fi
+
+if ! which diff-so-fancy > /dev/null; then
+  echo "diff-so-fancy not found, will download..."
+  sudo wget -O /usr/local/bin/diff-so-fancy https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
+  sudo chmod +x /usr/local/bin/diff-so-fancy
+fi
 
 ############################################################
 # load stuff                                               #
