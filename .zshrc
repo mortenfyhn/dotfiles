@@ -32,6 +32,16 @@ BULLETTRAIN_PROMPT_ORDER=(
 )
 
 ############################################################
+# download third party stuff                               #
+############################################################
+
+if ! which diff-so-fancy > /dev/null; then
+  echo "diff-so-fancy not found, will download..."
+  sudo wget -O /usr/local/bin/diff-so-fancy https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
+  sudo chmod +x /usr/local/bin/diff-so-fancy
+fi
+
+############################################################
 # oh-my-zsh stuff                                          #
 ############################################################
 
@@ -65,5 +75,3 @@ if ! find_in_path 'conda'; then
   fi
   # export PATH=$PATH_WITH_CONDA
 fi
-
-export PATH=$PATH:$HOME/bin
