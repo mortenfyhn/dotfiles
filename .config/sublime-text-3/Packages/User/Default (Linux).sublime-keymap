@@ -3,6 +3,9 @@
     { "keys": ["ctrl+r"], "command": "toggle_comment", "args": { "block": false } },
     { "keys": ["ctrl+shift+r"], "command": "toggle_comment", "args": { "block": true } },
 
+    { "keys": ["ctrl+alt+up"], "command": "select_lines", "args": {"forward": false} },
+    { "keys": ["ctrl+alt+down"], "command": "select_lines", "args": {"forward": true} },
+
     // Cycle tabs
     { "keys": ["ctrl+tab"], "command": "next_view" },
     { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
