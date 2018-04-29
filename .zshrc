@@ -36,6 +36,12 @@ if ! which diff-so-fancy > /dev/null; then
   sudo chmod +x /usr/local/bin/diff-so-fancy
 fi
 
+if ! fc-list | grep -i "InputMono-Regular" > /dev/null; then
+  echo "Input Mono font not found, download here:\n"
+  echo "http://input.fontbureau.com/download/?customize&fontSelection=whole&a=0&g=ss&i=0&l=0&zero=0&asterisk=height&braces=0&preset=default&line-height=1&email=\n"
+  echo "Just open the archive and copy the <InputMono> directory to ~/.fonts"
+fi
+
 ############################################################
 # load stuff                                               #
 ############################################################
