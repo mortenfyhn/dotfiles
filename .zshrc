@@ -1,35 +1,14 @@
 ############################################################
-# Theme                                                    #
+# ZSH theme                                                #
 ############################################################
 
 ZSH_THEME="bullet-train"
-
 BULLETTRAIN_STATUS_EXIT_SHOW=true
 BULLETTRAIN_EXEC_TIME_ELAPSED=1
-
 BULLETTRAIN_PROMPT_CHAR=
 BULLETTRAIN_PROMPT_SEPARATE_LINE=false
 BULLETTRAIN_PROMPT_ADD_NEWLINE=false
-
-BULLETTRAIN_VIRTUALENV_FG=black
-
-BULLETTRAIN_PROMPT_ORDER=(
-  # time
-  status
-  custom
-  # context
-  dir
-  perl
-  ruby
-  virtualenv
-  # nvm
-  aws
-  go
-  elixir
-  git
-  hg
-  cmd_exec_time
-)
+BULLETTRAIN_PROMPT_ORDER=(status custom dir git hg cmd_exec_time)
 
 ############################################################
 # download third party stuff                               #
