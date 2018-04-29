@@ -46,11 +46,12 @@ fi
 # load stuff                                               #
 ############################################################
 
-source $HOME/.dunerc
-source $HOME/.aliases
-source $HOME/.functions
-source $HOME/.inorc
-source $HOME/.rosrc
+source $HOME/.config/custom-aliases.sh
+source $HOME/.config/custom-functions.sh
+
+source $HOME/.config/custom-dune-config.sh
+source $HOME/.config/custom-ino-config.sh
+source $HOME/.config/custom-ros-config.sh
 
 ############################################################
 # path stuff                                               #
