@@ -1,36 +1,6 @@
-WORKSPACE="$HOME/workspace"
-
-TARGET_IP=10.0.62.105
-DUNE_PATH="$WORKSPACE/dune"
-INSTALL_PATH="$WORKSPACE/install"
-IMC_PATH="$WORKSPACE/imc"
-IMCJAVA_PATH="$WORKSPACE/imcjava"
-NEPTUS_PATH="$WORKSPACE/neptus"
-BUILD_PATH="$WORKSPACE/build"
-TBUILD_PATH="$WORKSPACE/tbuild"
-GLUED_PATH="$WORKSPACE/glued"
-PYIMC_PATH="$WORKSPACE/pyimc"
-ROS_IMC_BROKER_PATH="$HOME/catkin_ws/src/ros-imc-broker"
-
-
-
-alias cmake_tbuild="cmake -G Ninja -DCROSS=$GLUED_PATH/ntnu-b2xx/toolchain/bin/armv7-lsts-linux-gnueabihf $DUNE_PATH"
-
 alias dune_kill="ssh root@$TARGET_IP 'killall -9 dune'"
 alias dune_create_task_user2="python $DUNE_PATH/programs/scripts/dune-create-task.py $DUNE_PATH/user2 \"Morten Fyhn Amundsen\""
-alias totarget="ssh root@$TARGET_IP"
 alias neptus="$NEPTUS_PATH/neptus.sh"
-
-
-
-target_setup () {
-  ssh root@$TARGET_IP 'mount -o remount,rw /'
-  # cat ~/.ssh/id_rsa.pub | ssh root@$TARGET_IP 'cat >> .ssh/authorized_keys'  # TODO: use ssh-copy-id
-  ssh root@$TARGET_IP 'echo "alias dune=/opt/lsts/dune/bin/dune" >> /etc/profile'
-  ssh root@$TARGET_IP 'echo "alias l=ls" >> /etc/profile'
-  ssh root@$TARGET_IP 'echo "alias radar='dune -c dev/x4radar -p Hardware'" >> /etc/profile'
-  ssh root@$TARGET_IP 'mount -o remount,ro /'
-}
 
 dune_build () {
   ninja -C $BUILD_PATH
@@ -106,7 +76,6 @@ imc_broker_update () {
   cd $cwd
 }
 
-# doesn't cd back to pwd if build fails
 dune_upload_full () {
   ninja -C $TBUILD_PATH
   ret=$?
