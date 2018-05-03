@@ -46,6 +46,7 @@ fi
 # load stuff                                               #
 ############################################################
 
+source $HOME/.config/custom-secrets.sh
 source $HOME/.config/custom-aliases.sh
 source $HOME/.config/custom-functions.sh
 
