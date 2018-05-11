@@ -1,4 +1,5 @@
-alias dune_kill="ssh root@$TARGET_IP 'killall -9 dune'"
+alias dune="$BUILD_PATH/dune"
+alias dune_kill="ssh target 'killall -9 dune'"
 alias dune_create_task_user2="python $DUNE_PATH/programs/scripts/dune-create-task.py $DUNE_PATH/user2 \"Morten Fyhn Amundsen\""
 alias neptus="$NEPTUS_PATH/neptus.sh"
 
@@ -85,11 +86,12 @@ dune_upload_full () {
   ret=$?
   if [ $ret -ne 0 ]; then; errorbeep; return $ret; fi
 
-  rsync -avz --human-readable --progress $TBUILD_PATH/dune-**-*tar.bz2 root@$TARGET_IP:/opt/lsts/dune/
+  rsync -avz --human-readable --progress $TBUILD_PATH/dune-**-*tar.bz2 target:/opt/scout/dune/
+
   ret=$?
   if [ $ret -ne 0 ]; then; errorbeep; return $ret; fi
 
-  ssh root@$TARGET_IP '/sbin/services dune restart; /sbin/services dune stop'
+  ssh target '/sbin/services dune restart; /sbin/services dune stop'
   # ret=$?
   # if [ $ret -ne 0 ]; then; errorbeep; cd $cwd; return $ret; fi
 
@@ -105,7 +107,7 @@ dune_upload_quick () {
   $GLUED_PATH/ntnu-b2xx/toolchain/bin/armv7-lsts-linux-gnueabihf-strip dune
   if [ $ret -ne 0 ]; then; errorbeep; return $ret; fi
 
-  rsync -avz --human-readable --progress $TBUILD_PATH/dune root@$TARGET_IP:/opt/lsts/dune/bin/
+  rsync -avz --human-readable --progress $TBUILD_PATH/dune target:/opt/scout/dune/bin/
   ret=$?
   if [ $ret -ne 0 ]; then; errorbeep; return $ret; fi
 
@@ -116,8 +118,8 @@ dune_upload_quick () {
 }
 
 dune_upload_user_ini () {
-  rsync -avzr $DUNE_PATH/user/etc/  root@$TARGET_IP:/opt/lsts/dune/user/etc
-  rsync -avzr $DUNE_PATH/user2/etc/ root@$TARGET_IP:/opt/lsts/dune/user2/etc
+  rsync -avzr $DUNE_PATH/user/etc/  target:/opt/scout/dune/user/etc
+  rsync -avzr $DUNE_PATH/user2/etc/ target:/opt/scout/dune/user2/etc
 }
 
 dune_gdb () {
@@ -125,7 +127,7 @@ dune_gdb () {
 }
 
 dune_copy_logs () {
-  rsync -avzr --human-readable --progress root@$TARGET_IP:/opt/lsts/dune/log/ntnu-hexa-002/ $HOME/Desktop/logs/
+  rsync -avzr --human-readable --progress target:/opt/scout/dune/log/ntnu-hexa-002/ $HOME/Desktop/logs/
 }
 
 dune_replay_log () {
