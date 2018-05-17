@@ -37,9 +37,15 @@ if ! which diff-so-fancy > /dev/null; then
 fi
 
 if ! fc-list | grep -i "InputMono-Regular" > /dev/null; then
-  echo "Input Mono font not found, download here:\n"
-  echo "http://input.fontbureau.com/download/?customize&fontSelection=whole&a=0&g=ss&i=0&l=0&zero=0&asterisk=height&braces=0&preset=default&line-height=1&email=\n"
-  echo "Just open the archive and copy the <InputMono> directory to ~/.fonts"
+  echo "Input Mono font not found, download here:"
+  echo "    http://input.fontbureau.com/download/?customize&fontSelection=whole&a=0&g=ss&i=0&l=0&zero=0&asterisk=height&braces=0&preset=default&line-height=1&email="
+  echo "Just open the archive and copy the <InputMono> directory to ~/.fonts\n"
+fi
+
+if ! fc-list | grep -i "FiraCode-Regular" > /dev/null; then
+  echo "Fira Code font not found, download here:"
+  echo "    https://github.com/tonsky/FiraCode"
+  echo "Just open the archive and copy the files in ttf/ to ~/.fonts/FiraCode\n"
 fi
 
 ############################################################
