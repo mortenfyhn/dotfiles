@@ -26,13 +26,22 @@ source $ZSH/oh-my-zsh.sh
 
 if [ ! -f $ZSH_CUSTOM/themes/bullet-train.zsh-theme ]; then
   echo "bullet-train ZSH theme not found, will download..."
-  wget -O $ZSH_CUSTOM/themes/bullet-train.zsh-theme https://raw.githubusercontent.com/mortenfyhn/bullet-train.zsh/master/bullet-train.zsh-theme
+  wget -q -O $ZSH_CUSTOM/themes/bullet-train.zsh-theme https://raw.githubusercontent.com/mortenfyhn/bullet-train.zsh/master/bullet-train.zsh-theme
+  echo "Done"
+  source $HOME/.zshrc  # Recursive zshrc, nice.
+fi
+
+if [ ! -f $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh ]; then
+  echo "zsh-autosuggestions ZSH plugin not found, will download..."
+  git clone -q https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  echo "Done"
   source $HOME/.zshrc  # Recursive zshrc, nice.
 fi
 
 if ! which diff-so-fancy > /dev/null; then
   echo "diff-so-fancy not found, will download..."
-  sudo wget -O /usr/local/bin/diff-so-fancy https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
+  sudo wget -q -O /usr/local/bin/diff-so-fancy https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
+  echo "Done"
   sudo chmod +x /usr/local/bin/diff-so-fancy
 fi
 
