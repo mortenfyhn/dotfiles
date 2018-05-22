@@ -1,7 +1,11 @@
 CATKIN_WS=$HOME/catkin_ws
 
-if [ -e "$/opt/ros/kinetic/setup.zsh" ]; then
+if [ -e "/opt/ros/kinetic/setup.zsh" ]; then
   source /opt/ros/kinetic/setup.zsh
+fi
+
+if [ -e "/opt/ros/melodic/setup.zsh" ]; then
+  source /opt/ros/melodic/setup.zsh
 fi
 
 if [ -e "$CATKIN_WS/devel/setup.zsh" ]; then
