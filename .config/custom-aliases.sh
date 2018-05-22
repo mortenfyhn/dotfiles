@@ -1,16 +1,15 @@
 # single letter
-alias g='git'
-alias e='exit'
 alias l='ls'
-alias z='source $HOME/.zshrc'
-alias t='trash'
 alias o='xdg-open'
-alias 3='tree -L 3'
+alias t='trash'
+alias z='source $HOME/.zshrc'
 
 # dotfiles
 alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias d='dots'
 
 # git
+alias g='git'
 alias ga='git add'
 alias gap='git add -p'
 alias gb='git branch'
@@ -48,8 +47,6 @@ alias gssh='git --no-pager stash show'
 alias gss='git stash save'
 alias gsh='git show'
 alias gsl='git --no-pager stash list'
-
-# git without prefix
 alias pull='git pull'
 alias push='git push'
 alias fush='git push --force'
@@ -57,7 +54,6 @@ alias fush='git push --force'
 # sublime
 alias sa='subl -a'
 alias sn='subl -n'
-alias zz='subl -a $HOME/.zshrc'
 
 # file system
 alias filesize='ls -lh'
@@ -71,16 +67,3 @@ alias vpn='sudo openconnect --user=mortefam https://sslvpn.ntnu.no/'
 # sounds
 alias successbeep='beep -f 500 -l 50'
 alias errorbeep='beep -f 250 -l 100'
-
-# python/conda
-alias syspy2="/usr/bin/python2"
-alias syspy3="/usr/bin/python3"
-alias pyscout="source activate scout"
-
-# weird stuff
-alias weather="curl wttr.in/Trondheim"
-alias three="three -L 3"
-
-# haskell
-alias hask='cd $HOME/Cloud/Projects/Haskell/CIS194/'
-alias ghci='stack ghci'
