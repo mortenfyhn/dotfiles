@@ -51,3 +51,7 @@ conda_toggle () {
     echo Added conda to path.
   fi
 }
+
+boldecho () {
+  echo "$(tput bold)$1$(tput sgr0)"
+}
