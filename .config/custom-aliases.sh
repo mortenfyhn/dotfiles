@@ -54,10 +54,6 @@ alias pull='git pull'
 alias push='git push'
 alias fush='git push --force'
 
-# dune
-alias db='dune_build'
-alias dr='dune_rebuild'
-
 # sublime
 alias sa='subl -a'
 alias sn='subl -n'

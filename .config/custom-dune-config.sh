@@ -6,15 +6,18 @@ alias neptus="$NEPTUS_PATH/neptus.sh"
 dune_build () {
   ninja -C $BUILD_PATH
 }
+alias db=dune_build
 
 dune_tbuild () {
   ninja -C $TBUILD_PATH
 }
+alias dt=dune_tbuild
 
 dune_rebuild () {
   ninja -C $BUILD_PATH rebuild_cache
   ninja -C $BUILD_PATH
 }
+alias dr=dune_rebuild
 
 imc_update () {
   python $IMC_PATH/user/update.py build
@@ -25,14 +28,10 @@ imc_update () {
 imc_build () {
   python $IMC_PATH/user/update.py
 
-  cwd=$PWD
-  cd $IMC_PATH
-  if [ -n "$(git status --porcelain)" ]; then
+  if [ -n "$(git -c $IMC_PATH status --porcelain)" ]; then
     echo "IMC repo is dirty!"
-    cd $cwd
     return 1
   fi
-  cd $cwd
 
   cmake $DUNE_PATH -DIMC_URL=$IMC_PATH -DIMC_TAG=uavlab $BUILD_PATH
 
@@ -40,19 +39,16 @@ imc_build () {
   ninja -C $BUILD_PATH imc
   ninja -C $BUILD_PATH
 
-  imcjava_build
-  cp $IMCJAVA_PATH/dist/libimc.jar $NEPTUS_PATH/lib/libimc.jar
-  neptus_build
-}
-
-imcjava_build () {
+  # Build imcjava
   cwd=$PWD
   cd $IMCJAVA_PATH
   ant -q -Dimc.dir=$IMC_PATH
   cd $cwd
-}
 
-neptus_build () {
+  # Copy java imc definitions to neptus
+  cp $IMCJAVA_PATH/dist/libimc.jar $NEPTUS_PATH/lib/libimc.jar
+
+  # Build neptus
   cwd=$PWD
   cd $NEPTUS_PATH
   ant -q
@@ -78,48 +74,35 @@ imc_broker_update () {
 }
 
 dune_upload_full () {
+  boldecho "building..."
   ninja -C $TBUILD_PATH
-  ret=$?
-  if [ $ret -ne 0 ]; then; errorbeep; return $ret; fi
+  ret=$?; if [ $ret -ne 0 ]; then; return $ret; fi
 
+  boldecho "\npackaging..."
   ninja -C $TBUILD_PATH package
-  ret=$?
-  if [ $ret -ne 0 ]; then; errorbeep; return $ret; fi
+  ret=$?; if [ $ret -ne 0 ]; then; return $ret; fi
 
+  boldecho "\ntransferring..."
   rsync -avz --human-readable --progress $TBUILD_PATH/dune-**-*tar.bz2 target:/opt/scout/dune/
+  ret=$?; if [ $ret -ne 0 ]; then; return $ret; fi
 
-  ret=$?
-  if [ $ret -ne 0 ]; then; errorbeep; return $ret; fi
-
-  ssh target '/sbin/services dune restart; /sbin/services dune stop'
-  # ret=$?
-  # if [ $ret -ne 0 ]; then; errorbeep; cd $cwd; return $ret; fi
-
-  successbeep
-  return 0
-}
-
-dune_upload_quick () {
-  ninja -C $TBUILD_PATH
-  ret=$?
-  if [ $ret -ne 0 ]; then; errorbeep; return $ret; fi
-
-  $GLUED_PATH/ntnu-b2xx/toolchain/bin/armv7-lsts-linux-gnueabihf-strip dune
-  if [ $ret -ne 0 ]; then; errorbeep; return $ret; fi
-
-  rsync -avz --human-readable --progress $TBUILD_PATH/dune target:/opt/scout/dune/bin/
-  ret=$?
-  if [ $ret -ne 0 ]; then; errorbeep; return $ret; fi
-
-  dune_upload_user_ini
-
-  successbeep
-  return 0
+  boldecho "\nupgrading..."
+  ssh target /usr/bin/dune_upgrade.sh
 }
 
 dune_upload_user_ini () {
   rsync -avzr $DUNE_PATH/user/etc/  target:/opt/scout/dune/user/etc
   rsync -avzr $DUNE_PATH/user2/etc/ target:/opt/scout/dune/user2/etc
+}
+
+dune_upload_quick () {
+  ninja -C $TBUILD_PATH
+  ret=$?; if [ $ret -ne 0 ]; then; return $ret; fi
+
+  rsync -avz --human-readable --progress $TBUILD_PATH/dune target:/opt/scout/dune/bin/
+  ret=$?; if [ $ret -ne 0 ]; then; return $ret; fi
+
+  dune_upload_user_ini
 }
 
 dune_gdb () {
