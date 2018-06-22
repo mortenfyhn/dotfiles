@@ -20,5 +20,7 @@
             { "key": "selector", "operator": "equal", "operand": "text.tex.latex meta.environment.list"},
             { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true }
         ]
-    }
+    },
+
+    { "keys": ["alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser":"markdown"} }
 ]
