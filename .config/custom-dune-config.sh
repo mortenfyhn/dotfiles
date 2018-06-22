@@ -75,6 +75,7 @@ imc_broker_update () {
 
 dune_upload_full () {
   boldecho "building..."
+  ninja rebuild_cache -C $TBUILD_PATH
   ninja -C $TBUILD_PATH
   ret=$?; if [ $ret -ne 0 ]; then; return $ret; fi
 
@@ -90,11 +91,6 @@ dune_upload_full () {
   ssh target /usr/bin/dune_upgrade.sh
 }
 
-dune_upload_user_ini () {
-  rsync -avzr $DUNE_PATH/user/etc/  target:/opt/scout/dune/user/etc
-  rsync -avzr $DUNE_PATH/user2/etc/ target:/opt/scout/dune/user2/etc
-}
-
 dune_upload_quick () {
   ninja -C $TBUILD_PATH
   ret=$?; if [ $ret -ne 0 ]; then; return $ret; fi
@@ -102,7 +98,8 @@ dune_upload_quick () {
   rsync -avz --human-readable --progress $TBUILD_PATH/dune target:/opt/scout/dune/bin/
   ret=$?; if [ $ret -ne 0 ]; then; return $ret; fi
 
-  dune_upload_user_ini
+  rsync -avzr $DUNE_PATH/user/etc/  target:/opt/scout/dune/user/etc
+  ret=$?; if [ $ret -ne 0 ]; then; return $ret; fi
 }
 
 dune_gdb () {
