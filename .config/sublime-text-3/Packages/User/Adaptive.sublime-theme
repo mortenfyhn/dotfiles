@@ -3,5 +3,10 @@
         "class": "sidebar_tree",
         "row_padding": [4, 0],
         // "indent": 12,
+    },
+
+    {
+        "class": "tabset_control",
+        "tab_height": 25,
     }
 ]
