@@ -71,3 +71,6 @@ alias vpn='sudo openconnect --user=mortefam https://sslvpn.ntnu.no/'
 # sounds
 alias successbeep='beep -f 500 -l 50'
 alias errorbeep='beep -f 250 -l 100'
+
+# calculator
+alias calc='mate-calc -s'
