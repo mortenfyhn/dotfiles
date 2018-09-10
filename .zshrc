@@ -83,3 +83,5 @@ if ! find_in_path 'conda'; then
   fi
   # export PATH=$PATH_WITH_CONDA
 fi
+
+export PATH="/usr/lib/ccache:$PATH"
