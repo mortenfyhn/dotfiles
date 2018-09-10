@@ -11,8 +11,7 @@ In his words the technique below requires:
 
 The technique consists in storing a [Git bare repository](http://www.saintsjd.com/2011/01/what-is-a-bare-git-repository/) in a "_side_" folder (like `$HOME/.cfg` or `$HOME/.myconfig`) using a specially crafted alias so that commands are run against that repository and not the usual `.git` local folder, which would interfere with any other Git repositories around.
 
-Starting from scratch
----------------------
+## Starting from scratch
 
 If you haven't been tracking your configurations in a Git repository before, you can start using this technique easily with these lines:
 
@@ -45,8 +44,7 @@ config commit -m "Add bashrc"
 config push
 ```
 
-Install your dotfiles onto a new system (or migrate to this setup)
-------------------------------------------------------------------
+## Install your dotfiles onto a new system (or migrate to this setup)
 
 If you already store your configuration/dotfiles in a [Git repository](https://www.atlassian.com/git/), on a new system you can migrate to this setup with the following steps:
 
@@ -145,4 +143,11 @@ if [ $? = 0 ]; then
 fi;
 config checkout
 config config status.showUntrackedFiles no
+```
+
+## Set up remote tracking
+By default the bare git repo won't track any remote branches. You can push and pull to remotes but they won't show up in the log. To track the server's branches, type:
+
+```
+config config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 ```
