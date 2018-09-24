@@ -14,7 +14,7 @@ BULLETTRAIN_PROMPT_ORDER=(status custom dir git hg cmd_exec_time)
 # oh-my-zsh stuff                                          #
 ############################################################
 
-plugins=(zsh-autosuggestions zsh-256color)
+plugins=(zsh-autosuggestions zsh-256color gitfast)
 
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$ZSH_CUSTOM
