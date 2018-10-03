@@ -1,5 +1,3 @@
-CATKIN_WS=$HOME/catkin_ws
-
 if [ -e "/opt/ros/kinetic/setup.zsh" ]; then
   source /opt/ros/kinetic/setup.zsh
 fi
@@ -14,14 +12,21 @@ fi
 
 ros_build () {
   disable_conda
-  catkin_make --directory $CATKIN_WS
+  catkin_make \
+    --directory $CATKIN_WS \
+    --use-ninja \
+    --cmake-args \
+      -Wno-dev \
+      -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+      -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
   source $CATKIN_WS/devel/setup.zsh
 }
 
-ros_rebuild () {
+ros_clean () {
   disable_conda
-  rm -rf $CATKIN_WS/build $CATKIN_WS/devel
-  ros_build
+  catkin_make clean \
+    --directory $CATKIN_WS \
+    --use-ninja
 }
 
 ros_build_tests () {
