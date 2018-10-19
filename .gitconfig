@@ -4,6 +4,7 @@
 [core]
 	editor = subl -n -w
 	pager = diff-so-fancy | less --tabs=4 -RFX
+	excludesfile = ~/.gitignore-global
 [fetch]
 	prune = true
 [help]
