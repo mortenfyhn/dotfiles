@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+
+import sys
+
+def main():
+    if (len(sys.argv) == 2):
+        f = float(sys.argv[1])
+        c = (f - 32.0) * (5/9)
+        print('{:.1f} °C'.format(c))
+    else:
+        print('usage: fah <temp in °F>')
+
+if __name__ == '__main__':
+   main()
