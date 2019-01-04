@@ -26,29 +26,38 @@ imc_update () {
 }
 
 imc_build () {
+  boldecho "Verifying IMC repo clean..."
   python $IMC_PATH/user/update.py
-
-  if [ -n "$(git -c $IMC_PATH status --porcelain)" ]; then
+  if [ -n "$(git -C $IMC_PATH status --porcelain)" ]; then
     echo "IMC repo is dirty!"
     return 1
+  else
+    echo "IMC repo is clean"
   fi
 
-  cmake $DUNE_PATH -DIMC_URL=$IMC_PATH -DIMC_TAG=uavlab $BUILD_PATH
+  boldecho "Verifying IMC definitions..."
+  make -C $IMC_PATH
 
+  boldecho "Updating DUNE IMC definitions..."
+  imc_branch=$(git -C $IMC_PATH rev-parse --abbrev-ref HEAD)
+  cmake $DUNE_PATH -DIMC_URL=$IMC_PATH -DIMC_TAG=$imc_branch $BUILD_PATH
   ninja -C $BUILD_PATH imc_download
   ninja -C $BUILD_PATH imc
+
+  boldecho "Building DUNE..."
   ninja -C $BUILD_PATH
 
   # Build imcjava
+  boldecho "Generating JAVA IMC definitions..."
   cwd=$PWD
   cd $IMCJAVA_PATH
   ant -q -Dimc.dir=$IMC_PATH
   cd $cwd
 
-  # Copy java imc definitions to neptus
+  boldecho "Updating Neptus IMC definitions..."
   cp $IMCJAVA_PATH/dist/libimc.jar $NEPTUS_PATH/lib/libimc.jar
 
-  # Build neptus
+  boldecho "Building Neptus..."
   cwd=$PWD
   cd $NEPTUS_PATH
   ant -q
