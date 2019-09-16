@@ -18,24 +18,24 @@ plugins=(zsh-autosuggestions zsh-256color gitfast)
 
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$ZSH_CUSTOM
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
 ############################################################
 # download third party stuff                               #
 ############################################################
 
-if [ ! -f $ZSH_CUSTOM/themes/bullet-train.zsh-theme ]; then
+if [ ! -f "$ZSH_CUSTOM/themes/bullet-train.zsh-theme" ]; then
   echo "bullet-train ZSH theme not found, will download..."
-  wget -q -O $ZSH_CUSTOM/themes/bullet-train.zsh-theme https://raw.githubusercontent.com/mortenfyhn/bullet-train.zsh/master/bullet-train.zsh-theme
+  wget -q -O "$ZSH_CUSTOM/themes/bullet-train.zsh-theme" https://raw.githubusercontent.com/mortenfyhn/bullet-train.zsh/master/bullet-train.zsh-theme
   echo "Done"
-  source $HOME/.zshrc  # Recursive zshrc, nice.
+  source "$HOME/.zshrc"  # Recursive zshrc, nice.
 fi
 
-if [ ! -f $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh ]; then
+if [ ! -f "$ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" ]; then
   echo "zsh-autosuggestions ZSH plugin not found, will download..."
-  git clone -q https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  git clone -q https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
   echo "Done"
-  source $HOME/.zshrc  # Recursive zshrc, nice.
+  source "$HOME/.zshrc"  # Recursive zshrc, nice.
 fi
 
 if ! which diff-so-fancy > /dev/null; then
@@ -48,13 +48,13 @@ fi
 if ! fc-list | grep -i "InputMono-Regular" > /dev/null; then
   echo "Input Mono font not found, download here:"
   echo "    http://input.fontbureau.com/download/?customize&fontSelection=whole&a=0&g=ss&i=0&l=0&zero=0&asterisk=height&braces=0&preset=default&line-height=1&email="
-  echo "Just open the archive and copy the <InputMono> directory to ~/.fonts\n"
+  echo -e "Just open the archive and copy the <InputMono> directory to ~/.fonts\n"
 fi
 
 if ! fc-list | grep -i "FiraCode-Regular" > /dev/null; then
   echo "Fira Code font not found, download here:"
   echo "    https://github.com/tonsky/FiraCode"
-  echo "Just open the archive and copy the files in ttf/ to ~/.fonts/FiraCode\n"
+  echo -e "Just open the archive and copy the files in ttf/ to ~/.fonts/FiraCode\n"
 fi
 
 ############################################################
@@ -67,13 +67,13 @@ export LC_ALL=en_US.UTF-8
 # load stuff                                               #
 ############################################################
 
-source $HOME/.config/custom-secrets.sh
-source $HOME/.config/custom-aliases.sh
-source $HOME/.config/custom-functions.sh
+source "$HOME/.config/custom-secrets.sh"
+source "$HOME/.config/custom-aliases.sh"
+source "$HOME/.config/custom-functions.sh"
 
-source $HOME/.config/custom-dune-config.sh
-source $HOME/.config/custom-ino-config.sh
-source $HOME/.config/custom-ros-config.sh
+source "$HOME/.config/custom-dune-config.sh"
+source "$HOME/.config/custom-ino-config.sh"
+source "$HOME/.config/custom-ros-config.sh"
 
 ############################################################
 # default C/C++ compiler                                   #
