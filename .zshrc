@@ -71,8 +71,8 @@ source "$HOME/.config/custom-secrets.sh"
 source "$HOME/.config/custom-aliases.sh"
 source "$HOME/.config/custom-functions.sh"
 
-source "$HOME/.config/custom-dune-config.sh"
-source "$HOME/.config/custom-ino-config.sh"
+# source "$HOME/.config/custom-dune-config.sh"
+# source "$HOME/.config/custom-ino-config.sh"
 source "$HOME/.config/custom-ros-config.sh"
 
 source /home/morten/.config/broot/launcher/bash/br  # Broot
