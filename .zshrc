@@ -99,11 +99,7 @@ if ! find_in_path 'conda'; then
   # export PATH=$PATH_WITH_CONDA
 fi
 
-export PATH=$PATH:$HOME/scout/ardupilot/Tools/autotest
 export PATH="/usr/lib/ccache:$PATH"
-export PATH=$PATH:/opt/gcc-arm-none-eabi-4_9-2015q3/bin
-
-export GAZEBO_MODEL_PATH=/home/morten/building_editor_models
 
 ############################################################
 # keyboard stuff                                           #
