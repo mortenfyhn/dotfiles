@@ -75,6 +75,8 @@ source "$HOME/.config/custom-dune-config.sh"
 source "$HOME/.config/custom-ino-config.sh"
 source "$HOME/.config/custom-ros-config.sh"
 
+source /home/morten/.config/broot/launcher/bash/br  # Broot
+
 ############################################################
 # default C/C++ compiler                                   #
 ############################################################
