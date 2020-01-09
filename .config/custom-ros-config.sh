@@ -15,17 +15,6 @@ scout_source_catkin_ws
 
 
 
-scout_catkin_build ()
-{
-  catkin build \
-    --workspace $CATKIN_WS \
-    -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
-    -DCMAKE_BUILD_TYPE=Release
-
-  scout_source_catkin_ws
-  echo -e "\nRe-sourced setup files."
-}
-
 disable_conda () {
   if find_in_path 'conda'; then
     conda_toggle
