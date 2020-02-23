@@ -14,6 +14,7 @@ alias ga='git add'
 alias gap='git add -p'
 alias gb='git branch'
 alias gbd='git branch -d'
+alias gbdf='git branch -D'
 alias gbdm='git branch --merged | grep -v "(^\*|master)" | xargs git branch -d'
 alias gc='git commit'
 alias gca='git commit --amend'
@@ -79,3 +80,5 @@ alias errorbeep='beep -f 250 -l 100'
 
 # calculator
 alias calc='mate-calc -s'
+
+brightness='xbacklight -get | numfmt --format %.1f'
