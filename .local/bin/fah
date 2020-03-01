@@ -6,7 +6,7 @@ def main():
     try:
         f = float(sys.argv[1])
         c = (f - 32.0) * (5/9)
-        print('{:.1f} °C'.format(c))
+        print(f'{c:.1f} °C')
     except:
         print('usage: fah <temp in °F>')
 
