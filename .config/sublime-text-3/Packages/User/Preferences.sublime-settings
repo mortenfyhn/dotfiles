@@ -28,7 +28,7 @@
 		"*.db",
 		"*.sublime-workspace"
 	],
-	"fold_buttons": false,
+	"fold_buttons": true,
 	"folder_exclude_patterns":
 	[
 		"build",
