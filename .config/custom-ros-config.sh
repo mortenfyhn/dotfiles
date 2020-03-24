@@ -1,3 +1,5 @@
+export ROSCONSOLE_FORMAT='[${severity}] [${node}] [${time}]: ${message}'
+
 scout_source_catkin_ws ()
 {
   if [ -e "$CATKIN_WS/devel/setup.zsh" ]; then
