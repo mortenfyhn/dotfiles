@@ -101,6 +101,14 @@ fi
 
 export PATH="/usr/lib/ccache:$PATH"
 
+
+export ANDROID_NDK_ROOT="$HOME/Android/Sdk/ndk/20.0.5594570"
+# Android
+# export ANDROID_HOME="$HOME/Android/Sdk"
+# export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+
+export GAZEBO_MODEL_PATH="$HOME/scout/gazebo_models"
+
 ############################################################
 # keyboard stuff                                           #
 ############################################################
