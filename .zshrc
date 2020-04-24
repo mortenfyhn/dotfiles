@@ -38,13 +38,6 @@ if [ ! -f "$ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zs
   source "$HOME/.zshrc"  # Recursive zshrc, nice.
 fi
 
-if ! which diff-so-fancy > /dev/null; then
-  echo "diff-so-fancy not found, will download..."
-  sudo wget -q -O /usr/local/bin/diff-so-fancy https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
-  echo "Done"
-  sudo chmod +x /usr/local/bin/diff-so-fancy
-fi
-
 if ! fc-list | grep -i "InputMono-Regular" > /dev/null; then
   echo "Input Mono font not found, download here:"
   echo "    http://input.fontbureau.com/download/?customize&fontSelection=whole&a=0&g=ss&i=0&l=0&zero=0&asterisk=height&braces=0&preset=default&line-height=1&email="
