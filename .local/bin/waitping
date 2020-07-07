@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+printf "%s" "Waiting for $1..."
+while ! ping -c 1 -n -w 1 "$1" &> /dev/null
+do
+    printf "%c" "."
+done
+printf "\n%s\n"  "Online!"
