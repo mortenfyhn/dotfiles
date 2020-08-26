@@ -1,5 +1,5 @@
 ############################################################
-# ZSH theme                                                #
+# ZSH and oh-my-zsh                                        #
 ############################################################
 
 ZSH_THEME="bullet-train"
@@ -9,101 +9,29 @@ BULLETTRAIN_PROMPT_CHAR=
 BULLETTRAIN_PROMPT_SEPARATE_LINE=false
 BULLETTRAIN_PROMPT_ADD_NEWLINE=false
 BULLETTRAIN_PROMPT_ORDER=(status custom dir git hg cmd_exec_time)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=2"  # Green autosuggestion text.
 
-############################################################
-# oh-my-zsh stuff                                          #
-############################################################
-
-plugins=(zsh-autosuggestions zsh-256color gitfast)
+plugins=(git thefuck zsh-autosuggestions zsh-256color)
 
 export ZSH=$HOME/.oh-my-zsh
-export ZSH_CUSTOM=$ZSH_CUSTOM
 source "$ZSH/oh-my-zsh.sh"
-
-############################################################
-# download third party stuff                               #
-############################################################
-
-if [ ! -f "$ZSH_CUSTOM/themes/bullet-train.zsh-theme" ]; then
-  echo "bullet-train ZSH theme not found, will download..."
-  wget -q -O "$ZSH_CUSTOM/themes/bullet-train.zsh-theme" https://raw.githubusercontent.com/mortenfyhn/bullet-train.zsh/master/bullet-train.zsh-theme
-  echo "Done"
-  source "$HOME/.zshrc"  # Recursive zshrc, nice.
-fi
-
-if [ ! -f "$ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" ]; then
-  echo "zsh-autosuggestions ZSH plugin not found, will download..."
-  git clone -q https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-  echo "Done"
-  source "$HOME/.zshrc"  # Recursive zshrc, nice.
-fi
-
-if ! fc-list | grep -i "InputMono-Regular" > /dev/null; then
-  echo "Input Mono font not found, download here:"
-  echo "    http://input.fontbureau.com/download/?customize&fontSelection=whole&a=0&g=ss&i=0&l=0&zero=0&asterisk=height&braces=0&preset=default&line-height=1&email="
-  echo -e "Just open the archive and copy the <InputMono> directory to ~/.fonts\n"
-fi
-
-if ! fc-list | grep -i "FiraCode-Regular" > /dev/null; then
-  echo "Fira Code font not found, download here:"
-  echo "    https://github.com/tonsky/FiraCode"
-  echo -e "Just open the archive and copy the files in ttf/ to ~/.fonts/FiraCode\n"
-fi
-
-############################################################
-# locale stuff                                             #
-############################################################
-
-export LC_ALL=en_US.UTF-8
 
 ############################################################
 # load stuff                                               #
 ############################################################
 
-source "$HOME/.config/custom-secrets.sh"
-source "$HOME/.config/custom-aliases.sh"
-source "$HOME/.config/custom-functions.sh"
-
-# source "$HOME/.config/custom-dune-config.sh"
-# source "$HOME/.config/custom-ino-config.sh"
-source "$HOME/.config/custom-ros-config.sh"
-
-source /home/morten/.config/broot/launcher/bash/br  # Broot
+source "$HOME"/.config/dotfiles/aliases.sh
+source "$HOME"/.config/dotfiles/ros.sh
 
 ############################################################
-# default C/C++ compiler                                   #
+# path                                                     #
+############################################################
+
+export PATH="/usr/lib/ccache:$PATH"
+
+############################################################
+# environment variables                                    #
 ############################################################
 
 export CC=clang
 export CXX=clang++
-
-############################################################
-# path stuff                                               #
-############################################################
-
-# Add conda to path if it isn't there already
-if ! find_in_path 'conda'; then
-  PATH_ORIGINAL=$PATH
-  if [ -d "$HOME/miniconda3/" ]; then
-    PATH_WITH_CONDA="$HOME/miniconda3/bin:$PATH"
-  elif [ -d "$HOME/anaconda3/" ]; then
-    PATH_WITH_CONDA="$HOME/anaconda3/bin:$PATH"
-  fi
-  # export PATH=$PATH_WITH_CONDA
-fi
-
-export PATH="/usr/lib/ccache:$PATH"
-
-
-export ANDROID_NDK_ROOT="$HOME/Android/Sdk/ndk/20.0.5594570"
-# Android
-# export ANDROID_HOME="$HOME/Android/Sdk"
-# export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
-
-export GAZEBO_MODEL_PATH="$HOME/scout/gazebo_models"
-
-############################################################
-# keyboard stuff                                           #
-############################################################
-
-xmodmap "$HOME/.Xmodmap"
