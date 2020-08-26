@@ -64,4 +64,4 @@ git clone -q git@github.com:powerline/fonts.git --depth=1 /tmp/fonts
 /tmp/fonts/install.sh
 
 # MATE Terminal settings
-./setup-mate-terminal.sh
+dconf load /org/mate/terminal/profiles/default/ < "$HOME"/.config/dotfiles/dconf/mate-terminal
