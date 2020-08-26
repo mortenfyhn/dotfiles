@@ -1,6 +1,16 @@
 # Dotfiles
 Storage method outlined in this [article](https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/) by Nicola Paolucci (Copied below in case that article ever goes down).
 
+## Quick setup on new machine
+
+```bash
+echo ".dotfiles" >> ~/.gitignore
+git clone git@github.com:mortenfyhn:dotfiles.git ~/.dotfiles
+alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+dots checkout
+dots config --local status.showUntrackedFiles no
+```
+
 # The best way to store your dotfiles: A bare Git repository
 
 Recently I read about this amazing technique in an [Hacker News thread](https://news.ycombinator.com/item?id=11070797) on people's solutions to store their [dotfiles](https://en.wikipedia.org/wiki/Dot-file). User `StreakyCobra` [showed his elegant setup](https://news.ycombinator.com/item?id=11071754) and ... It made so much sense! I am in the process of switching my own system to the same technique. The only pre-requisite is to install [Git](https://www.atlassian.com/git/).
