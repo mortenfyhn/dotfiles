@@ -1,3 +1,5 @@
+#/usr/bin/env bash
+
 # Vivaldi browser
 # https://help.vivaldi.com/article/manual-setup-vivaldi-linux-repositories/
 wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | sudo apt-key add -
@@ -60,3 +62,6 @@ pip3 install thefuck
 # https://github.com/powerline/fonts#quick-installation
 git clone -q git@github.com:powerline/fonts.git --depth=1 /tmp/fonts
 /tmp/fonts/install.sh
+
+# MATE Terminal settings
+./setup-mate-terminal.sh

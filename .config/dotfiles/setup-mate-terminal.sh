@@ -1,0 +1,17 @@
+#/usr/bin/env bash
+
+dconf write /org/mate/terminal/profiles/default/foreground-color "'#EEEEEEEEECEC'"
+dconf write /org/mate/terminal/profiles/default/copy-selection "true"
+dconf write /org/mate/terminal/profiles/default/palette "'#000000000000:#CCCC00000000:#4E4D9A9A0605:#C4C3A0A00000:#34346564A4A3:#7575504F7B7B:#060598979A9A:#D3D3D7D6CFCF:#555457565352:#EFEF29282928:#8A89E2E23434:#FCFBE9E84F4F:#72729F9ECFCF:#ADAC7F7EA8A8:#3434E2E2E2E2:#EEEDEEEDECEB'"
+dconf write /org/mate/terminal/profiles/default/background-darkness "0.77865612648221338"
+dconf write /org/mate/terminal/profiles/default/silent-bell "true"
+dconf write /org/mate/terminal/profiles/default/use-theme-colors "false"
+dconf write /org/mate/terminal/profiles/default/scrollbar-position "'hidden'"
+dconf write /org/mate/terminal/profiles/default/background-type "'transparent'"
+dconf write /org/mate/terminal/profiles/default/default-show-menubar "false"
+dconf write /org/mate/terminal/profiles/default/font "'Fira Mono for Powerline 10'"
+dconf write /org/mate/terminal/profiles/default/allow-bold "true"
+dconf write /org/mate/terminal/profiles/default/scrollback-unlimited "true"
+dconf write /org/mate/terminal/profiles/default/use-system-font "false"
+dconf write /org/mate/terminal/profiles/default/bold-color "'#000000000000'"
+dconf write /org/mate/terminal/profiles/default/background-color "'#00002B2A3636'"
