@@ -32,6 +32,7 @@ sudo apt-get install -y \
     python-pip \
     python3-pip \
     shellcheck \
+    sublime-merge \
     sublime-text \
     trash-cli \
     tree \
