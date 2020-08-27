@@ -73,3 +73,6 @@ git clone -q git@github.com:powerline/fonts.git --depth=1 /tmp/fonts
 
 # MATE Terminal settings
 dconf load /org/mate/terminal/profiles/default/ < "$HOME"/.config/dotfiles/dconf/mate-terminal
+
+# Remap keyboard
+sudo patch -u -b /usr/share/X11/xkb/symbols/pc -i "$HOME"/.config/dotfiles/remap-caps-lock.patch
