@@ -20,6 +20,7 @@ source "$ZSH/oh-my-zsh.sh"
 # load stuff                                               #
 ############################################################
 
+source "$HOME"/.config/dotfiles/secrets.sh
 source "$HOME"/.config/dotfiles/aliases.sh
 source "$HOME"/.config/dotfiles/ros.sh
 

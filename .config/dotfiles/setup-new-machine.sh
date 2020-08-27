@@ -71,8 +71,9 @@ pip3 install thefuck
 git clone -q git@github.com:powerline/fonts.git --depth=1 /tmp/fonts
 /tmp/fonts/install.sh
 
-# MATE Terminal settings
+# dconf settings
 dconf load /org/mate/terminal/profiles/default/ < "$HOME"/.config/dotfiles/dconf/mate-terminal
+dconf load /org/mate/marco/window-keybindings/ < "$HOME"/.config/dotfiles/dconf/shortcuts
 
 # Remap keyboard
 sudo patch -u -b /usr/share/X11/xkb/symbols/pc -i "$HOME"/.config/dotfiles/remap-caps-lock.patch
