@@ -16,6 +16,8 @@ plugins=(gitfast thefuck zsh-autosuggestions zsh-256color)
 export ZSH=$HOME/.oh-my-zsh
 source "$ZSH/oh-my-zsh.sh"
 
+setopt nonomatch
+
 ############################################################
 # load stuff                                               #
 ############################################################
@@ -28,7 +30,7 @@ source "$HOME"/.config/dotfiles/ros.sh
 # path                                                     #
 ############################################################
 
-export PATH="/usr/lib/ccache:$PATH"
+export PATH="/usr/lib/ccache:$HOME/bin:$PATH"
 
 ############################################################
 # environment variables                                    #
