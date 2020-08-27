@@ -1,4 +1,5 @@
 # single letter
+alias d='dots'
 alias g='git'
 alias l='ls'
 alias o='xdg-open'

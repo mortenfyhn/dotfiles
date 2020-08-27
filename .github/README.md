@@ -1,15 +1,7 @@
+`bash <(wget -qO- https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.config/dotfiles/setup.sh)`
+
 # Dotfiles
 Storage method outlined in this [article](https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/) by Nicola Paolucci (Copied below in case that article ever goes down).
-
-## Quick setup on new machine
-
-```bash
-echo ".dotfiles" >> ~/.gitignore
-git clone git@github.com:mortenfyhn:dotfiles.git ~/.dotfiles
-alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-dots checkout
-dots config --local status.showUntrackedFiles no
-```
 
 # The best way to store your dotfiles: A bare Git repository
 

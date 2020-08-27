@@ -1,0 +1,18 @@
+{
+    "folders":
+    [
+        {
+            "path": ".",
+            "folder_include_patterns":
+                [
+                    ".config",
+                    ".config/dotfiles",
+                    ".config/dotfiles/*",
+                    ".config/sublime-text-3",
+                    ".github",
+                    ".local",
+                    ".local/bin"
+                ],
+        }
+    ]
+}
