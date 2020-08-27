@@ -1,4 +1,13 @@
 ############################################################
+# environment                                              #
+############################################################
+
+export CC=clang
+export CXX=clang++
+export PATH="/usr/lib/ccache:$HOME/bin:$PATH"
+export ZSH=$HOME/.oh-my-zsh
+
+############################################################
 # shell                                                    #
 ############################################################
 
@@ -13,7 +22,6 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=2"  # Green autosuggestion text.
 
 plugins=(gitfast thefuck zsh-autosuggestions zsh-256color)
 
-export ZSH=$HOME/.oh-my-zsh
 source "$ZSH/oh-my-zsh.sh"
 
 setopt nonomatch
@@ -28,16 +36,3 @@ fi
 
 source "$HOME"/.config/dotfiles/aliases.sh
 source "$HOME"/.config/dotfiles/ros.sh
-
-############################################################
-# path                                                     #
-############################################################
-
-export PATH="/usr/lib/ccache:$HOME/bin:$PATH"
-
-############################################################
-# environment variables                                    #
-############################################################
-
-export CC=clang
-export CXX=clang++
