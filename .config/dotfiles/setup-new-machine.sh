@@ -10,7 +10,7 @@ sudo add-apt-repository 'deb https://repo.vivaldi.com/archive/deb/ stable main'
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
-# Standard packages
+# System packages
 sudo apt update
 sudo apt upgrade -y
 sudo apt-get install -y \
@@ -18,6 +18,8 @@ sudo apt-get install -y \
     build-essential \
     ccache \
     clang \
+    clang-format \
+    clang-tidy \
     cmake \
     cmake-curses-gui \
     gdb \
@@ -39,6 +41,11 @@ sudo apt-get install -y \
     vivaldi-stable \
     xclip \
     zsh \
+
+# Python packages
+pip3 install \
+    black \
+    cmakelang \
 
 # ccache
 sudo /usr/sbin/update-ccache-symlinks
