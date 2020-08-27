@@ -22,7 +22,10 @@ setopt nonomatch
 # load stuff                                               #
 ############################################################
 
+if [ -e "$HOME"/.config/dotfiles/secrets.sh ]; then
 source "$HOME"/.config/dotfiles/secrets.sh
+fi
+
 source "$HOME"/.config/dotfiles/aliases.sh
 source "$HOME"/.config/dotfiles/ros.sh
 
