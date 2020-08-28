@@ -11,8 +11,8 @@ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
 # System packages
-sudo apt update
-sudo apt upgrade -y
+sudo apt-get update
+sudo apt-get upgrade -y
 sudo apt-get install -y \
     apt-transport-https \
     build-essential \
@@ -46,6 +46,7 @@ sudo apt-get install -y \
 pip3 install \
     black \
     cmakelang \
+    thefuck \
 
 # ccache
 sudo /usr/sbin/update-ccache-symlinks
@@ -61,10 +62,6 @@ wget -q -O "$ZSH_CUSTOM/themes/bullet-train.zsh-theme" https://raw.githubusercon
 # oh-my-zsh: zsh-256color plugin
 # https://github.com/chrissicool/zsh-256color#oh-my-zsh
 git clone -q git@github.com:chrissicool/zsh-256color "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-256color"
-
-# oh-my-zsh: thefuck plugin
-# https://github.com/nvbn/thefuck#installation
-pip3 install thefuck
 
 # Powerline fonts
 # https://github.com/powerline/fonts#quick-installation
