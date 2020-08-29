@@ -62,11 +62,11 @@ wget -q -O "$ZSH_CUSTOM/themes/bullet-train.zsh-theme" https://raw.githubusercon
 
 # oh-my-zsh: zsh-256color plugin
 # https://github.com/chrissicool/zsh-256color#oh-my-zsh
-git clone -q git@github.com:chrissicool/zsh-256color "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-256color"
+git clone -q https://github.com/chrissicool/zsh-256color.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-256color"
 
 # Powerline fonts
 # https://github.com/powerline/fonts#quick-installation
-git clone -q git@github.com:powerline/fonts.git --depth=1 /tmp/fonts
+git clone -q https://github.com/powerline/fonts.git --depth=1 /tmp/fonts
 /tmp/fonts/install.sh
 
 # dconf settings
