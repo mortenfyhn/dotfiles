@@ -39,6 +39,7 @@ sudo apt-get install -y \
     trash-cli \
     tree \
     vivaldi-stable \
+    wget \
     xclip \
     zsh \
 
