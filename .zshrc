@@ -31,7 +31,7 @@ setopt nonomatch
 ############################################################
 
 if [ -e "$HOME"/.config/dotfiles/secrets.sh ]; then
-source "$HOME"/.config/dotfiles/secrets.sh
+    source "$HOME"/.config/dotfiles/secrets.sh
 fi
 
 source "$HOME"/.config/dotfiles/aliases.sh
