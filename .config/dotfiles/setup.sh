@@ -73,6 +73,7 @@ dots config --local status.showUntrackedFiles no
 # Load dconf settings
 dconf load /org/mate/terminal/profiles/default/ < ~/.config/dotfiles/dconf/mate-terminal
 dconf load /org/mate/marco/window-keybindings/ < ~/.config/dotfiles/dconf/shortcuts
+dconf load /org/mate/desktop/peripherals/keyboard/kbd/ < ~/.config/dotfiles/dconf/keyboard
 
 # Remap keyboard
 sudo patch -u -b /usr/share/X11/xkb/symbols/pc -i ~/.config/dotfiles/remap-caps-lock.patch
