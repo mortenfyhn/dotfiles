@@ -11,8 +11,8 @@ sudo add-apt-repository 'deb https://download.sublimetext.com/ apt/stable/'
 
 # Install system packages
 sudo apt-get update -qq
-sudo apt-get upgrade -qq -y
-sudo apt-get install -qq -y \
+sudo apt-get upgrade -qq
+sudo apt-get install -qq \
     apt-transport-https \
     build-essential \
     ccache \
