@@ -47,6 +47,7 @@ sudo apt-get install -qq \
 pip3 install -q \
     black \
     cmakelang \
+    gita \
     thefuck \
 
 # Setup ccache
