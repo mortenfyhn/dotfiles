@@ -68,6 +68,8 @@ git clone -q --bare https://github.com/mortenfyhn/dotfiles.git ~/.dotfiles
 alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 dots checkout --force
 dots config --local status.showUntrackedFiles no
+dots config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+dots fetch
 
 # Load dconf settings
 dconf load /org/mate/terminal/profiles/default/ < ~/.config/dotfiles/dconf/mate-terminal
