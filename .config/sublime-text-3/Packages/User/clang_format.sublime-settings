@@ -1,6 +1,0 @@
-{
-    "binary": "clang-format-9",
-    "format_on_save": true,
-    "languages": ["C++", "C++11"],
-    "style": "File",
-}
