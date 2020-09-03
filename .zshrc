@@ -36,3 +36,10 @@ fi
 
 source "$HOME"/.config/dotfiles/aliases.sh
 source "$HOME"/.config/dotfiles/ros.sh
+
+############################################################
+# keyboard                                                 #
+############################################################
+
+# Make sure AltGr + Space produces normal, not non-breaking, space.
+setxkbmap -option "nbsp:none"
