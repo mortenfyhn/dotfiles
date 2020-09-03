@@ -27,3 +27,5 @@
 	ff = only
 [push]
 	default = current
+[merge]
+	tool = meld
