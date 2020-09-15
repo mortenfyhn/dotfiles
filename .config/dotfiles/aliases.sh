@@ -13,9 +13,6 @@ alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias sa='subl -a'
 alias sn='subl -n'
 
-# calculator
-alias calc='mate-calc -s'
-
 # python
 alias py='python3'
 
