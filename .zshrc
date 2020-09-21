@@ -2,10 +2,8 @@
 # environment                                              #
 ############################################################
 
-export CC=clang
-export CXX=clang++
-export PATH="/usr/lib/ccache:$PATH"
-export ZSH=$HOME/.oh-my-zsh
+source "$HOME"/.config/dotfiles/env-common.sh
+source "$HOME"/.config/dotfiles/env-secret.sh
 
 ############################################################
 # shell                                                    #
