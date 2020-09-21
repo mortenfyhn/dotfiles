@@ -2,8 +2,8 @@
 # environment                                              #
 ############################################################
 
-source "$HOME"/.config/dotfiles/env-common.sh
-source "$HOME"/.config/dotfiles/env-secret.sh
+source "$HOME"/.config/dotfiles/env-shared.sh
+source "$HOME"/.config/dotfiles/env-machine-specific.sh
 
 ############################################################
 # shell                                                    #

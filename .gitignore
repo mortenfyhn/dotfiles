@@ -1,2 +1,2 @@
 .dotfiles
-.config/dotfiles/env-secret.sh
+.config/dotfiles/env-machine-specific.sh
