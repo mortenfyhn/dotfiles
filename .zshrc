@@ -1,9 +1,12 @@
+DOTFILES="$HOME"/.config/dotfiles/
+function source_if_found { [[ -f "$1" ]] && source "$1" }
+
 ############################################################
 # environment                                              #
 ############################################################
 
-source "$HOME"/.config/dotfiles/env-shared.sh
-source "$HOME"/.config/dotfiles/env-machine-specific.sh
+source "$DOTFILES"/env-shared.sh
+source_if_found "$DOTFILES"/env_machine_specific.sh
 
 ############################################################
 # shell                                                    #
@@ -28,12 +31,9 @@ setopt nonomatch
 # load stuff                                               #
 ############################################################
 
-if [ -e "$HOME"/.config/dotfiles/secrets.sh ]; then
-    source "$HOME"/.config/dotfiles/secrets.sh
-fi
-
-source "$HOME"/.config/dotfiles/aliases.sh
-source "$HOME"/.config/dotfiles/ros.sh
+source "$DOTFILES"/aliases.sh
+source "$DOTFILES"/ros.sh
+source_if_found "$DOTFILES"/machine-specific.sh
 
 ############################################################
 # keyboard                                                 #
