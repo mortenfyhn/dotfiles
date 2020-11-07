@@ -1,5 +1,6 @@
 DOTFILES="${HOME}/.config/dotfiles"
-function source_if_found { [[ -f "$1" ]] && source "$1" }
+
+function source_if_found { [[ -f "$1" ]] && source "$1"; }
 
 ############################################################
 # environment                                              #
