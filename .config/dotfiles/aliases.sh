@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # single letter
 alias d='dots'
 alias g='git'
