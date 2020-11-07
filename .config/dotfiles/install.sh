@@ -59,7 +59,7 @@ sudo /usr/sbin/update-ccache-symlinks
 
 # Setup ZSH with oh-my-zsh and themes/plugins
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-chsh -s "$(which zsh)"
+chsh -s "$(command -v zsh)"
 ZSH_CUSTOM=~/.oh-my-zsh/custom
 wget -q -O "$ZSH_CUSTOM/themes/bullet-train.zsh-theme" https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bullet-train.zsh-theme
 git clone -q https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
