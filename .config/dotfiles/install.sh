@@ -39,6 +39,7 @@ sudo apt-get install -qq \
     tree \
     vivaldi-stable \
     wget \
+    xbacklight \
     xclip \
     zsh \
 
