@@ -33,6 +33,7 @@ sudo apt-get install -qq \
     nmap \
     python3-pip \
     shellcheck \
+    silversearcher-ag \
     sublime-merge \
     sublime-text \
     trash-cli \
