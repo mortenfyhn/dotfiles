@@ -36,6 +36,7 @@ sudo apt-get install -qq \
     silversearcher-ag \
     sublime-merge \
     sublime-text \
+    tldr \
     trash-cli \
     tree \
     vivaldi-stable \
