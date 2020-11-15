@@ -32,6 +32,7 @@ sudo apt-get install -qq \
     ninja-build \
     nmap \
     python3-pip \
+    qbittorrent \
     shellcheck \
     silversearcher-ag \
     sublime-merge \
