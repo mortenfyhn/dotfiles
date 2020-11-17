@@ -46,11 +46,6 @@ sudo apt-get install -qq \
     xclip \
     zsh \
 
-# Not available on 20.04 Focal.
-if [[ $(lsb_release --codename --short) == "bionic" ]]; then
-    sudo apt-get install -qq python-pip
-fi
-
 # Install Python packages
 pip3 install -q \
     black \
