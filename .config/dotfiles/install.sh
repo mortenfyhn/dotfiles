@@ -19,6 +19,7 @@ sudo apt-get install -qq \
     clang \
     clang-format \
     clang-tidy \
+    cloc \
     cmake \
     cmake-curses-gui \
     curl \
