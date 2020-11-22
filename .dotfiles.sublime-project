@@ -6,6 +6,7 @@
             "folder_include_patterns":
                 [
                     ".config",
+                    ".config/autostart",
                     ".config/dotfiles",
                     ".config/dotfiles/*",
                     ".config/sublime-text-3",
