@@ -45,14 +45,14 @@ sudo apt-get install -qq \
     wget \
     xbacklight \
     xclip \
-    zsh \
+    zsh
 
 # Install Python packages
 pip3 install -q \
     black \
     cmakelang \
     gita \
-    thefuck \
+    thefuck
 
 # Setup ccache
 sudo /usr/sbin/update-ccache-symlinks
