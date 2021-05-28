@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+user_at_host=$1
+host=$(echo "$user_at_host" | cut -d"@" -f2)
+
+waitping "$host"
+ssh "$user_at_host"
