@@ -18,6 +18,10 @@ alias sn='subl -n'
 # python
 alias py='python3'
 
+# navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+
 # git
 alias ga='git add'
 alias gb='git branch'
