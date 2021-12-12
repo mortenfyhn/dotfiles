@@ -7,6 +7,7 @@
                 [
                     ".config",
                     ".config/autostart",
+                    ".config/broot",
                     ".config/dotfiles",
                     ".config/dotfiles/*",
                     ".config/sublime-text-3",
