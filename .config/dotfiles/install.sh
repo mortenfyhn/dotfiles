@@ -81,6 +81,6 @@ dconf load /org/mate/marco/window-keybindings/ < ~/.config/dotfiles/dconf/shortc
 dconf load /org/mate/desktop/peripherals/keyboard/kbd/ < ~/.config/dotfiles/dconf/keyboard
 
 # Remap keyboard
-sudo patch -u -b /usr/share/X11/xkb/symbols/pc -i ~/.config/dotfiles/remap-caps-lock.patch
+sudo patch --unified --backup /usr/share/X11/xkb/symbols/pc --input="$HOME"/.config/dotfiles/remap-caps-lock.patch
 
 echo "Done! Log out and back in again."
