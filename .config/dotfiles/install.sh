@@ -34,6 +34,7 @@ sudo apt-get install -qq \
     git \
     htop \
     lldb \
+    meld \
     minicom \
     mosh \
     neofetch \
