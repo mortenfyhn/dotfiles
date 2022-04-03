@@ -4,10 +4,14 @@ set -e
 shopt -s expand_aliases
 
 # Add Vivaldi repos
+# https://help.vivaldi.com/desktop/install-update/manual-setup-vivaldi-linux-repositories/
+# This seems to be idempotent ✅
 wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
 echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
 
 # Add Sublime Text repos
+# https://www.sublimetext.com/docs/linux_repositories.html
+# This seems to be idempotent ✅
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
