@@ -56,7 +56,7 @@ sudo apt-get install -qq \
     zsh
 
 # Create alias 'fd' for fd-find
-ln -s "$(which fdfind)" ~/.local/bin/fd
+ln --force --symbolic "$(which fdfind)" ~/.local/bin/fd
 
 # Install Python packages
 pip3 install -q \
