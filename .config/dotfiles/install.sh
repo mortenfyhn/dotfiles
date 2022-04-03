@@ -94,7 +94,19 @@ dconf load /org/mate/terminal/profiles/default/ < ~/.config/dotfiles/dconf/mate-
 dconf load /org/mate/marco/window-keybindings/ < ~/.config/dotfiles/dconf/shortcuts
 dconf load /org/mate/desktop/peripherals/keyboard/kbd/ < ~/.config/dotfiles/dconf/keyboard
 
-# Remap keyboard
-sudo patch --unified --backup /usr/share/X11/xkb/symbols/pc --input="$HOME"/.config/dotfiles/remap-caps-lock.patch
+# Remap keyboard (use caps lock key as alt gr)
+# Patch returns 1 if the patch already has been applied, so I hide the exit code and then check the text output to make this idempotent
+if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/pc --input="$HOME"/.config/dotfiles/remap-caps-lock.patch)
+then
+    echo "Applied keyboard patch"
+else
+    if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"
+    then
+        echo "Keyboard patch already applied"
+    else
+        echo "Failed to apply keyboard patch"
+        exit 1
+    fi
+fi
 
 echo "Done! Log out and back in again."
