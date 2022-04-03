@@ -29,6 +29,7 @@ sudo apt-get install -qq \
     cmake \
     cmake-curses-gui \
     curl \
+    fd-find \
     gdb \
     git \
     htop \
@@ -52,6 +53,9 @@ sudo apt-get install -qq \
     xbacklight \
     xclip \
     zsh
+
+# Create alias 'fd' for fd-find
+ln -s $(which fdfind) ~/.local/bin/fd
 
 # Install Python packages
 pip3 install -q \
