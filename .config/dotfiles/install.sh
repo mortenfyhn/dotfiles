@@ -53,8 +53,11 @@ sudo apt-get install -qq \
 pip3 install -q \
     black \
     cmakelang \
-    gita \
-    thefuck
+    gita
+
+# Install micro
+curl https://getmic.ro | bash
+mv micro ~/.local/bin
 
 # Setup ccache
 sudo /usr/sbin/update-ccache-symlinks
