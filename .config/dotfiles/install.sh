@@ -73,23 +73,36 @@ mv micro ~/.local/bin
 # Setup ccache
 sudo /usr/sbin/update-ccache-symlinks
 
-# Setup ZSH with oh-my-zsh and themes/plugins
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+# Setup ZSH with oh-my-zsh
+if [[ -z "$ZSH" ]]
+then
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi
+echo "Changing login shell to ZSH..."
 chsh -s "$(command -v zsh)"
+
+# Setup ZSH themes and plugins
 ZSH_CUSTOM=~/.oh-my-zsh/custom
 wget -q -O "$ZSH_CUSTOM/themes/bullet-train.zsh-theme" https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bullet-train.zsh-theme
-git clone -q https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
-git clone -q https://github.com/chrissicool/zsh-256color.git "$ZSH_CUSTOM/plugins/zsh-256color"
-git clone -q https://github.com/powerline/fonts.git --depth=1 /tmp/fonts && /tmp/fonts/install.sh
+if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]]; then
+    git clone --quiet https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+fi
+if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-256color" ]]; then
+    git clone --quiet https://github.com/chrissicool/zsh-256color.git "$ZSH_CUSTOM/plugins/zsh-256color"
+fi
+font_dir=$(mktemp -d)
+git clone --quiet --depth=1 https://github.com/powerline/fonts.git "$font_dir" && "$font_dir/install.sh"
 
 # Clone dotfiles
 grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >> ~/.gitignore
-git clone -q --bare git@github.com:mortenfyhn/dotfiles.git ~/.dotfiles
-alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-dots checkout --force
-dots config --local status.showUntrackedFiles no
-dots config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-dots fetch
+if [[ ! -d ~/.dotfiles ]]; then
+    git clone -q --bare git@github.com:mortenfyhn/dotfiles.git ~/.dotfiles
+    alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+    dots checkout --force
+    dots config --local status.showUntrackedFiles no
+    dots config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+    dots fetch
+fi
 
 # Load dconf settings
 dconf load /org/mate/terminal/profiles/default/ < ~/.config/dotfiles/dconf/mate-terminal
