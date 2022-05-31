@@ -40,6 +40,7 @@ sudo apt-get install -qq \
     neofetch \
     ninja-build \
     nmap \
+    python3-gpg \
     python3-pip \
     qbittorrent \
     shellcheck \
