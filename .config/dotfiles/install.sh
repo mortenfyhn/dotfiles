@@ -84,7 +84,7 @@ git clone -q https://github.com/powerline/fonts.git --depth=1 /tmp/fonts && /tmp
 
 # Clone dotfiles
 grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >> ~/.gitignore
-git clone -q --bare https://github.com/mortenfyhn/dotfiles.git ~/.dotfiles
+git clone -q --bare git@github.com:mortenfyhn/dotfiles.git ~/.dotfiles
 alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 dots checkout --force
 dots config --local status.showUntrackedFiles no
