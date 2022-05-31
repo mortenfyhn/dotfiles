@@ -78,8 +78,10 @@ if [[ -z "$ZSH" ]]
 then
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
-echo "Changing login shell to ZSH..."
-chsh -s "$(command -v zsh)"
+if [[ "$SHELL" != "/usr/bin/zsh" ]]; then
+    echo "Changing login shell to ZSH..."
+    chsh -s "$(command -v zsh)"
+fi
 
 # Setup ZSH themes and plugins
 ZSH_CUSTOM=~/.oh-my-zsh/custom
