@@ -111,4 +111,7 @@ else
     fi
 fi
 
+# Install Broot's "br" shell function
+broot --install
+
 echo "Done! Log out and back in again."
