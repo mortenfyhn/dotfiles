@@ -1,6 +1,6 @@
 # dotfiles
 
-![ShellCheck](https://github.com/mortenfyhn/dotfiles/workflows/ShellCheck/badge.svg)
+[![ShellCheck](https://github.com/mortenfyhn/dotfiles/workflows/ShellCheck/badge.svg)](https://github.com/mortenfyhn/dotfiles/actions/workflows/main.yml)
 
 My dotfiles and other computer setup stuff. Based on [this](https://www.atlassian.com/git/tutorials/dotfiles).
 
