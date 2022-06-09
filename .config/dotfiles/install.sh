@@ -100,7 +100,7 @@ git clone --quiet --depth=1 https://github.com/powerline/fonts.git "$font_dir" &
 grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >> ~/.gitignore
 if [[ ! -d ~/.dotfiles ]]; then
     git clone -q --bare git@github.com:mortenfyhn/dotfiles.git ~/.dotfiles
-    alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+    dots() { git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"; }
     dots checkout --force
     dots config --local status.showUntrackedFiles no
     dots config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
