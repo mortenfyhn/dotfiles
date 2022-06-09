@@ -51,6 +51,7 @@ sudo apt-get install -qq \
     trash-cli \
     tree \
     vivaldi-stable \
+    vlc \
     wget \
     xbacklight \
     xclip \
