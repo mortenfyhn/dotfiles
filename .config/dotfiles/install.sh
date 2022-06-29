@@ -29,7 +29,6 @@ sudo apt-get install -qq \
     cmake \
     cmake-curses-gui \
     curl \
-    fd-find \
     gdb \
     git \
     htop \
@@ -57,9 +56,15 @@ sudo apt-get install -qq \
     xclip \
     zsh
 
-# Create alias 'fd' for fd-find
-mkdir -p ~/.local/bin
-ln --force --symbolic "$(which fdfind)" ~/.local/bin/fd
+# Install and configure fd-find
+# Do nothing if unavailable
+if sudo apt-get install -qq fd-find
+then
+    mkdir -p ~/.local/bin
+    ln --force --symbolic "$(which fdfind)" ~/.local/bin/fd
+else
+    echo "Cannot install fd-find"
+fi
 
 # Install Python packages
 pip3 install -q \
