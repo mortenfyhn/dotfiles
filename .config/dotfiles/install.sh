@@ -115,9 +115,14 @@ if [[ ! -d ~/.dotfiles ]]; then
 fi
 
 # Load dconf settings
-dconf load /org/mate/terminal/profiles/default/ < ~/.config/dotfiles/dconf/mate-terminal
-dconf load /org/mate/marco/window-keybindings/ < ~/.config/dotfiles/dconf/shortcuts
-dconf load /org/mate/desktop/peripherals/keyboard/kbd/ < ~/.config/dotfiles/dconf/keyboard
+if command -v dconf > /dev/null
+then
+    dconf load /org/mate/terminal/profiles/default/ < ~/.config/dotfiles/dconf/mate-terminal
+    dconf load /org/mate/marco/window-keybindings/ < ~/.config/dotfiles/dconf/shortcuts
+    dconf load /org/mate/desktop/peripherals/keyboard/kbd/ < ~/.config/dotfiles/dconf/keyboard
+else
+    echo "Cannot find dconf, won't load dconf settings"
+fi
 
 # Remap keyboard (use caps lock key as alt gr)
 # Patch returns 1 if the patch already has been applied, so I hide the exit code and then check the text output to make this idempotent
