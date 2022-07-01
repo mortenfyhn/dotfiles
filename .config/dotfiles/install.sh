@@ -84,7 +84,9 @@ if [[ ! -d ~/.oh-my-zsh ]]
 then
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
-if [[ "$SHELL" != "/usr/bin/zsh" ]]; then
+
+# Set ZSH as default shell
+if [[ "$SHELL" != "/usr/bin/zsh" && ! -f /.dockerenv ]]; then
     echo "Changing login shell to ZSH..."
     chsh -s "$(command -v zsh)"
 fi
