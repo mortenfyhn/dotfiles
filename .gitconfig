@@ -29,3 +29,5 @@
 	default = current
 [merge]
 	tool = meld
+[diff]
+	external = difft
