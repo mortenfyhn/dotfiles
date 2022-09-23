@@ -29,10 +29,8 @@ sudo apt-get install -qq \
     cmake \
     cmake-curses-gui \
     curl \
-    gdb \
     git \
     htop \
-    lldb \
     meld \
     minicom \
     mosh \
@@ -71,10 +69,6 @@ pip3 install -q \
     black \
     cmakelang \
     gita
-
-# Install micro
-curl https://getmic.ro | bash
-mv micro ~/.local/bin
 
 # Setup ccache
 sudo /usr/sbin/update-ccache-symlinks
