@@ -42,4 +42,3 @@ source_if_found "$DOTFILES"/machine-specific.sh
 # Make sure AltGr + Space produces normal, not non-breaking, space.
 command -v setxkbmap > /dev/null && setxkbmap -option "nbsp:none"
 
-source /home/morten/.config/broot/launcher/bash/br
