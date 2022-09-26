@@ -26,6 +26,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=2"  # Green autosuggestion text.
 # Distinct prompt in Docker
 if [[ -f /.dockerenv ]]
 then
+    BULLETTRAIN_DIR_BG=cyan
     BULLETTRAIN_PROMPT_CHAR=🐋
 fi
 
