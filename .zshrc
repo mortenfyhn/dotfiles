@@ -3,6 +3,14 @@ DOTFILES="${HOME}/.config/dotfiles"
 function source_if_found { [[ -f "$1" ]] && source "$1"; }
 
 ############################################################
+# environment                                              #
+############################################################
+
+source "$DOTFILES"/env-shared.sh
+source_if_found "$DOTFILES"/env-machine-specific.sh
+source "$DOTFILES"/aliases.sh
+
+############################################################
 # shell                                                    #
 ############################################################
 
@@ -20,14 +28,6 @@ plugins=(gitfast zsh-autosuggestions zsh-256color)
 source "$ZSH/oh-my-zsh.sh"
 
 setopt nonomatch
-
-############################################################
-# environment                                              #
-############################################################
-
-source "$DOTFILES"/env-shared.sh
-source_if_found "$DOTFILES"/env-machine-specific.sh
-source "$DOTFILES"/aliases.sh
 
 ############################################################
 # keyboard                                                 #
