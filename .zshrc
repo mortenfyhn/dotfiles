@@ -3,13 +3,6 @@ DOTFILES="${HOME}/.config/dotfiles"
 function source_if_found { [[ -f "$1" ]] && source "$1"; }
 
 ############################################################
-# environment                                              #
-############################################################
-
-source "${DOTFILES}/env-shared.sh"
-source_if_found "${DOTFILES}/env-machine-specific.sh"
-
-############################################################
 # shell                                                    #
 ############################################################
 
@@ -29,11 +22,12 @@ source "$ZSH/oh-my-zsh.sh"
 setopt nonomatch
 
 ############################################################
-# load stuff                                               #
+# environment                                              #
 ############################################################
 
+source "$DOTFILES"/env-shared.sh
+source_if_found "$DOTFILES"/env-machine-specific.sh
 source "$DOTFILES"/aliases.sh
-source_if_found "$DOTFILES"/machine-specific.sh
 
 ############################################################
 # keyboard                                                 #
