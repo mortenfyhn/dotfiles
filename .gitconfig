@@ -31,3 +31,5 @@
 	tool = meld
 [diff]
 	external = difft
+[init]
+	defaultBranch = master
