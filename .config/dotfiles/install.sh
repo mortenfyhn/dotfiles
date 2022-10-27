@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -Eeuo pipefail
 shopt -s expand_aliases
 
 # Add Vivaldi repos
