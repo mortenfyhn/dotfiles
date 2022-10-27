@@ -19,13 +19,13 @@ sudo apt-get upgrade -qq
 sudo apt-get install -qq \
     apt-transport-https \
     build-essential \
+    byobu \
     ccache \
     clang \
     clang-format \
     clang-tidy \
     cloc \
     cmake \
-    cmake-curses-gui \
     curl \
     git \
     htop \
