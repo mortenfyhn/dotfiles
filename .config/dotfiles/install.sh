@@ -132,7 +132,7 @@ else
 fi
 
 # Install Iosevka font
-pushd $(mktemp --directory) > /dev/null
+pushd "$(mktemp --directory)" > /dev/null
 wget -qO iosevka.zip https://github.com/be5invis/Iosevka/releases/download/v16.3.4/super-ttc-iosevka-16.3.4.zip
 unzip iosevka.zip
 mv iosevka.ttc ~/.local/share/fonts
