@@ -45,6 +45,7 @@ sudo apt-get install -qq \
     tldr \
     trash-cli \
     tree \
+    unzip \
     vivaldi-stable \
     vlc \
     wget \
