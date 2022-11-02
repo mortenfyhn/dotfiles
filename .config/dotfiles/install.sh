@@ -59,7 +59,7 @@ then
     mkdir -p ~/.local/bin
     ln --force --symbolic "$(which fdfind)" ~/.local/bin/fd
 else
-    echo "Cannot install fd-find"
+    echo "Cannot install fd-find, continuing..."
 fi
 
 # Install Python packages
