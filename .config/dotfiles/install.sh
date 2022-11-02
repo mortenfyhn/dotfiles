@@ -65,8 +65,7 @@ fi
 # Install Python packages
 pip3 install -q \
     black \
-    cmakelang \
-    gita
+    cmakelang
 
 # Setup ccache
 sudo /usr/sbin/update-ccache-symlinks
