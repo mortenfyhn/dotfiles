@@ -63,4 +63,5 @@
 	"word_wrap": true,
 	"show_project_first": true,
 	"show_full_path": false,
+	"show_rel_path": true,
 }
