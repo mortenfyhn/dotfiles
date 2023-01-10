@@ -32,6 +32,7 @@ sudo apt-get install -qq \
     meld \
     minicom \
     mosh \
+    ncdu \
     neofetch \
     ninja-build \
     nmap \
