@@ -32,6 +32,7 @@ sudo apt-get install -qq \
     curl \
     git \
     htop \
+    less \
     meld \
     minicom \
     mosh \
