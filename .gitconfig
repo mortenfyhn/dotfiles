@@ -29,6 +29,7 @@
 	default = current
 [merge]
 	tool = meld
+	conflictStyle = zdiff3
 [diff]
 	external = difft
 [init]
