@@ -43,6 +43,7 @@ sudo apt-get install -qq \
     python3-gpg \
     python3-pip \
     qbittorrent \
+    redshift-gtk \
     shellcheck \
     silversearcher-ag \
     sublime-merge \
