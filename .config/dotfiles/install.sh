@@ -3,15 +3,37 @@
 set -Eeuo pipefail
 shopt -s expand_aliases
 
-# Add Vivaldi repos
-# https://help.vivaldi.com/desktop/install-update/manual-setup-vivaldi-linux-repositories/
-wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
-echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
+headless=false
+while [[ $# -gt 0 ]]
+do
+    case "$1" in
+        --headless)
+            headless=true
+            shift
+            ;;
+    esac
+done
 
-# Add Sublime Text repos
-# https://www.sublimetext.com/docs/linux_repositories.html
-wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
-echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+if [[ "$headless" = false ]]
+then
+    # Add Vivaldi repos
+    # https://help.vivaldi.com/desktop/install-update/manual-setup-vivaldi-linux-repositories/
+    wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
+    echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
+
+    # Add Sublime Text repos
+    # https://www.sublimetext.com/docs/linux_repositories.html
+    wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
+    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+
+    # Install Iosevka font (for my editor)
+    pushd "$(mktemp --directory)" > /dev/null
+    wget -qO iosevka.zip https://github.com/be5invis/Iosevka/releases/download/v16.3.4/super-ttc-iosevka-16.3.4.zip
+    unzip iosevka.zip
+    mv iosevka.ttc ~/.local/share/fonts
+    fc-cache -f
+    popd > /dev/null
+fi
 
 # Add git repo
 sudo add-apt-repository -y ppa:git-core/ppa
@@ -42,22 +64,27 @@ sudo apt-get install -qq \
     nmap \
     python3-gpg \
     python3-pip \
-    qbittorrent \
-    redshift-gtk \
     shellcheck \
     silversearcher-ag \
-    sublime-merge \
-    sublime-text \
     tldr \
     trash-cli \
     tree \
     unzip \
-    vivaldi-stable \
-    vlc \
     wget \
-    xbacklight \
     xclip \
     zsh
+
+if [[ "$headless" = false ]]
+then
+    sudo apt-get install -qq \
+        qbittorrent \
+        redshift-gtk \
+        sublime-merge \
+        sublime-text \
+        vivaldi-stable \
+        vlc \
+        xbacklight
+fi
 
 # Install and configure fd-find
 # Do nothing if unavailable
@@ -136,13 +163,5 @@ else
         exit 1
     fi
 fi
-
-# Install Iosevka font
-pushd "$(mktemp --directory)" > /dev/null
-wget -qO iosevka.zip https://github.com/be5invis/Iosevka/releases/download/v16.3.4/super-ttc-iosevka-16.3.4.zip
-unzip iosevka.zip
-mv iosevka.ttc ~/.local/share/fonts
-fc-cache -f
-popd > /dev/null
 
 echo "Done! Log out and back in again."
