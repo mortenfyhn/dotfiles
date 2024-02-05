@@ -11,5 +11,5 @@ My dotfiles and other computer setup stuff. Based on [this](https://www.atlassia
     ```
     Or for a headless install, run this:
     ```sh
-    bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.config/dotfiles/install.sh --headless)
+    bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.config/dotfiles/install.sh) --headless
     ```
