@@ -19,6 +19,19 @@ do
     esac
 done
 
+# Clone dotfiles
+bold "Cloning dotfiles repo"
+grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >> ~/.gitignore
+if [[ ! -d ~/.dotfiles ]]; then
+    git clone -q --bare git@github.com:mortenfyhn/dotfiles.git ~/.dotfiles
+    dots() { git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"; }
+    dots checkout --force
+    dots config --local status.showUntrackedFiles no
+    dots config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+    dots fetch
+fi
+echo "Done"
+
 if [[ "$headless" = false ]]
 then
     # Add Vivaldi repo
@@ -153,19 +166,6 @@ if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-256color" ]]; then
 fi
 font_dir=$(mktemp -d)
 git clone --quiet --depth=1 https://github.com/powerline/fonts.git "$font_dir" && "$font_dir/install.sh"
-echo "Done"
-
-# Clone dotfiles
-bold "Cloning dotfiles repo"
-grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >> ~/.gitignore
-if [[ ! -d ~/.dotfiles ]]; then
-    git clone -q --bare git@github.com:mortenfyhn/dotfiles.git ~/.dotfiles
-    dots() { git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"; }
-    dots checkout --force
-    dots config --local status.showUntrackedFiles no
-    dots config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-    dots fetch
-fi
 echo "Done"
 
 # Load dconf settings
