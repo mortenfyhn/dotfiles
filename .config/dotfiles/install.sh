@@ -36,13 +36,13 @@ if [[ "$headless" = false ]]
 then
     # Add Vivaldi repo
     # https://help.vivaldi.com/desktop/install-update/manual-setup-vivaldi-linux-repositories/
-    bold "Adding Vivaldi repository"
+    bold "Adding PPA for Vivaldi"
     wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
     echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
 
     # Add Sublime Text repo
     # https://www.sublimetext.com/docs/linux_repositories.html
-    bold "Adding Sublime Text repository"
+    bold "Adding PPA for Sublime Text"
     wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
     echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
@@ -58,7 +58,7 @@ then
 fi
 
 # Add git repo
-bold "Adding git repository"
+bold "Adding PPA for most current stable version of Git"
 sudo add-apt-repository -y ppa:git-core/ppa
 echo "Done"
 
@@ -209,6 +209,10 @@ else
         exit 1
     fi
 fi
+echo "Done"
+
+bold "Updating tldr cache"
+tldr --update ||:  # Seems to sometimes fail when run repeatedly, but that's ok
 echo "Done"
 
 bold "All done! Log out and back in again."
