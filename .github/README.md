@@ -8,7 +8,7 @@ My dotfiles and other computer setup stuff. Based on [this](https://www.atlassia
 
 * [Connect to GitHub with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
 
-### Normal insteall
+### Desktop install
 
 Run [this](https://github.com/mortenfyhn/dotfiles/blob/master/.config/dotfiles/install.sh) script:
 
