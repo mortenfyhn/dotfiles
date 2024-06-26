@@ -10,7 +10,9 @@ My dotfiles and other computer setup stuff. Based on [this](https://www.atlassia
 
 ### Desktop install
 
-Run [this](https://github.com/mortenfyhn/dotfiles/blob/master/.config/dotfiles/install.sh) script:
+Both installs use the same [install.sh](https://github.com/mortenfyhn/dotfiles/blob/master/.config/dotfiles/install.sh) script.
+
+For a graphical desktop install, run:
 
 ```sh
 bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.config/dotfiles/install.sh)
@@ -18,7 +20,7 @@ bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfi
 
 ### Headless install
 
-For a headless install, run this:
+For a headless install, run:
 
 ```sh
 bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.config/dotfiles/install.sh) --headless
