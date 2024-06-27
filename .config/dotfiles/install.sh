@@ -148,7 +148,7 @@ echo "Done"
 
 # Set ZSH as default shell
 bold "Make ZSH default shell"
-if [[ "$SHELL" != "/usr/bin/zsh" && ! -f /.dockerenv ]]; then
+if [[ "$SHELL" != "/usr/bin/zsh" ]]; then
     echo "Changing login shell to ZSH..."
     chsh -s "$(command -v zsh)"
 fi
