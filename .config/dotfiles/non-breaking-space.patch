@@ -1,0 +1,11 @@
+--- no.orig	2024-06-21 12:22:22.762821290 +0200
++++ no	2024-06-21 12:23:00.434931214 +0200
+@@ -102,7 +102,7 @@
+     key <AB07> { [	    m,	M,	mu			 ] };
+     key <BKSL> { [	 less,	greater, guillemotleft, guillemotright	] };
+ 
+-    key <SPCE> { [	 space,	space, nobreakspace, nobreakspace] };
++    key <SPCE> { [	 space,	space, space, space] };
+ 
+     key <LSGT> { [	oslash,	Ooblique,  bar,	backslash	 ] };
+ 
