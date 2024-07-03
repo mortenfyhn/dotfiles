@@ -19,6 +19,13 @@ do
     esac
 done
 
+# Install newest version of git
+bold "Adding PPA for most current stable version of Git"
+sudo add-apt-repository -y ppa:git-core/ppa
+sudo apt update -qq
+sudo apt upgrade -qq
+echo "Done"
+
 # Clone dotfiles
 bold "Cloning dotfiles repo"
 grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >> ~/.gitignore
@@ -56,11 +63,6 @@ then
     fc-cache -f
     popd > /dev/null
 fi
-
-# Add git repo
-bold "Adding PPA for most current stable version of Git"
-sudo add-apt-repository -y ppa:git-core/ppa
-echo "Done"
 
 # Install system packages
 bold "Installing apt packages"
