@@ -15,7 +15,8 @@ Both installs use the same [install.sh](https://github.com/mortenfyhn/dotfiles/b
 For a graphical desktop install, run:
 
 ```sh
-bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.config/dotfiles/install.sh)
+bash <(wget -qO- -o /dev/null \
+  https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.config/dotfiles/install.sh)
 ```
 
 ### Headless install
@@ -23,5 +24,21 @@ bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfi
 For a headless install, run:
 
 ```sh
-bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.config/dotfiles/install.sh) --headless
+bash <(wget -qO- -o \
+  /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.config/dotfiles/install.sh) \
+  --headless
+```
+
+### Run local install script
+
+If you are hacking the install script and want to run the local version:
+
+```sh
+~/.config/dotfiles/install.sh
+```
+
+or
+
+```sh
+~/.config/dotfiles/install.sh --headless
 ```
