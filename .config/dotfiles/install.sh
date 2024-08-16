@@ -9,13 +9,12 @@ bold() {
 }
 
 headless=false
-while [[ $# -gt 0 ]]
-do
+while [[ $# -gt 0 ]]; do
     case "$1" in
-        --headless)
-            headless=true
-            shift
-            ;;
+    --headless)
+        headless=true
+        shift
+        ;;
     esac
 done
 
@@ -28,7 +27,7 @@ echo "Done"
 
 # Clone dotfiles
 bold "Cloning dotfiles repo"
-grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >> ~/.gitignore
+grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >>~/.gitignore
 if [[ ! -d ~/.dotfiles ]]; then
     git clone -q --bare git@github.com:mortenfyhn/dotfiles.git ~/.dotfiles
     dots() { git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"; }
@@ -39,8 +38,7 @@ if [[ ! -d ~/.dotfiles ]]; then
 fi
 echo "Done"
 
-if [[ "$headless" = false ]]
-then
+if [[ "$headless" = false ]]; then
     # Add Vivaldi repo
     # https://help.vivaldi.com/desktop/install-update/manual-setup-vivaldi-linux-repositories/
     bold "Adding PPA for Vivaldi"
@@ -50,18 +48,18 @@ then
     # Add Sublime Text repo
     # https://www.sublimetext.com/docs/linux_repositories.html
     bold "Adding PPA for Sublime Text"
-    wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
+    wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg >/dev/null
     echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
     # Install Iosevka font (for my editor)
     bold "Installing Iosevka font"
-    pushd "$(mktemp --directory)" > /dev/null
+    pushd "$(mktemp --directory)" >/dev/null
     wget -qO iosevka.zip https://github.com/be5invis/Iosevka/releases/download/v16.3.4/super-ttc-iosevka-16.3.4.zip
     unzip iosevka.zip
     mkdir -p ~/.local/share/fonts
     mv iosevka.ttc ~/.local/share/fonts
     fc-cache -f
-    popd > /dev/null
+    popd >/dev/null
 fi
 
 # Install system packages
@@ -101,8 +99,7 @@ sudo apt-get install -qq \
     wget \
     xclip \
     zsh
-if [[ "$headless" = false ]]
-then
+if [[ "$headless" = false ]]; then
     sudo apt-get install -qq \
         qbittorrent \
         redshift-gtk \
@@ -117,8 +114,7 @@ echo "Done"
 # Install and configure fd-find
 # Do nothing if unavailable
 bold "Installing fd-find"
-if sudo apt-get install -qq fd-find
-then
+if sudo apt-get install -qq fd-find; then
     mkdir -p ~/.local/bin
     ln --force --symbolic "$(which fdfind)" ~/.local/bin/fd
 else
@@ -140,8 +136,7 @@ echo "Done"
 
 # Setup ZSH with oh-my-zsh
 bold "Setting up Oh My Zsh"
-if [[ -d ~/.oh-my-zsh ]]
-then
+if [[ -d ~/.oh-my-zsh ]]; then
     echo "Oh My Zsh already installed"
 else
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
@@ -172,11 +167,10 @@ echo "Done"
 
 # Load dconf settings
 bold "Load MATE desktop environment settings"
-if command -v dconf > /dev/null
-then
-    dconf load /org/mate/terminal/profiles/default/ < ~/.config/dotfiles/dconf/mate-terminal
-    dconf load /org/mate/marco/window-keybindings/ < ~/.config/dotfiles/dconf/shortcuts
-    dconf load /org/mate/desktop/peripherals/keyboard/kbd/ < ~/.config/dotfiles/dconf/keyboard
+if command -v dconf >/dev/null; then
+    dconf load /org/mate/terminal/profiles/default/ <~/.config/dotfiles/dconf/mate-terminal
+    dconf load /org/mate/marco/window-keybindings/ <~/.config/dotfiles/dconf/shortcuts
+    dconf load /org/mate/desktop/peripherals/keyboard/kbd/ <~/.config/dotfiles/dconf/keyboard
 else
     echo "Cannot find dconf, won't load dconf settings"
 fi
@@ -186,12 +180,10 @@ echo "Done"
 # Note: Patch returns 1 if the patch already has been applied, so I hide the exit code and then check the text output to make this idempotent
 bold "Remapping keyboard"
 # Patch 1: Remap caps lock to alt gr
-if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/pc --input="$HOME"/.config/dotfiles/remap-caps-lock.patch)
-then
+if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/pc --input="$HOME"/.config/dotfiles/remap-caps-lock.patch); then
     echo "Applied keyboard patch 1"
 else
-    if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"
-    then
+    if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"; then
         echo "Keyboard patch 1 already applied"
     else
         echo "Failed to apply keyboard patch 1"
@@ -199,12 +191,10 @@ else
     fi
 fi
 # Patch 2: Don't spit out non-breaking space for alt gr + space (common "mistake" when typing a space after a bracket)
-if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/no --input="$HOME"/.config/dotfiles/non-breaking-space.patch)
-then
+if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/no --input="$HOME"/.config/dotfiles/non-breaking-space.patch); then
     echo "Applied keyboard patch 2"
 else
-    if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"
-    then
+    if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"; then
         echo "Keyboard patch 2 already applied"
     else
         echo "Failed to apply keyboard patch 2"
@@ -214,7 +204,7 @@ fi
 echo "Done"
 
 bold "Updating tldr cache"
-tldr --update ||:  # Seems to sometimes fail when run repeatedly, but that's ok
+tldr --update || : # Seems to sometimes fail when run repeatedly, but that's ok
 echo "Done"
 
 bold "All done! Log out and back in again."
