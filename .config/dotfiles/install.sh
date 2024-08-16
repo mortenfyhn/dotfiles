@@ -39,18 +39,6 @@ fi
 echo "Done"
 
 if [[ "$headless" = false ]]; then
-    # Add Vivaldi repo
-    # https://help.vivaldi.com/desktop/install-update/manual-setup-vivaldi-linux-repositories/
-    bold "Adding PPA for Vivaldi"
-    wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
-    echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
-
-    # Add Sublime Text repo
-    # https://www.sublimetext.com/docs/linux_repositories.html
-    bold "Adding PPA for Sublime Text"
-    wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg >/dev/null
-    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-
     # Install Iosevka font (for my editor)
     bold "Installing Iosevka font"
     pushd "$(mktemp --directory)" >/dev/null
@@ -99,16 +87,6 @@ sudo apt-get install -qq \
     wget \
     xclip \
     zsh
-if [[ "$headless" = false ]]; then
-    sudo apt-get install -qq \
-        qbittorrent \
-        redshift-gtk \
-        sublime-merge \
-        sublime-text \
-        vivaldi-stable \
-        vlc \
-        xbacklight
-fi
 echo "Done"
 
 # Install and configure fd-find
