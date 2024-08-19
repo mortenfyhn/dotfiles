@@ -1,19 +1,10 @@
-DOTFILES="${HOME}/.config/dotfiles"
-
-function source_if_found { [[ -f "$1" ]] && source "$1"; }
-
 ############################################################
-# environment                                              #
+# ZSH setup                                                #
 ############################################################
 
-source "$DOTFILES"/env-shared.sh
-source_if_found "$DOTFILES"/env-machine-specific.sh
-source "$DOTFILES"/aliases.sh
+export ZSH=$HOME/.oh-my-zsh
 
-############################################################
-# shell                                                    #
-############################################################
-
+# Set up prompt
 ZSH_THEME="bullet-train"
 BULLETTRAIN_STATUS_EXIT_SHOW=true
 BULLETTRAIN_EXEC_TIME_ELAPSED=1
@@ -21,6 +12,7 @@ BULLETTRAIN_PROMPT_CHAR=
 BULLETTRAIN_PROMPT_SEPARATE_LINE=false
 BULLETTRAIN_PROMPT_ADD_NEWLINE=false
 BULLETTRAIN_PROMPT_ORDER=(status custom dir git hg cmd_exec_time)
+
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=2"  # Green autosuggestion text.
 
 # Distinct prompt in Docker
@@ -30,15 +22,32 @@ then
     BULLETTRAIN_PROMPT_CHAR=🐋
 fi
 
-plugins=(gitfast zsh-autosuggestions zsh-256color)
+plugins=(
+    git
+    zsh-autosuggestions
+)
 
-source "$ZSH/oh-my-zsh.sh"
-
-setopt nonomatch
+source $ZSH/oh-my-zsh.sh
 
 ############################################################
-# keyboard                                                 #
+# environment setup                                        #
 ############################################################
 
-# Make sure AltGr + Space produces normal, not non-breaking, space.
-command -v setxkbmap > /dev/null && setxkbmap -option "nbsp:none"
+export CC=clang
+export CXX=clang++
+
+# Add ccache to path
+[[ ! "$PATH" =~ /usr/lib/ccache ]] && export PATH="/usr/lib/ccache:$PATH"
+
+# Add ~/.local/bin to path
+[[ ! "$PATH" =~ "$HOME/.local/bin" ]] && export PATH="$PATH:$HOME/.local/bin"
+
+source ~/.aliases
+[[ -e ~/.zshrc-local ]] && source ~/.zshrc-local
+
+############################################################
+# ROS                                                      #
+############################################################
+
+# shellcheck disable=SC2016
+export ROSCONSOLE_FORMAT='[${severity}] [${node}] [${time}]: ${message}'
