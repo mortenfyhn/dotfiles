@@ -27,6 +27,10 @@ plugins=(
     zsh-autosuggestions
 )
 
+# This fixes the vanished git prompt
+# https://github.com/ohmyzsh/ohmyzsh/issues/12267
+zstyle ':omz:alpha:lib:git' async-prompt no
+
 source $ZSH/oh-my-zsh.sh
 
 ############################################################
