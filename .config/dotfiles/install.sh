@@ -25,6 +25,21 @@ sudo apt update -qq
 sudo apt upgrade -qq
 echo "Done"
 
+bold "Configure git"
+git config --global user.name "Morten Fyhn Amundsen"
+git config --global core.pager "less -F -X"
+git config --global core.excludesfile "~/.gitignore-global"
+git config --global merge.conflictStyle zdiff3
+git config --global init.defaultBranch master
+git config --global fetch.prune true
+git config --global pull.ff only
+git config --global push.default current
+git config --global help.autocorrect 1
+if [[ "$headless" = false ]]; then
+    git config --global core.editor "subl -n -w"
+fi
+echo "Done"
+
 # Clone dotfiles
 bold "Cloning dotfiles repo"
 grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >>~/.gitignore
