@@ -130,7 +130,7 @@ echo "Done"
 # Setup ZSH with oh-my-zsh
 bold "Setting up Oh My Zsh"
 if [[ ! -d ~/.oh-my-zsh ]]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 fi
 echo "Done"
 
