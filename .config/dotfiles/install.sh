@@ -21,8 +21,8 @@ done
 # Install newest version of git
 bold "Adding PPA for most current stable version of Git"
 sudo add-apt-repository -y ppa:git-core/ppa
-sudo apt update -qq
-sudo apt upgrade -qq
+sudo apt-get update -qq
+sudo apt-get install --only-upgrade git
 echo "Done"
 
 bold "Configure git"
