@@ -7,6 +7,7 @@ My dotfiles and other computer setup stuff. Based on [this](https://www.atlassia
 ### Prerequisites
 
 * [Connect to GitHub with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+* Install `wget`
 
 ### Desktop install
 
