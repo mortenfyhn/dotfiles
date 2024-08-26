@@ -22,7 +22,7 @@ done
 bold "Adding PPA for most current stable version of Git"
 sudo add-apt-repository -y ppa:git-core/ppa
 sudo apt-get update -qq
-sudo apt-get install --only-upgrade git
+sudo apt-get install -y git
 echo "Done"
 
 bold "Configure git"
