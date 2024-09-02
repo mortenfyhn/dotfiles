@@ -49,9 +49,3 @@ export CXX=clang++
 source ~/.aliases
 [[ -e ~/.zshrc-local ]] && source ~/.zshrc-local
 
-############################################################
-# ROS                                                      #
-############################################################
-
-# shellcheck disable=SC2016
-export ROSCONSOLE_FORMAT='[${severity}] [${node}] [${time}]: ${message}'
