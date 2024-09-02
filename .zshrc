@@ -31,7 +31,7 @@ plugins=(
 # https://github.com/ohmyzsh/ohmyzsh/issues/12267
 zstyle ':omz:alpha:lib:git' async-prompt no
 
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
 ############################################################
 # environment setup                                        #
@@ -40,12 +40,9 @@ source $ZSH/oh-my-zsh.sh
 export CC=clang
 export CXX=clang++
 
-# Add ccache to path
-[[ ! "$PATH" =~ /usr/lib/ccache ]] && export PATH="/usr/lib/ccache:$PATH"
-
-# Add ~/.local/bin to path
-[[ ! "$PATH" =~ "$HOME/.local/bin" ]] && export PATH="$PATH:$HOME/.local/bin"
+# Add things to path, but just once
+[[ "$PATH" != *"/usr/lib/ccache"* ]] && export PATH="/usr/lib/ccache:$PATH"
+[[ "$PATH" != *"$HOME/.local/bin"* ]] && export PATH="$PATH:$HOME/.local/bin"
 
 source ~/.aliases
 [[ -e ~/.zshrc-local ]] && source ~/.zshrc-local
-
