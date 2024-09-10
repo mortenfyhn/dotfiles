@@ -41,8 +41,8 @@ export CC=clang
 export CXX=clang++
 
 # Add things to path, but just once
-[[ "$PATH" != *"/usr/lib/ccache"* ]] && export PATH="/usr/lib/ccache:$PATH"
-[[ "$PATH" != *"$HOME/.local/bin"* ]] && export PATH="$PATH:$HOME/.local/bin"
+if [[ "$PATH" != *"/usr/lib/ccache"* ]]; then; export PATH="/usr/lib/ccache:$PATH"; fi
+if [[ "$PATH" != *"$HOME/.local/bin"* ]]; then; export PATH="$PATH:$HOME/.local/bin"; fi
 
 source ~/.aliases
-[[ -e ~/.zshrc-local ]] && source ~/.zshrc-local
+if [[ -e ~/.zshrc-local ]]; then; source ~/.zshrc-local; fi
