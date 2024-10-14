@@ -22,6 +22,9 @@ alias py='python3'
 alias ..='cd ..'
 alias ...='cd ../..'
 
+# other
+alias bat='batcat'  # apt install bat gives /usr/bin/batcat...
+
 # git
 alias ga='git add'
 alias gb='git branch'
