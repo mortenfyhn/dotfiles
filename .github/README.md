@@ -1,7 +1,5 @@
 # dotfiles
 
-[![ShellCheck](https://github.com/mortenfyhn/dotfiles/workflows/ShellCheck/badge.svg)](https://github.com/mortenfyhn/dotfiles/actions/workflows/main.yml)
-
 My dotfiles and other computer setup stuff. Based on [this](https://www.atlassian.com/git/tutorials/dotfiles).
 
 ### Prerequisites
@@ -11,18 +9,12 @@ My dotfiles and other computer setup stuff. Based on [this](https://www.atlassia
 
 ### Desktop install
 
-Both installs use the same [install.sh](https://github.com/mortenfyhn/dotfiles/blob/master/.config/dotfiles/install.sh) script.
-
-For a graphical desktop install, run:
-
 ```sh
 bash <(wget -qO- -o /dev/null \
   https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.config/dotfiles/install.sh)
 ```
 
 ### Headless install
-
-For a headless install, run:
 
 ```sh
 bash <(wget -qO- -o \
