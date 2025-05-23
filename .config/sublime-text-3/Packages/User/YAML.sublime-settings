@@ -1,8 +1,0 @@
-{
-	"extensions":
-	[
-		".clang-format",
-		".clang-tidy",
-		"rosinstall"
-	]
-}

@@ -1,4 +1,0 @@
-{
-    "file_patterns": ["*.md"],
-    "shell_cmd": "pandoc $file -o $file_base_name.html && xdg-open $file_base_name.html",
-}
