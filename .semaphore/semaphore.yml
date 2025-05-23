@@ -1,0 +1,31 @@
+version: v1.0
+name: Dotfiles
+
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+
+blocks:
+  - name: "Checks"
+    task:
+      jobs:
+      - name: "Install"
+        commands:
+          - checkout
+          - .config/dotfiles/install.sh --ci
+
+      - name: "Shellcheck"
+        commands:
+          - checkout
+            # Apparently shellcheck is pre-installed
+          - shellcheck --version
+          - shellcheck .config/dotfiles/install.sh
+
+      - name: "Shell format"
+        commands:
+          - checkout
+          - wget https://github.com/patrickvane/shfmt/releases/download/master/shfmt_linux_amd64 -O shfmt
+          - chmod +x shfmt
+          - ./shfmt --version
+          - ./shfmt -i 4 -d .config/dotfiles/install.sh

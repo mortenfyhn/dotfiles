@@ -7,10 +7,15 @@ shopt -s expand_aliases
 bold() { echo -e "\e[1;32m$*\e[0m"; }
 
 headless=false
+ci=false
 while [[ $# -gt 0 ]]; do
     case "$1" in
     --headless)
         headless=true
+        shift
+        ;;
+    --ci)
+        ci=true
         shift
         ;;
     esac
@@ -82,8 +87,11 @@ echo "Done"
 
 # Make ZSH the default shell
 bold "Make ZSH default shell"
-if [[ "$SHELL" != "/usr/bin/zsh" ]]; then
-    echo "Changing login shell to ZSH..."
+if [[ "$SHELL" == "/usr/bin/zsh" ]]; then
+    echo "Default shell is already ZSH"
+elif [[ "$ci" = true ]]; then
+    echo "Running in CI, skipping"
+else
     chsh -s "$(command -v zsh)"
 fi
 echo "Done"
