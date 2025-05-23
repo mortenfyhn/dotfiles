@@ -5,12 +5,10 @@
             "path": ".",
             "folder_include_patterns":
                 [
+                    ".byobu",
                     ".config",
-                    ".config/autostart",
-                    ".config/broot",
                     ".config/dotfiles",
-                    ".config/dotfiles/*",
-                    ".config/sublime-text-3",
+                    ".config/sublime-text",
                     ".github",
                     ".local",
                     ".local/bin"
