@@ -24,7 +24,7 @@ bash <(wget -qO- -o \
   --headless
 ```
 
-### Run local install script
+### Run local version
 
 If you are hacking the install script and want to run the local version:
 
