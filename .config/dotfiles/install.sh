@@ -50,10 +50,10 @@ if [[ "$headless" = false ]]; then
     # Install Iosevka font (for my editor)
     bold "Installing Iosevka font"
     pushd "$(mktemp --directory)" >/dev/null
-    wget -qO iosevka.zip https://github.com/be5invis/Iosevka/releases/download/v16.3.4/super-ttc-iosevka-16.3.4.zip
-    unzip iosevka.zip
+    wget -q https://github.com/be5invis/Iosevka/releases/download/v33.2.3/SuperTTC-Iosevka-33.2.3.zip -O Iosevka.zip
+    unzip Iosevka.zip
     mkdir -p ~/.local/share/fonts
-    mv iosevka.ttc ~/.local/share/fonts
+    mv Iosevka.ttc ~/.local/share/fonts
     fc-cache -f
     popd >/dev/null
 fi
