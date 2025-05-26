@@ -1,3 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-python3 -c "from math import *; print($1)"
+if [ $# -eq 0 ]; then
+    read -p "> " expr
+    python3 -c "from math import *; print($expr)"
+else
+    python3 -c "from math import *; print($*)"
+fi
