@@ -31,15 +31,19 @@ addtopath "$HOME/.local/bin"
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Aliases
-alias d=dnf
+alias d=dots
 alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias ga='git add'
+alias gbd='git branch --delete'
+alias gbD='git branch --delete --force'
 alias gcan='git commit --amend --no-edit'
+alias gch='git checkout'
 alias gchb='git checkout -b'
 alias gcm='git commit -m'
 alias gd='git diff'
 alias gds='git diff --staged'
 alias gla='git log --all --decorate --oneline --graph'
+alias gla20='gla -20'
 alias grim='git rebase --interactive master'
 alias grom='git rebase master'
 alias gs='git status'
@@ -47,6 +51,7 @@ alias gsh='git show'
 alias j=jotta-cli
 alias l=ls
 alias o=xdg-open
+alias sn='subl -n'
 alias t=trash
 alias z='source ~/.zshrc'
-alias sn='subl -n'
+alias wip='git add . && git commit -m "wip"'
