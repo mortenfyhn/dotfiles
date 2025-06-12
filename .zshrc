@@ -6,7 +6,16 @@ SAVEHIST=100000
 # Initialize completions
 autoload -Uz compinit; compinit
 
-# Cd without typing cd
+# Enhanced completion menu
+zstyle ':completion:*' menu select
+
+# Fuzzy matching, don't have to type from the start
+# zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+setopt complete_in_word
+setopt auto_menu  # Show all selections for tabbing
+
+# Change directory without typing cd
 setopt autocd
 
 # Set up "Pure" prompt
@@ -14,7 +23,6 @@ fpath+=($HOME/.zsh/pure)
 autoload -U promptinit; promptinit
 prompt pure
 setopt nocaseglob
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':prompt:pure:prompt:success' color 34  # Greener green
 zstyle ':prompt:pure:prompt:error' color 202  # Redder red
 
