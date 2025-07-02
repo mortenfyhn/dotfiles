@@ -50,6 +50,7 @@ alias gs='git status'
 alias gsh='git show'
 alias j=jotta-cli
 alias l=ls
+alias lg=lazygit
 alias o=xdg-open
 alias sn='subl -n'
 alias t=trash
