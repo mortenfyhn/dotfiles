@@ -58,6 +58,15 @@ if [[ "$headless" = false ]]; then
     popd >/dev/null
 fi
 
+# Install difftastic
+bold "Installing difftastic"
+pushd "$(mktemp --directory)" >/dev/null
+wget -q https://github.com/Wilfred/difftastic/releases/download/0.64.0/difft-x86_64-unknown-linux-gnu.tar.gz
+tar -xzf difft-x86_64-unknown-linux-gnu.tar.gz
+mv difft ~/.local/bin/difft
+popd >/dev/null
+echo "Done"
+
 # Remap keyboard
 # Note: Patch returns 1 if the patch already has been applied, so I hide the exit code and then check the text output to make this idempotent
 bold "Remapping keyboard"
