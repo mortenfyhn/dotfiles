@@ -23,8 +23,15 @@ fpath+=($HOME/.zsh/pure)
 autoload -U promptinit; promptinit
 prompt pure
 setopt nocaseglob
-zstyle ':prompt:pure:prompt:success' color 34  # Greener green
-zstyle ':prompt:pure:prompt:error' color 202  # Redder red
+
+# Adjust prompt:
+#   %? is the exit code
+#   %F sets foreground (text) color
+#   34 is a nice green
+#   202 is a nice red
+#   ❯ is the prompt char
+#   %f resets foreground color
+PROMPT='%(?.%F{34}.%F{202}%? )❯%f '
 
 # Add stuff to PATH
 function addtopath() {
@@ -65,3 +72,9 @@ alias sn='subl -n'
 alias t=trash
 alias z='source ~/.zshrc'
 alias wip='git add . && git commit -m "wip"'
+
+# Slow as shit:
+#
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
