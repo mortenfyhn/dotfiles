@@ -43,7 +43,8 @@ function addtopath() {
 addtopath "$HOME/.local/bin"
 
 # Autosuggestions
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+file="~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"; [[ -f $file ]] && source $file
+file="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"; [[ -f $file ]] && source $file
 
 # Aliases
 alias d=dots
