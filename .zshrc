@@ -43,7 +43,7 @@ function addtopath() {
 addtopath "$HOME/.local/bin"
 
 # Autosuggestions
-file="~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"; [[ -f $file ]] && source $file
+file="$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"; [[ -f $file ]] && source $file
 file="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"; [[ -f $file ]] && source $file
 
 # Make sure arrow up only scrolls history matching what I've already typed
