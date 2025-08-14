@@ -46,6 +46,13 @@ addtopath "$HOME/.local/bin"
 file="~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"; [[ -f $file ]] && source $file
 file="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"; [[ -f $file ]] && source $file
 
+# Make sure arrow up only scrolls history matching what I've already typed
+autoload -U up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "${key[Up]}" up-line-or-beginning-search
+bindkey "${key[Down]}" down-line-or-beginning-search
+
 # Aliases
 alias d=dots
 alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
