@@ -49,13 +49,17 @@ echo "Done"
 if [[ "$headless" = false ]]; then
     # Install Iosevka font (for my editor)
     bold "Installing Iosevka font"
-    pushd "$(mktemp --directory)" >/dev/null
-    wget -q https://github.com/be5invis/Iosevka/releases/download/v33.2.3/SuperTTC-Iosevka-33.2.3.zip -O Iosevka.zip
-    unzip Iosevka.zip
-    mkdir -p ~/.local/share/fonts
-    mv Iosevka.ttc ~/.local/share/fonts
-    fc-cache -f
-    popd >/dev/null
+    if [[ -f ~/.local/share/fonts/Iosevka.ttc ]]; then
+        echo "Already installed"
+    else
+        pushd "$(mktemp --directory)" >/dev/null
+        wget -q https://github.com/be5invis/Iosevka/releases/download/v33.2.3/SuperTTC-Iosevka-33.2.3.zip -O Iosevka.zip
+        unzip Iosevka.zip
+        mkdir -p ~/.local/share/fonts
+        mv Iosevka.ttc ~/.local/share/fonts
+        fc-cache -f
+        popd >/dev/null
+    fi
 fi
 
 # Install difftastic
