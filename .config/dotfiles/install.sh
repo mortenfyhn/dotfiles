@@ -98,6 +98,16 @@ else
 fi
 echo "Done"
 
+# Install ZSH prompt (pure)
+bold "Installing 'Pure' prompt"
+mkdir -p "$HOME/.zsh"
+if [[ -d "$HOME"/.zsh/pure ]]; then
+    echo "Already installed"
+else
+    git clone git@github.com:sindresorhus/pure.git "$HOME/.zsh/pure"
+fi
+echo "Done"
+
 # Make ZSH the default shell
 bold "Make ZSH default shell"
 if [[ "$SHELL" == "/usr/bin/zsh" ]]; then
