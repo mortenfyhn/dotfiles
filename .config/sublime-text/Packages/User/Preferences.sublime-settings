@@ -4,7 +4,9 @@
 	"fade_fold_buttons": false,
 	"font_face": "Iosevka",
 	"hot_exit": "disabled",
-	"ignored_packages": ["Vintage"],
+	"ignored_packages": [
+		"Vintage",
+	],
 	"draw_white_space": ["mixed"],
 	"rulers": [80, 88],
 	"trim_trailing_white_space_on_save": true,
