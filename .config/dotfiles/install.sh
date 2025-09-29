@@ -30,7 +30,7 @@ done
 
 bold_blue "Configure git"
 git config --global user.name "Morten Fyhn Amundsen"
-git config --global merge.conflictStyle zdiff3
+git config --global merge.conflictStyle diff3
 git config --global fetch.prune true
 git config --global pull.ff only
 git config --global help.autocorrect 20
