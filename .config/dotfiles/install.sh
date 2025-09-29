@@ -3,8 +3,15 @@
 set -Eeuo pipefail
 shopt -s expand_aliases
 
-# Echo bold text (green)
-bold() { echo -e "\e[1;32m$*\e[0m"; }
+green() { echo -e "\e[32m$*\e[0m"; }
+yellow() { echo -e "\e[0;33m$*\e[0m"; }
+red() { echo -e "\e[0m\e[31m$*\e[0m"; }
+blue() { echo -e "\e[0;36m$*\e[0m"; }
+bold() { echo -e "\033[1m$*\033[0m"; }
+bold_green() { echo -e "\e[1m\e[32m$*\e[0m"; }
+bold_yellow() { echo -e "\e[1;33m$*\e[0m"; }
+bold_red() { echo -e "\e[1m\e[31m$*\e[0m"; }
+bold_blue() { echo -e "\e[1;36m$*\e[0m"; }
 
 headless=false
 ci=false
@@ -21,7 +28,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-bold "Configure git"
+bold_blue "Configure git"
 git config --global user.name "Morten Fyhn Amundsen"
 git config --global merge.conflictStyle zdiff3
 git config --global fetch.prune true
@@ -34,7 +41,7 @@ fi
 echo "Done"
 
 # Clone dotfiles
-bold "Cloning dotfiles repo"
+bold_blue "Cloning dotfiles repo"
 grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >>~/.gitignore
 if [[ ! -d ~/.dotfiles ]]; then
     git clone -q --bare git@github.com:mortenfyhn/dotfiles.git ~/.dotfiles
@@ -48,7 +55,7 @@ echo "Done"
 
 if [[ "$headless" = false ]]; then
     # Install Iosevka font (for my editor)
-    bold "Installing Iosevka font"
+    bold_blue "Installing Iosevka font"
     if [[ -f ~/.local/share/fonts/Iosevka.ttc ]]; then
         echo "Already installed"
     else
@@ -63,7 +70,7 @@ if [[ "$headless" = false ]]; then
 fi
 
 # Install difftastic
-bold "Installing difftastic"
+bold_blue "Installing difftastic"
 pushd "$(mktemp --directory)" >/dev/null
 wget -q https://github.com/Wilfred/difftastic/releases/download/0.64.0/difft-x86_64-unknown-linux-gnu.tar.gz
 tar -xzf difft-x86_64-unknown-linux-gnu.tar.gz
@@ -73,7 +80,7 @@ echo "Done"
 
 # Remap keyboard
 # Note: Patch returns 1 if the patch already has been applied, so I hide the exit code and then check the text output to make this idempotent
-bold "Remapping keyboard"
+bold_blue "Remapping keyboard"
 # Patch 1: Remap caps lock to alt gr
 if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/pc --input="$HOME"/.config/dotfiles/remap-caps-lock.patch); then
     echo "Applied keyboard patch 1"
@@ -81,8 +88,7 @@ else
     if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"; then
         echo "Keyboard patch 1 already applied"
     else
-        echo "Failed to apply keyboard patch 1"
-        exit 1
+        yellow "Failed to apply keyboard patch 1"
     fi
 fi
 # Patch 2: Don't spit out non-breaking space for alt gr + space (common "mistake" when typing a space after a bracket)
@@ -92,14 +98,13 @@ else
     if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"; then
         echo "Keyboard patch 2 already applied"
     else
-        echo "Failed to apply keyboard patch 2"
-        exit 1
+        yellow "Failed to apply keyboard patch 2"
     fi
 fi
 echo "Done"
 
 # Install ZSH prompt (pure)
-bold "Installing 'Pure' prompt"
+bold_blue "Installing 'Pure' prompt"
 mkdir -p "$HOME/.zsh"
 if [[ -d "$HOME"/.zsh/pure ]]; then
     echo "Already installed"
@@ -109,14 +114,19 @@ fi
 echo "Done"
 
 # Make ZSH the default shell
-bold "Make ZSH default shell"
+bold_blue "Make ZSH default shell"
+need_relog=true
 if [[ "$SHELL" == "/usr/bin/zsh" ]]; then
     echo "Default shell is already ZSH"
 elif [[ "$ci" = true ]]; then
     echo "Running in CI, skipping"
 else
     chsh -s "$(command -v zsh)"
+    need_relog=true
 fi
 echo "Done"
 
-bold "All done! Log out and back in again."
+bold_green "All done!"
+if [[ $need_relog == true ]]; then
+    bold "Log out and back in again."
+fi
