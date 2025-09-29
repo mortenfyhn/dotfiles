@@ -28,6 +28,15 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+bold_blue "Installing applications"
+if command -v apt; then  # Ubuntu
+    sudo apt install zsh
+elif command -v dnf; then  # Fedora
+    sudo dnf install zsh
+else
+    echo "I only support apt and dnf"
+fi
+
 bold_blue "Configure git"
 git config --global user.name "Morten Fyhn Amundsen"
 git config --global merge.conflictStyle diff3
