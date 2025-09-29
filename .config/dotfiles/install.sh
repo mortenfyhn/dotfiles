@@ -74,6 +74,7 @@ bold_blue "Installing difftastic"
 pushd "$(mktemp --directory)" >/dev/null
 wget -q https://github.com/Wilfred/difftastic/releases/download/0.64.0/difft-x86_64-unknown-linux-gnu.tar.gz
 tar -xzf difft-x86_64-unknown-linux-gnu.tar.gz
+mkdir -p ~/.local/bin
 mv difft ~/.local/bin/difft
 popd >/dev/null
 echo "Done"
