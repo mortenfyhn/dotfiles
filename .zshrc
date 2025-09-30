@@ -33,6 +33,10 @@ setopt nocaseglob
 #   %f resets foreground color
 PROMPT='%(?.%F{34}.%F{202}%? )❯%f '
 
+if [[ -f /.dockerenv ]]; then
+  PROMPT='%(?.%F{34}.%F{202}%? )🐋%f '
+fi
+
 # Add stuff to PATH
 function addtopath() {
   if ! grep -q $1 <<<$PATH
