@@ -7,7 +7,7 @@
 	"ignored_packages": [
 		"Vintage",
 	],
-	"draw_white_space": ["mixed"],
+	"draw_white_space": ["all_mixed"],
 	"rulers": [80, 88],
 	"trim_trailing_white_space_on_save": true,
 	"font_size": 14,
