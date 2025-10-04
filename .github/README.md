@@ -13,14 +13,14 @@ My dotfiles and other computer setup stuff. Based on [this](https://www.atlassia
 
 ```sh
 bash <(wget -qO- -o /dev/null \
-  https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.config/dotfiles/install.sh)
+  https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/install-dotfiles.sh)
 ```
 
 ### Headless install
 
 ```sh
 bash <(wget -qO- -o \
-  /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.config/dotfiles/install.sh) \
+  /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/install-dotfiles.sh) \
   --headless
 ```
 
@@ -29,11 +29,11 @@ bash <(wget -qO- -o \
 If you are hacking the install script and want to run the local version:
 
 ```sh
-~/.config/dotfiles/install.sh
+~/install-dotfiles.sh
 ```
 
 or
 
 ```sh
-~/.config/dotfiles/install.sh --headless
+~/install-dotfiles.sh --headless
 ```
