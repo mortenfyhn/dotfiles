@@ -20,6 +20,9 @@ while [[ $# -gt 0 ]]; do
         headless=true
         shift
         ;;
+    *)
+        echo "Error: Invalid option '$1'"
+        exit 1
     esac
 done
 
