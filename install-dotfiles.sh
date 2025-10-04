@@ -44,8 +44,8 @@ echo "Done"
 bold_blue "Installing applications"
 common_packages=(byobu ccache git zsh)
 if command -v apt >/dev/null; then  # Ubuntu
-    sudo add-apt-repository ppa:git-core/ppa
     sudo apt-get update
+    sudo add-apt-repository --yes --no-update ppa:git-core/ppa
     sudo apt-get install --assume-yes "${common_packages[@]}"
 elif command -v dnf >/dev/null; then  # Fedora
     sudo dnf install --assumeyes "${common_packages[@]}"
