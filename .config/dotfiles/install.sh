@@ -85,6 +85,7 @@ wget -q https://github.com/Wilfred/difftastic/releases/download/0.64.0/difft-x86
 tar -xzf difft-x86_64-unknown-linux-gnu.tar.gz
 mkdir -p ~/.local/bin
 mv difft ~/.local/bin/difft
+git config --global diff.external difft
 popd >/dev/null
 echo "Done"
 
