@@ -20,11 +20,11 @@ blocks:
       - name: "Install"
         commands:
           # Install the same way I would, from GitHub without cloning first
-          - bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/${SEMAPHORE_GIT_SHA}/install-dotfiles.sh) --ci
+          - bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/${SEMAPHORE_GIT_SHA}/install-dotfiles.sh)
           # Try sourcing .zshrc succeeds (`zsh -i` does so)
           # and re-run the install script in ZSH to test idempotency
           - echo 'echo "Sourced .zshrc"' >> ~/.zshrc
-          - zsh -i -c './install-dotfiles.sh --ci'
+          - zsh -i -c './install-dotfiles.sh'
 
       - name: "Shellcheck"
         commands:
