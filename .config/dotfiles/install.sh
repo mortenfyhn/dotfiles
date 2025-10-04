@@ -29,9 +29,15 @@ while [[ $# -gt 0 ]]; do
 done
 
 bold_blue "Installing applications"
-if command -v apt >/dev/null; then # Ubuntu
-    sudo apt install zsh
-elif command -v dnf >/dev/null; then # Fedora
+# Ubuntu
+if command -v apt >/dev/null; then
+    sudo add-apt-repository ppa:git-core/ppa
+    sudo apt update
+    sudo apt install \
+        git \
+        zsh
+# Fedora
+elif command -v dnf >/dev/null; then
     sudo dnf install zsh
 else
     echo "I only support apt and dnf"
@@ -39,7 +45,7 @@ fi
 
 bold_blue "Configure git"
 git config --global user.name "Morten Fyhn Amundsen"
-git config --global merge.conflictStyle diff3
+git config --global merge.conflictStyle zdiff3
 git config --global fetch.prune true
 git config --global pull.ff only
 git config --global help.autocorrect 20
