@@ -13,15 +13,15 @@ blocks:
       - name: "Install"
         commands:
           - checkout
-          - .config/dotfiles/install.sh --ci
-          - .config/dotfiles/install.sh --ci  # Once more to test idempotency
+          - install-dotfiles.sh --ci
+          - install-dotfiles.sh --ci  # Once more to test idempotency
 
       - name: "Shellcheck"
         commands:
           - checkout
             # Apparently shellcheck is pre-installed
           - shellcheck --version
-          - shellcheck .config/dotfiles/install.sh
+          - shellcheck install-dotfiles.sh
 
       - name: "Shell format"
         commands:
@@ -29,4 +29,4 @@ blocks:
           - wget https://github.com/patrickvane/shfmt/releases/download/master/shfmt_linux_amd64 -O shfmt
           - chmod +x shfmt
           - ./shfmt --version
-          - ./shfmt -i 4 -d .config/dotfiles/install.sh
+          - ./shfmt -i 4 -d install-dotfiles.sh
