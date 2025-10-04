@@ -4,7 +4,8 @@ HISTSIZE=100000
 SAVEHIST=100000
 
 # Initialize completions
-autoload -Uz compinit; compinit
+autoload -Uz compinit
+compinit
 
 # Enhanced completion menu
 zstyle ':completion:*' menu select
@@ -13,14 +14,15 @@ zstyle ':completion:*' menu select
 # zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 setopt complete_in_word
-setopt auto_menu  # Show all selections for tabbing
+setopt auto_menu # Show all selections for tabbing
 
 # Change directory without typing cd
 setopt autocd
 
 # Set up "Pure" prompt
 fpath+=($HOME/.zsh/pure)
-autoload -U promptinit; promptinit
+autoload -U promptinit
+promptinit
 prompt pure
 setopt nocaseglob
 
@@ -34,24 +36,23 @@ setopt nocaseglob
 PROMPT='%(?.%F{34}.%F{202}%? )❯%f '
 
 if [[ -f /.dockerenv ]]; then
-  PROMPT='%(?.%F{34}.%F{202}%? )🐋 ❯%f '
+    PROMPT='%(?.%F{34}.%F{202}%? )🐋 ❯%f '
 fi
 
 # Add stuff to PATH
 function addtopath() {
-  if ! grep -q $1 <<<$PATH
-  then
-    PATH=$PATH:$1
-  fi
+    if ! grep -q $1 <<<$PATH; then
+        PATH=$PATH:$1
+    fi
 }
 addtopath "$HOME/.local/bin"
 
 # Autosuggestions
 autosuggestions_path="$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 if [[ -f "$autosuggestions_path" ]]; then
-  source "$autosuggestions_path"
+    source "$autosuggestions_path"
 else
-  echo "Warning: zsh-autosuggestions not installed"
+    echo "Warning: zsh-autosuggestions not installed"
 fi
 
 # Make sure arrow up/down only scrolls history matching what I've already typed
