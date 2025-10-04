@@ -29,9 +29,9 @@ while [[ $# -gt 0 ]]; do
 done
 
 bold_blue "Installing applications"
-if command -v apt; then  # Ubuntu
+if command -v apt >/dev/null; then # Ubuntu
     sudo apt install zsh
-elif command -v dnf; then  # Fedora
+elif command -v dnf >/dev/null; then # Fedora
     sudo dnf install zsh
 else
     echo "I only support apt and dnf"
