@@ -31,7 +31,7 @@ blocks:
           - checkout
             # Apparently shellcheck is pre-installed
           - shellcheck --version
-          - shellcheck ~/install-dotfiles.sh
+          - shellcheck install-dotfiles.sh
 
       - name: "Shell format"
         commands:
@@ -39,5 +39,5 @@ blocks:
           - wget https://github.com/patrickvane/shfmt/releases/download/master/shfmt_linux_amd64 -O shfmt
           - chmod +x shfmt
           - ./shfmt --version
-          - ./shfmt -i 4 -d ~/install-dotfiles.sh
-          - ./shfmt -i 4 -d ~/.zshrc
+          - ./shfmt -i 4 -d install-dotfiles.sh
+          - ./shfmt -i 4 -d .zshrc
