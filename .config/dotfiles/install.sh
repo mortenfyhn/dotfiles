@@ -28,6 +28,19 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# Clone dotfiles
+bold_blue "Cloning dotfiles repo"
+grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >>~/.gitignore
+if [[ ! -d ~/.dotfiles ]]; then
+    git clone -q --bare git@github.com:mortenfyhn/dotfiles.git ~/.dotfiles
+    dots() { git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"; }
+    dots checkout --force
+    dots config --local status.showUntrackedFiles no
+    dots config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+    dots fetch
+fi
+echo "Done"
+
 bold_blue "Installing applications"
 common_packages=(byobu ccache git zsh)
 if command -v apt >/dev/null; then  # Ubuntu
@@ -49,19 +62,6 @@ git config --global help.autocorrect 20
 git config --global init.defaultBranch master
 if [[ "$headless" = false ]]; then
     git config --global core.editor "subl -n -w"
-fi
-echo "Done"
-
-# Clone dotfiles
-bold_blue "Cloning dotfiles repo"
-grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >>~/.gitignore
-if [[ ! -d ~/.dotfiles ]]; then
-    git clone -q --bare git@github.com:mortenfyhn/dotfiles.git ~/.dotfiles
-    dots() { git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"; }
-    dots checkout --force
-    dots config --local status.showUntrackedFiles no
-    dots config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-    dots fetch
 fi
 echo "Done"
 
