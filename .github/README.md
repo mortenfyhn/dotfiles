@@ -19,8 +19,8 @@ bash <(wget -qO- -o /dev/null \
 ### Headless install
 
 ```sh
-bash <(wget -qO- -o \
-  /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/install-dotfiles.sh) \
+bash <(wget -qO- -o /dev/null \
+  https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/install-dotfiles.sh) \
   --headless
 ```
 
