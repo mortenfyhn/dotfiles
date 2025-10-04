@@ -20,9 +20,7 @@ blocks:
       - name: "Install"
         commands:
           # Install the same way I would, from GitHub without cloning first
-          # Keep in mind this will just always use latest master regardless of what triggered this job
-          - bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/install-dotfiles.sh) --ci
-
+          - bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/${SEMAPHORE_GIT_SHA}/install-dotfiles.sh) --ci
           # Try sourcing .zshrc succeeds (`zsh -i` does so)
           # and re-run the install script in ZSH to test idempotency
           - echo 'echo "Sourced .zshrc"' >> ~/.zshrc
