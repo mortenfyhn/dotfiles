@@ -9,31 +9,18 @@ My dotfiles and other computer setup stuff. Based on [this](https://www.atlassia
 * [Connect to GitHub with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
 * Install `wget`
 
-### Desktop install
+### First install
 
 ```sh
 bash <(wget -qO- -o /dev/null \
   https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/install-dotfiles.sh)
 ```
 
-### Headless install
+Append `--headless` / `--ci` as needed.
 
-```sh
-bash <(wget -qO- -o /dev/null \
-  https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/install-dotfiles.sh) \
-  --headless
-```
-
-### Run local version
-
-If you are hacking the install script and want to run the local version:
+### Re-install
 
 ```sh
 ~/install-dotfiles.sh
 ```
 
-or
-
-```sh
-~/install-dotfiles.sh --headless
-```
