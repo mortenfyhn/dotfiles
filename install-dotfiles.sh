@@ -23,6 +23,7 @@ while [[ $# -gt 0 ]]; do
     *)
         echo "Error: Invalid option '$1'"
         exit 1
+        ;;
     esac
 done
 
