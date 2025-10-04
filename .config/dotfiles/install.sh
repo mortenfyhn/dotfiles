@@ -29,16 +29,13 @@ while [[ $# -gt 0 ]]; do
 done
 
 bold_blue "Installing applications"
-# Ubuntu
-if command -v apt >/dev/null; then
+common_packages=(byobu ccache git zsh)
+if command -v apt >/dev/null; then  # Ubuntu
     sudo add-apt-repository ppa:git-core/ppa
     sudo apt update
-    sudo apt install \
-        git \
-        zsh
-# Fedora
-elif command -v dnf >/dev/null; then
-    sudo dnf install zsh
+    sudo apt install "${common_packages[@]}"
+elif command -v dnf >/dev/null; then  # Fedora
+    sudo dnf install "${common_packages[@]}"
 else
     echo "I only support apt and dnf"
 fi
