@@ -144,3 +144,6 @@ bold_green "All done!"
 if [[ $need_relog == true ]]; then
     bold "Log out and back in again."
 fi
+if [[ "$headless" = false ]] && command -v dnf >/dev/null; then  # Fedora
+    echo "Manual UI setup: https://github.com/mortenfyhn/dotfiles/issues/83"
+fi
