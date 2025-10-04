@@ -43,11 +43,11 @@ echo "Done"
 
 bold_blue "Installing applications"
 common_packages=(byobu ccache git zsh)
-if command -v apt >/dev/null; then  # Ubuntu
+if command -v apt >/dev/null; then # Ubuntu
     sudo apt-get update
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
     sudo apt-get install --assume-yes "${common_packages[@]}"
-elif command -v dnf >/dev/null; then  # Fedora
+elif command -v dnf >/dev/null; then # Fedora
     sudo dnf install --assumeyes "${common_packages[@]}"
 else
     echo "I only support apt and dnf"
@@ -144,6 +144,6 @@ bold_green "All done!"
 if [[ $need_relog == true ]]; then
     bold "Log out and back in again."
 fi
-if [[ "$headless" = false ]] && command -v dnf >/dev/null; then  # Fedora
+if [[ "$headless" = false ]] && command -v dnf >/dev/null; then # Fedora
     echo "Manual UI setup: https://github.com/mortenfyhn/dotfiles/issues/83"
 fi
