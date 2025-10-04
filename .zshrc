@@ -47,12 +47,11 @@ function addtopath() {
 addtopath "$HOME/.local/bin"
 
 # Autosuggestions
-if [[ -f "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-  source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-elif [[ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-  source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+autosuggestions_path="$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if [[ -f "$autosuggestions_path" ]]; then
+  source "$autosuggestions_path"
 else
-  echo "zsh-autosuggestions not found"
+  echo "Warning: zsh-autosuggestions not installed"
 fi
 
 # Make sure arrow up/down only scrolls history matching what I've already typed

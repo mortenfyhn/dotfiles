@@ -124,12 +124,22 @@ echo "Done"
 # Install ZSH prompt (pure)
 bold_blue "Installing 'Pure' prompt"
 mkdir -p "$HOME/.zsh"
-if [[ -d "$HOME"/.zsh/pure ]]; then
+if [[ -d "$HOME/.zsh/pure" ]]; then
     echo "Already installed"
 else
     git clone git@github.com:sindresorhus/pure.git "$HOME/.zsh/pure"
+    echo "Done"
 fi
-echo "Done"
+
+# Install zsh-autosuggestions
+bold_blue "Installing zsh-autosuggestions"
+mkdir -p "$HOME/.zsh"
+if [[ -d "$HOME/.zsh/zsh-autosuggestions" ]]; then
+    echo "Already installed"
+else
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
+    echo "Done"
+fi
 
 # Make ZSH the default shell
 bold_blue "Make ZSH default shell"
