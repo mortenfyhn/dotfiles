@@ -95,3 +95,9 @@ alias sn='subl --launch-or-new-window'
 alias t=trash
 alias z='source ~/.zshrc'
 alias wip='git add . && git commit -m "wip"'
+
+# Launch Byobu if not already running somewhere (interactive shells only)
+case $- in *i*) ;; *) return ;; esac
+if command -v byobu >/dev/null && [[ -z "$TMUX" ]] && ! tmux ls >/dev/null; then
+    exec byobu
+fi
