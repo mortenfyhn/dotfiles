@@ -6,6 +6,13 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 
+execution_time_limit:
+  minutes: 5
+
+auto_cancel:
+  queued:
+    when: true
+
 blocks:
   - name: "Checks"
     task:
