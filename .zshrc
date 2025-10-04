@@ -34,7 +34,7 @@ setopt nocaseglob
 PROMPT='%(?.%F{34}.%F{202}%? )❯%f '
 
 if [[ -f /.dockerenv ]]; then
-  PROMPT='%(?.%F{34}.%F{202}%? )🐋%f '
+  PROMPT='%(?.%F{34}.%F{202}%? )🐋 ❯%f '
 fi
 
 # Add stuff to PATH
