@@ -16,7 +16,7 @@ bash <(wget -qO- -o /dev/null \
   https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/install-dotfiles.sh)
 ```
 
-Append `--headless` / `--ci` as needed.
+Append `--headless` when needed.
 
 ### Re-install
 

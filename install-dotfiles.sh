@@ -14,15 +14,10 @@ bold_red() { echo -e "\e[1m\e[31m$*\e[0m"; }
 bold_blue() { echo -e "\e[1;36m$*\e[0m"; }
 
 headless=false
-ci=false
 while [[ $# -gt 0 ]]; do
     case "$1" in
     --headless)
         headless=true
-        shift
-        ;;
-    --ci)
-        ci=true
         shift
         ;;
     esac
@@ -146,7 +141,7 @@ bold_blue "Make ZSH default shell"
 need_relog=false
 if [[ "$SHELL" == "/usr/bin/zsh" ]]; then
     echo "Default shell is already ZSH"
-elif [[ "$ci" = true ]]; then
+elif [[ -n "$CI" ]]; then
     echo "Running in CI, skipping"
 else
     chsh -s "$(command -v zsh)"
