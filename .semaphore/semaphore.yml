@@ -13,8 +13,8 @@ blocks:
       - name: "Install"
         commands:
           - checkout
-          - install-dotfiles.sh --ci
-          - install-dotfiles.sh --ci  # Once more to test idempotency
+          - ./install-dotfiles.sh --ci
+          - ./install-dotfiles.sh --ci  # Once more to test idempotency
 
       - name: "Shellcheck"
         commands:
