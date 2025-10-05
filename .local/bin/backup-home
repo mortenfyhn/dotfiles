@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Backup home folder to external drive
+
+set -Eeuo pipefail
+
+target="${1:?Usage: $0 TARGET_PATH}"
+
+rsync \
+    --recursive --times --one-file-system --partial \
+    --delete --delete-excluded \
+    --human-readable --info=progress2 \
+    --exclude='.cache/' \
+    --exclude='.local/share/Trash/' \
+    --exclude='.gvfs/' \
+    --exclude='.local/share/gvfs-metadata/' \
+    --exclude='.nvm/' \
+    --exclude='.mozilla/' \
+    --exclude='.var/' \
+    "$HOME"/ "$target"
+
+echo "Done, syncing cached writes..."
+sync
