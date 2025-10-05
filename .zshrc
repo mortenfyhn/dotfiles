@@ -33,10 +33,11 @@ setopt nocaseglob
 #   202 is a nice red
 #   ❯ is the prompt char
 #   %f resets foreground color
-PROMPT='%(?.%F{34}.%F{202}%? )❯%f '
+#   %B sets bold text, %b resets
+PROMPT='%(?.%F{34}.%F{202}%? )%B❯%b%f '
 
 if [[ -f /.dockerenv ]]; then
-    PROMPT='%(?.%F{34}.%F{202}%? )🐋 ❯%f '
+    PROMPT='%(?.%F{34}.%F{202}%? )🐋 %B❯%b%f '
 fi
 
 # Add stuff to PATH
