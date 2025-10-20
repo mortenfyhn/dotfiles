@@ -66,6 +66,7 @@ bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
 # Aliases
+alias cat=bat
 alias d=dots
 alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias ga='git add'
@@ -96,6 +97,11 @@ alias sn='subl --launch-or-new-window'
 alias t=trash
 alias z='source ~/.zshrc'
 alias wip='git add . && git commit -m "wip"'
+
+# Installing bat on Ubuntu gives "batcat"...
+if command -v batcat >/dev/null; then
+    alias bat=batcat
+fi
 
 # Launch Byobu if not already running somewhere (interactive shells only)
 case $- in *i*) ;; *) return ;; esac
