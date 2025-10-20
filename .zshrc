@@ -105,6 +105,6 @@ fi
 
 # Launch Byobu if not already running somewhere (interactive shells only)
 case $- in *i*) ;; *) return ;; esac
-if command -v byobu >/dev/null && [[ -z "$TMUX" ]] && ! tmux ls >/dev/null && [[ -z "$CI" ]]; then
+if command -v byobu >/dev/null && [[ -z "$TMUX" ]] && ! tmux ls &>/dev/null && [[ -z "$CI" ]]; then
     exec byobu
 fi
