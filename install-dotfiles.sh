@@ -82,7 +82,6 @@ fi
 
 # Install difftastic
 bold_blue "Installing difftastic"
-git config --global diff.external difft
 if command -v difft >/dev/null; then
     echo "Already installed"
 else
@@ -93,6 +92,12 @@ else
     mv difft ~/.local/bin/difft
     popd >/dev/null
     echo "Done"
+fi
+if difft --version &>/dev/null; then
+    git config --global diff.external difft
+else
+    # See https://github.com/mortenfyhn/dotfiles/issues/89
+    git config --global unset diff.external
 fi
 
 # Remap keyboard
