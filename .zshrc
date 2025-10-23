@@ -40,14 +40,6 @@ if [[ -f /.dockerenv ]]; then
     PROMPT='%(?.%F{34}.%F{202}%? )🐋 %B❯%b%f '
 fi
 
-# Add stuff to PATH
-function addtopath() {
-    if ! grep -q $1 <<<$PATH; then
-        PATH=$PATH:$1
-    fi
-}
-addtopath "$HOME/.local/bin"
-
 # Autosuggestions
 autosuggestions_path="$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 if [[ -f "$autosuggestions_path" ]]; then
@@ -102,6 +94,10 @@ alias wip='git add . && git commit -m "wip"'
 if command -v batcat >/dev/null; then
     alias bat=batcat
 fi
+
+# Add stuff to PATH
+path+=("$HOME/.local/bin")
+typeset -U path
 
 # Launch Byobu if not already running somewhere (interactive shells only)
 case $- in *i*) ;; *) return ;; esac
