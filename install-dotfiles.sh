@@ -43,11 +43,11 @@ echo "Done"
 bold_blue "Installing applications"
 common_packages=(bat byobu ccache git zsh)
 if command -v apt >/dev/null; then # Ubuntu
-    sudo apt-get update
+    sudo apt-get --quiet --quiet update
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
-    sudo apt-get install --assume-yes "${common_packages[@]}"
+    sudo apt-get --quiet --quiet install "${common_packages[@]}"
 elif command -v dnf >/dev/null; then # Fedora
-    sudo dnf install --assumeyes "${common_packages[@]}"
+    sudo dnf --assumeyes --quiet install "${common_packages[@]}"
 else
     echo "I only support apt and dnf"
 fi
