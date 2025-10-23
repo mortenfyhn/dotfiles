@@ -97,7 +97,7 @@ if difft --version &>/dev/null; then
     git config --global diff.external difft
 else
     # See https://github.com/mortenfyhn/dotfiles/issues/89
-    git config unset --global diff.external ||:
+    git config unset --global diff.external || :
 fi
 
 # Remap keyboard
