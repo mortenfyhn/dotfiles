@@ -91,7 +91,6 @@ else
     mkdir -p ~/.local/bin
     mv difft ~/.local/bin/difft
     popd >/dev/null
-    echo "Done"
 fi
 if difft --version &>/dev/null; then
     git config --global diff.external difft
@@ -99,6 +98,7 @@ else
     # See https://github.com/mortenfyhn/dotfiles/issues/89
     git config unset --global diff.external || :
 fi
+echo "Done"
 
 # Remap keyboard
 # Note: Patch returns 1 if the patch already has been applied, so I hide the exit code and then check the text output to make this idempotent
