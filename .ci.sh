@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -Eeuo pipefail
+
 # Just a super simple way to run roughly the same checks as CI locally before pushing.
 # Doesn't deal with installs or anything.
 
