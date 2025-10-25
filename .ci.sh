@@ -8,7 +8,6 @@ set -Eeuo pipefail
 shellcheck ~/install-dotfiles.sh
 shfmt -i 4 -d ~/install-dotfiles.sh
 shfmt -i 4 -d ~/.zshrc
-echo "Checks passed"
-echo
+echo -e "\e[1;32mChecks passed\n\e[0m"
 
 ~/install-dotfiles.sh
