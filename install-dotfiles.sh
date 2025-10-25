@@ -3,14 +3,14 @@
 set -Eeuo pipefail
 shopt -s expand_aliases
 
+red() { echo -e "\e[31m$*\e[0m"; }
 green() { echo -e "\e[32m$*\e[0m"; }
-yellow() { echo -e "\e[0;33m$*\e[0m"; }
-red() { echo -e "\e[0m\e[31m$*\e[0m"; }
-blue() { echo -e "\e[0;36m$*\e[0m"; }
-bold() { echo -e "\033[1m$*\033[0m"; }
-bold_green() { echo -e "\e[1m\e[32m$*\e[0m"; }
+yellow() { echo -e "\e[33m$*\e[0m"; }
+blue() { echo -e "\e[36m$*\e[0m"; }
+bold() { echo -e "\e[1m$*\e[0m"; }
+bold_red() { echo -e "\e[1;31m$*\e[0m"; }
+bold_green() { echo -e "\e[1;32m$*\e[0m"; }
 bold_yellow() { echo -e "\e[1;33m$*\e[0m"; }
-bold_red() { echo -e "\e[1m\e[31m$*\e[0m"; }
 bold_blue() { echo -e "\e[1;36m$*\e[0m"; }
 
 headless=false
