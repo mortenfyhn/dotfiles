@@ -100,6 +100,13 @@ else
 fi
 echo "Done"
 
+bold_blue "Installing other tools"
+if ! command -v emoji >/dev/null; then
+    wget -q https://codeberg.org/EvanHahn/dotfiles/raw/commit/6af71a8aebe18656b575ab0d7b9b7e5c47d39998/home/bin/bin/emoji -O ~/.local/bin/emoji
+    chmod +x ~/.local/bin/emoji
+fi
+echo "Done"
+
 # Remap keyboard
 # Note: Patch returns 1 if the patch already has been applied, so I hide the exit code and then check the text output to make this idempotent
 bold_blue "Remapping keyboard"
