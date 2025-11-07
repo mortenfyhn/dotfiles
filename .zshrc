@@ -40,6 +40,9 @@ if [[ -f /.dockerenv ]]; then
     PROMPT='%(?.%F{34}.%F{202}%? )🐋 %B❯%b%f '
 fi
 
+# Show git stash
+zstyle :prompt:pure:git:stash show yes
+
 # Autosuggestions
 autosuggestions_path="$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 if [[ -f "$autosuggestions_path" ]]; then
