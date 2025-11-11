@@ -60,6 +60,20 @@ zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
+# Home/End keys
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey "^[[1~" beginning-of-line  # Alternative Home
+bindkey "^[[4~" end-of-line        # Alternative End
+
+# Ctrl+Left/Right for word jumping
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+
+# Ctrl+Backspace/Delete for word deletion
+bindkey "^H" backward-kill-word
+bindkey "^[[3;5~" kill-word
+
 # Aliases
 alias cat=bat
 alias d=dots
