@@ -75,7 +75,6 @@ bindkey "^H" backward-kill-word
 bindkey "^[[3;5~" kill-word
 
 # Aliases
-alias cat=bat
 alias d=dots
 alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias ga='git add'
