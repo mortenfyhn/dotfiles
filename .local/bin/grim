@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# alias grom='git rebase origin/master'
+
+if git rev-parse --verify origin/main &>/dev/null; then
+	git rebase --interactive origin/main
+	exit 0
+fi
+
+git rebase --interactive origin/main
