@@ -47,7 +47,7 @@ if command -v apt >/dev/null; then # Ubuntu
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
     sudo apt-get --quiet --quiet install "${common_packages[@]}"
 elif command -v dnf >/dev/null; then # Fedora
-    sudo dnf --assumeyes --quiet install "${common_packages[@]}"
+    sudo dnf --assumeyes --quiet install "${common_packages[@]}" zoxide
 else
     echo "I only support apt and dnf"
 fi

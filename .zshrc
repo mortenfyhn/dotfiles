@@ -118,3 +118,5 @@ case $- in *i*) ;; *) return ;; esac
 if command -v byobu >/dev/null && [[ -z "$TMUX" ]] && ! tmux ls &>/dev/null && [[ -z "$CI" ]]; then
     exec byobu
 fi
+
+eval "$(zoxide init zsh --cmd c)"
