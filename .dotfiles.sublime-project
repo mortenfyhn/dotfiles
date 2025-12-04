@@ -13,7 +13,10 @@
                     ".local",
                     ".local/bin",
                     ".semaphore",
-                ],
-        }
-    ]
+            ],
+        },
+        {
+			"path": ".claude"
+		},
+    ],
 }
