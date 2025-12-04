@@ -82,11 +82,12 @@ fi
 
 # Install difftastic
 bold_blue "Installing difftastic"
-if command -v difft >/dev/null; then
-    echo "Already installed"
+version="0.67.0"
+if command -v difft >/dev/null && [[ $(difft --version | awk 'NR==1 {print $2}') == "$version" ]]; then
+    echo "Already installed ${version}"
 else
     pushd "$(mktemp --directory)" >/dev/null
-    wget -q https://github.com/Wilfred/difftastic/releases/download/0.64.0/difft-x86_64-unknown-linux-gnu.tar.gz
+    wget -q "https://github.com/Wilfred/difftastic/releases/download/${version}/difft-x86_64-unknown-linux-gnu.tar.gz"
     tar -xzf difft-x86_64-unknown-linux-gnu.tar.gz
     mkdir -p ~/.local/bin
     mv difft ~/.local/bin/difft
