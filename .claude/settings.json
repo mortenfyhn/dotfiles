@@ -5,7 +5,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "notify-send 'Claude done ❇️'"
+						"command": "notify-send --app-name 'Claude Code' --icon ~/.claude/claude.png --transient 'Ready ✨'"
 					}
 				]
 			}
