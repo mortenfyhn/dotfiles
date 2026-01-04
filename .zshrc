@@ -63,8 +63,8 @@ bindkey "^[[B" down-line-or-beginning-search
 # Home/End keys
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
-bindkey "^[[1~" beginning-of-line  # Alternative Home
-bindkey "^[[4~" end-of-line        # Alternative End
+bindkey "^[[1~" beginning-of-line # Alternative Home
+bindkey "^[[4~" end-of-line       # Alternative End
 
 # Ctrl+Left/Right for word jumping
 bindkey "^[[1;5C" forward-word
