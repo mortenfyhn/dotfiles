@@ -110,25 +110,26 @@ echo "Done"
 
 # Remap keyboard
 # Note: Patch returns 1 if the patch already has been applied, so I hide the exit code and then check the text output to make this idempotent
+
 bold_blue "Remapping keyboard"
-# Patch 1: Remap caps lock to alt gr
-if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/pc --input="$HOME"/.config/dotfiles/remap-caps-lock.patch); then
-    echo "Applied keyboard patch 1"
+echo "1. Remap caps lock to alt gr"
+pc_file="/usr/share/X11/xkb/symbols/pc"
+if grep -q 'key <CAPS>.*Caps_Lock' "$pc_file"; then
+    sudo sed -i.bak '/key <CAPS>/ s/Caps_Lock/ISO_Level3_Shift/' "$pc_file"
+    echo "Applied keyboard remap"
+elif grep -q 'key <CAPS>.*ISO_Level3_Shift' "$pc_file"; then
+    echo "Keyboard remap already applied"
 else
-    if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"; then
-        echo "Keyboard patch 1 already applied"
-    else
-        yellow "Failed to apply keyboard patch 1"
-    fi
+    echo "Failed to apply keyboard remap"
 fi
-# Patch 2: Don't spit out non-breaking space for alt gr + space (common "mistake" when typing a space after a bracket)
+echo "2. Don't create non-breaking space for alt gr + space"
 if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/no --input="$HOME"/.config/dotfiles/non-breaking-space.patch); then
-    echo "Applied keyboard patch 2"
+    echo "Applied keyboard patch"
 else
     if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"; then
-        echo "Keyboard patch 2 already applied"
+        echo "Keyboard patch already applied"
     else
-        yellow "Failed to apply keyboard patch 2"
+        yellow "Failed to apply keyboard patch"
     fi
 fi
 echo "Done"
