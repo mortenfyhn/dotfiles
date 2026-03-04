@@ -1,14 +1,18 @@
 {
-	"hooks": {
-		"Stop": [
-			{
-				"hooks": [
-					{
-						"type": "command",
-						"command": "notify-send --app-name 'Claude Code' --icon ~/.claude/claude.png --transient 'Ready ✨'"
-					}
-				]
-			}
-		]
-	}
+  "effortLevel": "medium",
+  "enabledPlugins": {
+    "clangd-lsp@claude-plugins-official": true
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "notify-send --app-name 'Claude Code' --icon ~/.claude/claude.png --transient 'Ready ✨'"
+          }
+        ]
+      }
+    ]
+  }
 }
