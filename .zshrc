@@ -80,6 +80,8 @@ alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias ga='git add'
 alias gbd='git branch --delete'
 alias gbD='git branch --delete --force'
+# Delete local branches whose upstream is gone (merged + remote auto-deleted). -D since squash merges hide the merge from branch -d.
+alias gbgone='git fetch --prune && git branch -vv | grep ": gone]" | awk "{print \$1}" | xargs -r git branch -D'
 alias gca='git commit --amend'
 alias gcan='git commit --amend --no-edit'
 alias gch='git checkout'
