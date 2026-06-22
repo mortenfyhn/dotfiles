@@ -185,7 +185,7 @@ bold_blue "Make ZSH default shell"
 need_relog=false
 if [[ "$SHELL" == "/usr/bin/zsh" ]]; then
     echo "Default shell is already ZSH"
-elif [[ -n "$CI" ]]; then
+elif [[ -n "${CI:-}" ]]; then
     echo "Running in CI, skipping"
 else
     chsh -s "$(command -v zsh)"
