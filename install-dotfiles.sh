@@ -152,7 +152,7 @@ echo "Done"
 # instead of Print, even with "Set OS: Linux" in Solaar
 if [[ "$headless" = false ]]; then
     bold_blue "Configuring screenshot shortcut"
-    if [[ "$XDG_CURRENT_DESKTOP" != *"GNOME"* ]]; then
+    if [[ "${XDG_CURRENT_DESKTOP:-}" != *"GNOME"* ]]; then
         yellow "Skipping (not GNOME). Screenshot shortcut may need manual setup."
     else
         gsettings set org.gnome.shell.keybindings show-screenshot-ui "['Print', '<Super><Shift>o']"
