@@ -27,6 +27,20 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# Install git at the start for the git clone below
+if ! command -v git >/dev/null; then
+    bold_blue "Installing git"
+    if command -v apt-get >/dev/null; then # Ubuntu
+        sudo apt-get --quiet --quiet update
+        sudo apt-get --quiet --quiet install git
+    elif command -v dnf >/dev/null; then # Fedora
+        sudo dnf --assumeyes --quiet install git
+    else
+        echo "I only support apt and dnf"
+        exit 1
+    fi
+fi
+
 # Clone dotfiles
 bold_blue "Cloning dotfiles repo"
 grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >>~/.gitignore
