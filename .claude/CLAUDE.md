@@ -1,12 +1,21 @@
 # Global Claude Instructions
 
+## Dotfiles
+
+- Managed as a bare git repo at `~/.dotfiles/` with the work tree set to `$HOME` (tracks files in place, no symlinks). Run git against it with the `dots` alias.
+
 ## Environment
 
 - Personal machine: Usually a Framework 13 AMD
 - Work machine: Usually a Dell XPS 13 Plus (Intel)
 - OS is usually Fedora or Ubuntu (check with `cat /etc/os-release`)
 - Firefox
-- Zsh
+- Zsh (Does not word-split unquoted variables like bash. `for x in $LIST` treats `$LIST` as one word. Use an explicit list, an array, or `${=LIST}` to split.)
+
+## Writing style
+
+- Be concise and to the point.
+- Use em dashes (—) sparingly.
 
 ## Coding guidelines
 
@@ -14,10 +23,10 @@
 - Every line of code should carry its weight. The same applies to test code — don't blindly generate lots of tests for something that may not be worth the effort and added complexity.
 - Don't treat all my requests as orders. If something I ask for turns out to be a lot of work for little payoff, tell me and ask whether I really want it before diving in.
 - Always prefer solutions that require minimal code changes or remove code entirely.
-- Comments, commit messages etc should mainly explain the WHY.
-- Never force push to a pull request without my consent. Push new commits instead.
-- Prefer pure functions when possible
+- Prefer pure functions and simple data flows when possible
 - Use classes only when necessary, and keep them small and focused
+- Never add Claude as co-author on commits
+- Only commit when asked to and never push or force push without explicit consent
 
 ## Language
 
