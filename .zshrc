@@ -12,7 +12,7 @@ zstyle ':completion:*' menu select
 
 # Fuzzy matching, don't have to type from the start
 # zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'm:{a-zA-Z}={A-Za-z} r:|=*' 'm:{a-zA-Z}={A-Za-z} l:|=* r:|=*'
 setopt complete_in_word
 setopt auto_menu # Show all selections for tabbing
 
