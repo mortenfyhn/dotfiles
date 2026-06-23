@@ -26,18 +26,16 @@ promptinit
 prompt pure
 setopt nocaseglob
 
-# Adjust prompt:
-#   %? is the exit code
-#   %F sets foreground (text) color
-#   34 is a nice green
-#   202 is a nice red
-#   ❯ is the prompt char
-#   %f resets foreground color
-#   %B sets bold text, %b resets
-PROMPT='%(?.%F{34}.%F{202}%? )%B❯%b%f '
+# Customize Pure's caret without reassigning PROMPT: current Pure bakes the path
+# and git info into PROMPT, so overriding it wipes them out (leaving only a caret).
+# Drive Pure's own knobs instead. Caret is green on success, red with the exit
+# code on failure (%? is the exit code; 34 is a nice green, 202 a nice red).
+zstyle ':prompt:pure:prompt:success' color 34
+zstyle ':prompt:pure:prompt:error' color 202
+PURE_PROMPT_SYMBOL='%(?..%? )%B❯%b'
 
 if [[ -f /.dockerenv ]]; then
-    PROMPT='%(?.%F{34}.%F{202}%? )🐋 %B❯%b%f '
+    PURE_PROMPT_SYMBOL='%(?..%? )🐋 %B❯%b'
 fi
 
 # Show git stash
