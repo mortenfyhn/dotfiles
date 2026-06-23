@@ -21,6 +21,7 @@
   },
   "enabledPlugins": {
     "clangd-lsp@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
     "sem-ai@semaphoreio": true,
     "superpowers@claude-plugins-official": true
   },
