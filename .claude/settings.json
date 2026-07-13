@@ -15,5 +15,8 @@
     "clangd-lsp@claude-plugins-official": true
   },
   "effortLevel": "medium",
-  "theme": "auto"
+  "theme": "auto",
+  "permissions": {
+    "defaultMode": "acceptEdits"
+  }
 }
