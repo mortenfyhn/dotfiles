@@ -59,7 +59,7 @@ common_packages=(bat byobu ccache git tree zoxide zsh curl)
 if command -v apt >/dev/null; then # Ubuntu
     sudo apt-get --quiet --quiet update
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
-    sudo apt-get --quiet --quiet install "${common_packages[@]}"
+    sudo apt-get --quiet --quiet install "${common_packages[@]}" neofetch gnome-shell-extensions
 elif command -v dnf >/dev/null; then # Fedora
     sudo dnf --assumeyes --quiet install "${common_packages[@]}"
 else

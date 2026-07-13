@@ -3,7 +3,7 @@
 ## Environment
 
 - Framework 13 AMD laptop
-- Fedora 42
+- OS is usually Fedora or Ubuntu — check with `cat /etc/os-release`
 - Firefox
 - Zsh
 
