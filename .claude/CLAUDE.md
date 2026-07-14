@@ -2,8 +2,9 @@
 
 ## Environment
 
-- Framework 13 AMD laptop
-- OS is usually Fedora or Ubuntu — check with `cat /etc/os-release`
+- Personal machine: Usually a Framework 13 AMD
+- Work machine: Usually a Dell XPS 13 Plus (Intel)
+- OS is usually Fedora or Ubuntu (check with `cat /etc/os-release`)
 - Firefox
 - Zsh
 
