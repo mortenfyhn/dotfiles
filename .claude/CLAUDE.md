@@ -18,3 +18,7 @@
 - Never force push to a pull request without my consent. Push new commits instead.
 - Prefer pure functions when possible
 - Use classes only when necessary, and keep them small and focused
+
+## Working effectively
+
+- If you trip over a recurring snag (broken tooling, misleading editor errors, a non-obvious setup step, a footgun), don't just work around it silently — either fix it properly or leave a note so the next session (you or me) doesn't lose the same time. Prefer a proper fix; otherwise a short note in the nearest CLAUDE.md (project-specific snags) or a memory. Mention which you did.
