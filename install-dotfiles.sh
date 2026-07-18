@@ -160,6 +160,16 @@ if [[ "$headless" = false ]]; then
     fi
 fi
 
+# Configure GNOME
+# automount-open pops open a Files window every time removable media (e.g. my
+# phone's storage) is plugged in. Keep automount so devices still mount, but
+# don't open a window.
+if [[ "$headless" = false ]] && command -v gsettings >/dev/null; then
+    bold_blue "Configuring GNOME"
+    gsettings set org.gnome.desktop.media-handling automount-open false
+    echo "Done"
+fi
+
 # Install ZSH prompt (pure)
 bold_blue "Installing 'Pure' prompt"
 mkdir -p "$HOME/.zsh"
