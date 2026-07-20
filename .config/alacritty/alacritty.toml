@@ -11,6 +11,10 @@ size = 13.0
 [font.normal]
 family = "Iosevka"
 
+# Selecting text with the mouse copies it straight to the clipboard.
+[selection]
+save_to_clipboard = true
+
 # --- One Dark color scheme ---------------------------------------------------
 # The One Dark palette (Atom's One Dark). These match the one_dark.toml in the
 # official alacritty-theme repo (https://github.com/alacritty/alacritty-theme).
