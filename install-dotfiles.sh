@@ -60,6 +60,8 @@ if command -v apt >/dev/null; then # Ubuntu
     sudo apt-get --quiet --quiet update
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
     sudo apt-get --quiet --quiet install "${common_packages[@]}" neofetch gnome-shell-extensions
+    # Route x-terminal-emulator consumers to Alacritty (Debian/Ubuntu only)
+    sudo update-alternatives --set x-terminal-emulator /usr/bin/alacritty
 elif command -v dnf >/dev/null; then # Fedora
     sudo dnf --assumeyes --quiet install "${common_packages[@]}"
 else
@@ -168,6 +170,18 @@ if [[ "$headless" = false ]] && command -v gsettings >/dev/null; then
     bold_blue "Configuring GNOME"
     gsettings set org.gnome.desktop.media-handling automount-open false
     echo "Done"
+fi
+
+# Make Alacritty the default terminal (Ctrl+Alt+T, and apps that launch one)
+if [[ "$headless" = false ]]; then
+    bold_blue "Setting Alacritty as default terminal"
+    if [[ "${XDG_CURRENT_DESKTOP:-}" != *"GNOME"* ]]; then
+        yellow "Skipping (not GNOME)."
+    else
+        gsettings set org.gnome.desktop.default-applications.terminal exec 'alacritty'
+        gsettings set org.gnome.desktop.default-applications.terminal exec-arg '-e'
+        echo "Done"
+    fi
 fi
 
 # Install ZSH prompt (pure)
