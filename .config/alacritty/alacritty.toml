@@ -1,0 +1,50 @@
+# Alacritty config, tracked in dotfiles for an identical terminal on all machines.
+# Font: Iosevka (installed by install-dotfiles.sh).
+# Only color and font keys are used here on purpose: they are stable across
+# Alacritty versions, whereas keys like `import`/`live_config_reload` moved under
+# a [general] section in 0.14, which would break this single file across the
+# different versions on Ubuntu (0.13.x) and Fedora (newer).
+
+[font]
+size = 13.0
+
+[font.normal]
+family = "Iosevka"
+
+# --- One Dark color scheme ---------------------------------------------------
+# The One Dark palette (Atom's One Dark). These match the one_dark.toml in the
+# official alacritty-theme repo (https://github.com/alacritty/alacritty-theme).
+# Inlined rather than imported because Alacritty ships no built-in themes and
+# `import` is version-sensitive.
+
+[colors.primary]
+background = "#282c34"
+foreground = "#abb2bf"
+
+[colors.cursor]
+text = "#282c34"
+cursor = "#abb2bf"
+
+[colors.selection]
+text = "CellForeground"
+background = "#3e4451"
+
+[colors.normal]
+black   = "#282c34"
+red     = "#e06c75"
+green   = "#98c379"
+yellow  = "#e5c07b"
+blue    = "#61afef"
+magenta = "#c678dd"
+cyan    = "#56b6c2"
+white   = "#abb2bf"
+
+[colors.bright]
+black   = "#5c6370"
+red     = "#e06c75"
+green   = "#98c379"
+yellow  = "#e5c07b"
+blue    = "#61afef"
+magenta = "#c678dd"
+cyan    = "#56b6c2"
+white   = "#ffffff"
