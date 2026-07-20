@@ -19,6 +19,9 @@ setopt auto_menu # Show all selections for tabbing
 # Change directory without typing cd
 setopt autocd
 
+# Share history between tmux sessions
+setopt inc_append_history
+
 # Set up "Pure" prompt
 fpath+=($HOME/.zsh/pure)
 autoload -U promptinit
@@ -115,10 +118,15 @@ fi
 path+=("$HOME/.local/bin")
 typeset -U path
 
-# Launch Byobu if not already running somewhere (interactive shells only)
+# Non-interactive shells: bail out early.
 case $- in *i*) ;; *) return ;; esac
+# Launch byobu if not already running somewhere (interactive shells only).
 if command -v byobu >/dev/null && [[ -z "$TMUX" ]] && ! tmux ls &>/dev/null && [[ -z "$CI" ]]; then
     exec byobu
 fi
 
 eval "$(zoxide init zsh --cmd c)"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
