@@ -1,6 +1,6 @@
 {
   "permissions": {
-    "defaultMode": "acceptEdits"
+    "defaultMode": "auto"
   },
   "model": "opus[1m]",
   "hooks": {
@@ -22,7 +22,6 @@
   "enabledPlugins": {
     "clangd-lsp@claude-plugins-official": true
   },
-  "effortLevel": "medium",
   "voice": {
     "enabled": true,
     "mode": "hold"
