@@ -44,6 +44,10 @@ fi
 # Show git stash
 zstyle :prompt:pure:git:stash show yes
 
+# Pure's default git branch color (242) is too dim on a dark background. Use the
+# theme's normal foreground (7) so the branch reads like normal text.
+zstyle ':prompt:pure:git:branch' color 7
+
 # Autosuggestions
 autosuggestions_path="$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 if [[ -f "$autosuggestions_path" ]]; then
