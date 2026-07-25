@@ -172,14 +172,35 @@ if [[ "$headless" = false ]] && command -v gsettings >/dev/null; then
     echo "Done"
 fi
 
-# Make Alacritty the default terminal (Ctrl+Alt+T, and apps that launch one)
+# Make Alacritty the default terminal
 if [[ "$headless" = false ]]; then
     bold_blue "Setting Alacritty as default terminal"
     if [[ "${XDG_CURRENT_DESKTOP:-}" != *"GNOME"* ]]; then
         yellow "Skipping (not GNOME)."
     else
+        # For legacy apps that read the (deprecated) gsettings key
         gsettings set org.gnome.desktop.default-applications.terminal exec 'alacritty'
         gsettings set org.gnome.desktop.default-applications.terminal exec-arg '-e'
+
+        # For "Open in Terminal" etc. (xdg-terminal-exec spec, GNOME 48+)
+        echo "Alacritty.desktop" >~/.config/xdg-terminals.list
+
+        # Ctrl+Alt+T: GNOME has no built-in terminal shortcut, so add a
+        # custom keybinding (idempotent — reuses a fixed dconf path)
+        kb="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/alacritty/"
+        schema="org.gnome.settings-daemon.plugins.media-keys"
+        list=$(gsettings get "$schema" custom-keybindings)
+        if [[ "$list" != *"$kb"* ]]; then
+            if [[ "$list" == "@as []" ]]; then
+                gsettings set "$schema" custom-keybindings "['$kb']"
+            else
+                gsettings set "$schema" custom-keybindings "${list%]}, '$kb']"
+            fi
+        fi
+        kb_schema="$schema.custom-keybinding:$kb"
+        gsettings set "$kb_schema" name 'Terminal'
+        gsettings set "$kb_schema" command 'alacritty'
+        gsettings set "$kb_schema" binding '<Control><Alt>t'
         echo "Done"
     fi
 fi
