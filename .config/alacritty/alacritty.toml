@@ -5,6 +5,10 @@
 # a [general] section in 0.14, which would break this single file across the
 # different versions on Ubuntu (0.13.x) and Fedora (newer).
 
+[window.dimensions]
+columns = 80
+lines = 24
+
 [font]
 size = 13.0
 
