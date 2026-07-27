@@ -21,4 +21,5 @@
 
 ## Working effectively
 
+- Before implementing anything non-trivial, briefly say how you intend to do it and roughly how much code it involves. This is my chance to change my mind if the diff is bigger than it's worth. If it grows well beyond the estimate mid-implementation, pause and check in.
 - If you trip over a recurring snag (broken tooling, misleading editor errors, a non-obvious setup step, a footgun), don't just work around it silently — either fix it properly or leave a note so the next session (you or me) doesn't lose the same time. Prefer a proper fix; otherwise a short note in the nearest CLAUDE.md (project-specific snags) or a memory. Mention which you did.
