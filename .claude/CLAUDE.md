@@ -19,6 +19,35 @@
 - Prefer pure functions when possible
 - Use classes only when necessary, and keep them small and focused
 
+## Language
+
+- Communication style guide (auto-loaded): @language.md
+
+## Skills
+
+### superpowers:brainstorming — no default spec document
+
+Keep the interactive parts and make them deeper: exploring context, one question at a time,
+2-3 approaches with trade-offs, and presenting the design in chat for approval. Ask more
+questions than the skill's minimum — a longer back-and-forth is welcome and is usually all I
+need. The in-chat design + approval satisfies the skill's HARD-GATE.
+
+Skip these steps by default (they override checklist items 6-8 and the corresponding flowchart
+nodes):
+
+- Do NOT write `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`
+- Do NOT run the spec self-review or the "please review the spec file" gate
+
+Instead, once I approve the design in chat, ask whether I want it written up:
+
+> "Design approved. Want a written spec/plan document, or go straight to implementing?"
+
+Write the spec (and then invoke writing-plans) only if I say yes. Same for the implementation
+plan document — for small or medium changes, just implement from the approved in-chat design.
+
+Suggest a written spec on your own when it's actually earned: many steps, work spanning several
+sessions, or details I'll want to check line by line. Say why, then let me decide.
+
 ## Working effectively
 
 - Before implementing anything non-trivial, briefly say how you intend to do it and roughly how much code it involves. This is my chance to change my mind if the diff is bigger than it's worth. If it grows well beyond the estimate mid-implementation, pause and check in.
