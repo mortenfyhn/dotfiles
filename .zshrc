@@ -134,3 +134,7 @@ eval "$(zoxide init zsh --cmd c)"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# Add scout-tools to PATH
+[[ "$PATH" != *"$HOME/.local/bin"* ]] && export PATH="$PATH:$HOME/.local/bin" || true
+source /home/morten/.scoutrc
+alias claude='CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1 claude --add-dir /home/morten/workspace/software-agent-context'
