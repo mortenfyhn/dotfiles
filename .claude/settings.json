@@ -20,8 +20,19 @@
     "command": "bash ~/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "clangd-lsp@claude-plugins-official": true
+    "clangd-lsp@claude-plugins-official": true,
+    "sem-ai@semaphoreio": true,
+    "superpowers@claude-plugins-official": true
   },
+  "extraKnownMarketplaces": {
+    "semaphoreio": {
+      "source": {
+        "source": "github",
+        "repo": "semaphoreio/sem-ai"
+      }
+    }
+  },
+  "effortLevel": "medium",
   "voice": {
     "enabled": true,
     "mode": "hold"
