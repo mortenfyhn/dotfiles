@@ -50,5 +50,6 @@ sessions, or details I'll want to check line by line. Say why, then let me decid
 
 ## Working effectively
 
-- Before implementing anything non-trivial, briefly say how you intend to do it and roughly how much code it involves. This is my chance to change my mind if the diff is bigger than it's worth. If it grows well beyond the estimate mid-implementation, pause and check in.
+- Design non-trivial changes with me before writing code. Skip it for mechanical edits and bugs with one obvious fix, or when I say "just do it".
+- When we settle on an approach, say roughly how much code it involves, and check in if it grows well beyond that mid-implementation.
 - If you trip over a recurring snag (broken tooling, misleading editor errors, a non-obvious setup step, a footgun), don't just work around it silently — either fix it properly or leave a note so the next session (you or me) doesn't lose the same time. Prefer a proper fix; otherwise a short note in the nearest CLAUDE.md (project-specific snags) or a memory. Mention which you did.
