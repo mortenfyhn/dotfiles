@@ -71,6 +71,10 @@ bindkey "^[[F" end-of-line
 bindkey "^[[1~" beginning-of-line # Alternative Home
 bindkey "^[[4~" end-of-line       # Alternative End
 
+# Treat / . - as word separators so word jumping and deletion step through
+# path segments one at a time instead of swallowing a whole path.
+WORDCHARS=${WORDCHARS//[\/.-]}
+
 # Ctrl+Left/Right for word jumping
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
