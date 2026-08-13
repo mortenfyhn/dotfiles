@@ -13,7 +13,7 @@ My dotfiles and other computer setup stuff. Based on [this](https://www.atlassia
 
 ```sh
 bash <(wget -qO- -o /dev/null \
-  https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/install-dotfiles.sh)
+  https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.install-dotfiles.sh)
 ```
 
 Append `--headless` when needed.
@@ -21,6 +21,6 @@ Append `--headless` when needed.
 ### Re-install
 
 ```sh
-~/install-dotfiles.sh
+~/.install-dotfiles.sh
 ```
 
