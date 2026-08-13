@@ -4,19 +4,47 @@
         {
             "path": ".",
             "folder_include_patterns":
-                [
-                    ".byobu",
-                    ".config",
-                    ".config/dotfiles",
-                    ".config/sublime-text",
-                    ".github",
-                    ".local",
-                    ".local/bin",
-                    ".semaphore",
+            [
+                "//.byobu",
+                "//.claude",
+                "//.config",
+                "//.config/alacritty",
+                "//.config/dotfiles",
+                "//.config/sublime-text",
+                "//.config/sublime-text/Packages",
+                "//.config/sublime-text/Packages/Dotfiles",
+                "//.config/sublime-text/Packages/User",
+                "//.github",
+                "//.local",
+                "//.local/bin",
+                "//.semaphore"
             ],
-        },
-        {
-			"path": ".claude"
-		},
-    ],
+            "file_include_patterns":
+            [
+                "//.byobu/.tmux.conf",
+                "//.ci.sh",
+                "//.claude/CLAUDE.md",
+                "//.claude/claude.png",
+                "//.claude/settings.json",
+                "//.config/alacritty/alacritty.toml",
+                "//.config/dotfiles/non-breaking-space.patch",
+                "//.config/dotfiles/remap-caps-lock.patch",
+                "//.config/sublime-text/Packages/Dotfiles/Preferences.sublime-settings",
+                "//.config/sublime-text/Packages/User/Default (Linux).sublime-keymap",
+                "//.dotfiles-update-project.sh",
+                "//.dotfiles.sublime-project",
+                "//.github/README.md",
+                "//.gitignore",
+                "//.install-dotfiles.sh",
+                "//.local/bin/backup-home",
+                "//.local/bin/calc",
+                "//.local/bin/copy",
+                "//.local/bin/grim",
+                "//.local/bin/grom",
+                "//.local/bin/radix",
+                "//.semaphore/semaphore.yml",
+                "//.zshrc"
+            ]
+        }
+    ]
 }

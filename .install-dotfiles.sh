@@ -27,6 +27,10 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# Grant sudo right away
+sudo -v
+echo "Sudo granted"
+
 # Install git at the start for the git clone below
 if ! command -v git >/dev/null; then
     bold_blue "Installing git"
