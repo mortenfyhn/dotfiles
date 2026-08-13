@@ -1,5 +1,5 @@
 # Alacritty config, tracked in dotfiles for an identical terminal on all machines.
-# Font: Iosevka (installed by .install-dotfiles.sh).
+# Font: Iosevka (installed by .dotfiles-install.sh).
 # Only color and font keys are used here on purpose: they are stable across
 # Alacritty versions, whereas keys like `import`/`live_config_reload` moved under
 # a [general] section in 0.14, which would break this single file across the

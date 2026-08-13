@@ -20,24 +20,21 @@ blocks:
       - name: "Install"
         commands:
           # Install the same way I would, from GitHub without cloning first
-          - bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/${SEMAPHORE_GIT_SHA}/.install-dotfiles.sh)
+          - bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/${SEMAPHORE_GIT_SHA}/.dotfiles-install.sh)
           # Try sourcing .zshrc succeeds (`zsh -i` does so)
           # and re-run the install script in ZSH to test idempotency
           - echo 'echo "Sourced .zshrc"' >> ~/.zshrc
-          - zsh -i -c './.install-dotfiles.sh'
+          - zsh -i -c './.dotfiles-install.sh'
 
-      - name: "Shellcheck"
+      # Runs .dotfiles-check.sh rather than repeating the checks here, so this
+      # job and a local pre-push run can't disagree
+      - name: "Checks"
         commands:
           - checkout
             # Apparently shellcheck is pre-installed
           - shellcheck --version
-          - shellcheck .install-dotfiles.sh
-
-      - name: "Shell format"
-        commands:
-          - checkout
           - wget https://github.com/patrickvane/shfmt/releases/download/master/shfmt_linux_amd64 -O shfmt
           - chmod +x shfmt
-          - ./shfmt --version
-          - ./shfmt -i 4 -d .install-dotfiles.sh
-          - ./shfmt -i 4 -d .zshrc
+          - sudo mv shfmt /usr/local/bin/
+          - shfmt --version
+          - ./.dotfiles-check.sh

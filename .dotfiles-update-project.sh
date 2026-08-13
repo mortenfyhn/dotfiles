@@ -10,7 +10,16 @@
 
 set -Eeuo pipefail
 
-dots() { git --git-dir="$HOME"/.dotfiles --work-tree="$HOME" "$@"; }
+cd "$(dirname "$0")"
+
+# $HOME is not a work tree of its own, so locally the bare repo has to be named
+# explicitly. In CI the script runs inside a normal checkout, where plain git
+# already points at the right place.
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    dots() { git "$@"; }
+else
+    dots() { git --git-dir="$HOME"/.dotfiles --work-tree="$HOME" "$@"; }
+fi
 
 # A Sublime pattern starting with // is compared against the path relative to the
 # project root, so these match the tracked files and nothing else.
