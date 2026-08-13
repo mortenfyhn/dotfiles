@@ -26,9 +26,7 @@ blocks:
           - echo 'echo "Sourced .zshrc"' >> ~/.zshrc
           - zsh -i -c './.dotfiles-install.sh'
 
-      # Runs .dotfiles-check.sh rather than repeating the checks here, so this
-      # job and a local pre-push run can't disagree
-      - name: "Checks"
+      - name: "Check"
         commands:
           - checkout
             # Apparently shellcheck is pre-installed
