@@ -32,7 +32,9 @@
       }
     }
   },
+  "outputStyle": "Concise",
   "effortLevel": "medium",
+  "awaySummaryEnabled": false,
   "voice": {
     "enabled": true,
     "mode": "hold"
