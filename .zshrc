@@ -130,9 +130,10 @@ typeset -U path
 
 # Non-interactive shells: bail out early.
 case $- in *i*) ;; *) return ;; esac
-# Launch byobu if not already running somewhere (interactive shells only).
-if command -v byobu >/dev/null && [[ -z "$TMUX" ]] && ! tmux ls &>/dev/null && [[ -z "$CI" ]]; then
-    exec byobu
+
+# Launch Byobu in all new terminals
+if [[ -z "$TMUX" ]] && command -v byobu >/dev/null; then
+    exec byobu new-session
 fi
 
 eval "$(zoxide init zsh --cmd c)"
