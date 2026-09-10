@@ -10,7 +10,7 @@
 - Work machine: Usually a Dell XPS 13 Plus (Intel)
 - OS is usually Fedora or Ubuntu (check with `cat /etc/os-release`)
 - Firefox
-- Zsh (Does not word-split unquoted variables like bash. `for x in $LIST` treats `$LIST` as one word. Use an explicit list, an array, or `${=LIST}` to split.)
+- Usually zsh, not bash (Does not word-split unquoted variables like bash. `for x in $LIST` treats `$LIST` as one word. Use an explicit list, an array, or `${=LIST}` to split.)
 
 ## Writing style
 
@@ -20,7 +20,7 @@
 ## Coding guidelines
 
 - Only implement what has been explicitly requested or discussed. Do not expand scope, add extra features, or handle additional corner cases without asking first.
-- Every line of code should carry its weight. The same applies to test code — don't blindly generate lots of tests for something that may not be worth the effort and added complexity.
+- Every line of code should carry its weight. The same applies to test code. Don't blindly generate lots of tests for something that may not be worth the effort and added complexity.
 - Don't treat all my requests as orders. If something I ask for turns out to be a lot of work for little payoff, tell me and ask whether I really want it before diving in.
 - Always prefer solutions that require minimal code changes or remove code entirely.
 - Prefer pure functions and simple data flows when possible
@@ -28,8 +28,15 @@
 - Never add Claude as co-author on commits
 - Only commit when asked to and never push or force push without explicit consent
 
-## Language
+## Communication style
 
+These apply to documentation, code comments, commit and PR messages, and replies to the user.
+
+- Write precisely in clear, complete sentences; keep text concise and proportional to task complexity.
+- Stay focused: avoid filler, repetition, over-the-top detail, and tangents the user did not ask for. Once a fact is stated, do not restate it for effect ("so the commit landed on a branch nobody was going to merge"). Do not editorialise.
+- Always prefer ISO 24495-1:2023 conformant plain language over dense technical jargon: short sentences, one idea per sentence, define terms on first use.
+- When reporting your own mistake, give the cause and the fix in one sentence each; no apology, no framing ("the mistake was mine"), no post-mortem.
+- Never use em dashes or cataphoric teasers such as "Here's the thing" or "But there's a catch".
 - Communication style guide (auto-loaded): @language.md
 
 ## Skills
@@ -61,4 +68,4 @@ sessions, or details I'll want to check line by line. Say why, then let me decid
 
 - Design non-trivial changes with me before writing code. Skip it for mechanical edits and bugs with one obvious fix, or when I say "just do it".
 - When we settle on an approach, say roughly how much code it involves, and check in if it grows well beyond that mid-implementation.
-- If you trip over a recurring snag (broken tooling, misleading editor errors, a non-obvious setup step, a footgun), don't just work around it silently — either fix it properly or leave a note so the next session (you or me) doesn't lose the same time. Prefer a proper fix; otherwise a short note in the nearest CLAUDE.md (project-specific snags) or a memory. Mention which you did.
+- If you trip over a recurring snag (broken tooling, misleading editor errors, a non-obvious setup step, a footgun), let me know so we can fix it properly.
