@@ -36,7 +36,7 @@ These apply to documentation, code comments, commit and PR messages, and replies
 - Always prefer ISO 24495-1:2023 conformant plain language over dense technical jargon: short sentences, one idea per sentence, define terms on first use.
 - When reporting your own mistake, give the cause and the fix in one sentence each; no apology, no framing ("the mistake was mine"), no post-mortem.
 - Never use em dashes or cataphoric teasers such as "Here's the thing" or "But there's a catch".
-- Communication style guide (auto-loaded): @language.md
+- Communication style guide (auto-loaded): @~/.claude/language.md
 
 ## Skills
 
