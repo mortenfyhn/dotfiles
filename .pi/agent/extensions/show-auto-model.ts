@@ -20,7 +20,7 @@ export default function (pi: ExtensionAPI) {
 			message: {
 				...msg,
 				content: msg.content.map((b, i) =>
-					i === last ? { ...b, text: `${b.text.trimEnd()} (${model})` } : b,
+					i === last ? { ...b, text: `${b.text.trimEnd()}\u00a0\u00a0\u00a0(${model})` } : b,
 				),
 			},
 		};
