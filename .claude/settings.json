@@ -35,6 +35,11 @@
   },
   "outputStyle": "Concise",
   "effortLevel": "medium",
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "medium"
+    }
+  },
   "awaySummaryEnabled": false,
   "voice": {
     "enabled": true,

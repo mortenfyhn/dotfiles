@@ -1,1 +1,1 @@
-/home/morten/.agents/language.md
+../.agents/language.md

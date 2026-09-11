@@ -5,7 +5,7 @@
             "path": ".",
             "folder_include_patterns":
             [
-                "//.byobu",
+                "//.agents",
                 "//.claude",
                 "//.config",
                 "//.config/alacritty",
@@ -17,13 +17,18 @@
                 "//.github",
                 "//.local",
                 "//.local/bin",
+                "//.pi",
+                "//.pi/agent",
+                "//.pi/agent/extensions",
                 "//.semaphore"
             ],
             "file_include_patterns":
             [
-                "//.byobu/.tmux.conf",
+                "//.agents/AGENTS.md",
+                "//.agents/language.md",
                 "//.claude/CLAUDE.md",
                 "//.claude/claude.png",
+                "//.claude/language.md",
                 "//.claude/settings.json",
                 "//.config/alacritty/alacritty.toml",
                 "//.config/dotfiles/non-breaking-space.patch",
@@ -42,7 +47,11 @@
                 "//.local/bin/grim",
                 "//.local/bin/grom",
                 "//.local/bin/radix",
+                "//.pi/agent/AGENTS.md",
+                "//.pi/agent/extensions/show-auto-model.ts",
+                "//.pi/agent/settings.json",
                 "//.semaphore/semaphore.yml",
+                "//.tmux.conf",
                 "//.zshrc"
             ]
         }
