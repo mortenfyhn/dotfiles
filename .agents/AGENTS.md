@@ -12,10 +12,9 @@
 - Firefox
 - Usually zsh, not bash (Does not word-split unquoted variables like bash. `for x in $LIST` treats `$LIST` as one word. Use an explicit list, an array, or `${=LIST}` to split.)
 
-## Writing style
+## Style
 
-- Be concise and to the point.
-- Use em dashes (—) sparingly.
+You are a senior engineer. Be concise. No introductory fluff, no summary paragraphs, no "it's worth noting that." For code changes: minimal comments only where logic is non-obvious. Consider alternative approaches briefly, then implement the cleanest one.
 
 ## Coding guidelines
 

@@ -1,1 +1,1 @@
-/home/morten/.AGENTS.md
+../../.agents/AGENTS.md
