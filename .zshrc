@@ -131,9 +131,9 @@ typeset -U path
 # Non-interactive shells: bail out early.
 case $- in *i*) ;; *) return ;; esac
 
-# Launch Byobu in all new terminals
-if [[ -z "$TMUX" ]] && command -v byobu >/dev/null; then
-    exec byobu new-session
+# Launch tmux in all new terminals
+if [[ -z "$TMUX" ]] && command -v tmux >/dev/null; then
+    exec tmux new-session
 fi
 
 eval "$(zoxide init zsh --cmd c)"

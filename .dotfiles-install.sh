@@ -59,7 +59,7 @@ fi
 echo "Done"
 
 bold_blue "Installing applications"
-common_packages=(alacritty bat byobu ccache git tree zoxide zsh curl trash-cli)
+common_packages=(alacritty bat ccache git tree zoxide zsh curl tmux trash-cli)
 if command -v apt >/dev/null; then # Ubuntu
     sudo apt-get --quiet --quiet update
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
