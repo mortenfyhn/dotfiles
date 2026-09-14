@@ -128,6 +128,9 @@ fi
 path+=("$HOME/.local/bin")
 typeset -U path
 
+# Local machine-specific setup, not tracked.
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
 # Non-interactive shells: bail out early.
 case $- in *i*) ;; *) return ;; esac
 
@@ -137,6 +140,3 @@ if [[ -z "$TMUX" ]] && command -v tmux >/dev/null; then
 fi
 
 eval "$(zoxide init zsh --cmd c)"
-
-# Local machine-specific setup, not tracked.
-[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
