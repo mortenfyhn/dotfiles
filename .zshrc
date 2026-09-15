@@ -136,7 +136,7 @@ case $- in *i*) ;; *) return ;; esac
 
 # Launch tmux in all new terminals
 if [[ -z "$TMUX" ]] && command -v tmux >/dev/null; then
-    exec tmux new-session
+    tmux new-session
 fi
 
 # Guarded, so a machine without zoxide doesn't error on every shell
