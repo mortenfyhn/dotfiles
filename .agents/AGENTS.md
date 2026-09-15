@@ -1,4 +1,4 @@
-# Global Claude Instructions
+# Global Coding Agent Instructions
 
 ## Dotfiles
 
