@@ -79,7 +79,7 @@ echo "Done"
 
 bold_blue "Installing applications"
 # zoxide comes from a GitHub release below, since not every distro packages it
-core_packages=(bat ccache git tree zsh curl tmux trash-cli)
+core_packages=(bat ccache git tree zsh curl tmux trash-cli unzip)
 if command -v apt >/dev/null; then # Ubuntu
     sudo apt-get --quiet --quiet update
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
