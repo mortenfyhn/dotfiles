@@ -3,15 +3,34 @@
 set -Eeuo pipefail
 shopt -s expand_aliases
 
-red() { echo -e "\e[31m$*\e[0m"; }
-green() { echo -e "\e[32m$*\e[0m"; }
 yellow() { echo -e "\e[33m$*\e[0m"; }
-blue() { echo -e "\e[36m$*\e[0m"; }
 bold() { echo -e "\e[1m$*\e[0m"; }
-bold_red() { echo -e "\e[1;31m$*\e[0m"; }
 bold_green() { echo -e "\e[1;32m$*\e[0m"; }
-bold_yellow() { echo -e "\e[1;33m$*\e[0m"; }
 bold_blue() { echo -e "\e[1;36m$*\e[0m"; }
+
+# Install a single binary from a release tarball, for tools the distros package
+# too old or not at all
+install_release_binary() {
+    local command_name="$1" version="$2" url="$3"
+    bold_blue "Installing $command_name"
+    if command -v "$command_name" >/dev/null &&
+        # Stderr hidden: an installed-but-unrunnable binary is noisy (issue #89)
+        [[ $("$command_name" --version 2>/dev/null | awk 'NR==1 {print $2}') == "$version" ]]; then
+        echo "Already installed ${version}"
+        return
+    fi
+    if [[ $(uname -m) != "x86_64" ]]; then
+        yellow "Skipping: no release build for $(uname -m)"
+        return
+    fi
+    pushd "$(mktemp --directory)" >/dev/null
+    wget -q "$url"
+    tar -xzf ./*.tar.gz
+    mkdir -p ~/.local/bin
+    mv "$command_name" ~/.local/bin/
+    popd >/dev/null
+    echo "Done"
+}
 
 headless=false
 while [[ $# -gt 0 ]]; do
@@ -59,15 +78,26 @@ fi
 echo "Done"
 
 bold_blue "Installing applications"
-common_packages=(alacritty bat ccache git tree zoxide zsh curl tmux trash-cli)
+# zoxide comes from a GitHub release below, since not every distro packages it
+core_packages=(bat ccache git tree zsh curl tmux trash-cli)
 if command -v apt >/dev/null; then # Ubuntu
     sudo apt-get --quiet --quiet update
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
-    sudo apt-get --quiet --quiet install "${common_packages[@]}" neofetch gnome-shell-extensions
-    # Route x-terminal-emulator consumers to Alacritty (Debian/Ubuntu only)
-    sudo update-alternatives --set x-terminal-emulator /usr/bin/alacritty
+    sudo apt-get --quiet --quiet install "${core_packages[@]}"
+    if [[ "$headless" = false ]]; then
+        # Not in every release I use, so this is allowed to fail
+        sudo apt-get --quiet --quiet install alacritty neofetch gnome-shell-extensions ||
+            yellow "Skipped desktop packages"
+        # Route x-terminal-emulator consumers to Alacritty (Debian/Ubuntu only)
+        if command -v alacritty >/dev/null; then
+            sudo update-alternatives --set x-terminal-emulator /usr/bin/alacritty
+        fi
+    fi
 elif command -v dnf >/dev/null; then # Fedora
-    sudo dnf --assumeyes --quiet install "${common_packages[@]}"
+    sudo dnf --assumeyes --quiet install "${core_packages[@]}"
+    if [[ "$headless" = false ]]; then
+        sudo dnf --assumeyes --quiet install alacritty || yellow "Skipped alacritty"
+    fi
 else
     echo "I only support apt and dnf"
 fi
@@ -100,26 +130,19 @@ if [[ "$headless" = false ]]; then
     fi
 fi
 
-# Install difftastic
-bold_blue "Installing difftastic"
-version="0.67.0"
-if command -v difft >/dev/null && [[ $(difft --version | awk 'NR==1 {print $2}') == "$version" ]]; then
-    echo "Already installed ${version}"
-else
-    pushd "$(mktemp --directory)" >/dev/null
-    wget -q "https://github.com/Wilfred/difftastic/releases/download/${version}/difft-x86_64-unknown-linux-gnu.tar.gz"
-    tar -xzf difft-x86_64-unknown-linux-gnu.tar.gz
-    mkdir -p ~/.local/bin
-    mv difft ~/.local/bin/difft
-    popd >/dev/null
-fi
+difft_version="0.67.0"
+install_release_binary difft "$difft_version" \
+    "https://github.com/Wilfred/difftastic/releases/download/${difft_version}/difft-x86_64-unknown-linux-gnu.tar.gz"
 if difft --version &>/dev/null; then
     git config --global diff.external difft
 else
     # See https://github.com/mortenfyhn/dotfiles/issues/89
     git config unset --global diff.external || :
 fi
-echo "Done"
+
+zoxide_version="0.10.0"
+install_release_binary zoxide "$zoxide_version" \
+    "https://github.com/ajeetdsouza/zoxide/releases/download/v${zoxide_version}/zoxide-${zoxide_version}-x86_64-unknown-linux-musl.tar.gz"
 
 bold_blue "Installing other tools"
 if ! command -v emoji >/dev/null; then

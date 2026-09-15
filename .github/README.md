@@ -4,6 +4,20 @@
 
 My dotfiles and other computer setup stuff. Based on [this](https://www.atlassian.com/git/tutorials/dotfiles).
 
+### Supported operating systems
+
+| OS | Support | Tested |
+| --- | --- | --- |
+| Fedora, latest release | full | no |
+| Ubuntu 24.04 | full | CI, every push |
+| Ubuntu 20.04 | `--headless` only, best-effort | no |
+
+Ubuntu 20.04 is only there for a work dev container. It packages neither zoxide
+nor alacritty: zoxide is installed from a GitHub release instead, and desktop
+packages are only installed without `--headless`.
+
+Plan: run the install in a container per supported OS in CI.
+
 ### Prerequisites
 
 * [Connect to GitHub with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
