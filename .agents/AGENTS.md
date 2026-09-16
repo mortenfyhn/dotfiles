@@ -11,6 +11,8 @@
 - OS is usually Fedora or Ubuntu (check with `cat /etc/os-release`)
 - Firefox
 - Usually zsh, not bash (Does not word-split unquoted variables like bash. `for x in $LIST` treats `$LIST` as one word. Use an explicit list, an array, or `${=LIST}` to split.)
+- Editor: Sublime Text, not e.g. VS Code
+- ROS work mostly done in a devcontainer, using devcontainer-cli
 
 ## Style
 
