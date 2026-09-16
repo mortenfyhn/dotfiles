@@ -56,3 +56,15 @@ blue    = "#61afef"
 magenta = "#c678dd"
 cyan    = "#56b6c2"
 white   = "#ffffff"
+
+# Alacritty lacks xterm modifyOtherKeys, so apps in tmux never see modified
+# Enter keys without these bindings.
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001b[13;2u"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Alt"
+chars = "\u001b[13;3u"
