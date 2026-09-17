@@ -13,10 +13,14 @@ if [[ ! -f $input ]]; then
     exit 1
 fi
 
-command -v convert >/dev/null || {
-    printf 'img2web requires ImageMagick (convert)\n' >&2
+if command -v magick >/dev/null; then
+    im=magick
+elif command -v convert >/dev/null; then
+    im=convert
+else
+    printf 'img2web requires ImageMagick (magick or convert)\n' >&2
     exit 1
-}
+fi
 
 dir=${input%/*}
 [[ $dir == "$input" ]] && dir=.
@@ -25,7 +29,7 @@ stem=${name%.*}
 [[ -n $stem ]] || stem=$name
 output=$dir/${stem}-web.jpg
 
-convert "$input" \
+"$im" "$input" \
     -auto-orient \
     -background white -alpha remove -alpha off \
     -resize '2000x2000>' \
