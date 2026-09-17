@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+if [[ $# -ne 1 ]]; then
+    printf 'Usage: %s VIDEO_FILE\n' "$0" >&2
+    exit 2
+fi
+
+input=$1
+if [[ ! -f $input ]]; then
+    printf 'File not found: %s\n' "$input" >&2
+    exit 1
+fi
+
+command -v ffmpeg >/dev/null || {
+    printf 'vid2web requires ffmpeg\n' >&2
+    exit 1
+}
+
+dir=${input%/*}
+[[ $dir == "$input" ]] && dir=.
+name=${input##*/}
+stem=${name%.*}
+[[ -n $stem ]] || stem=$name
+output=$dir/${stem}-web.mp4
+
+ffmpeg -hide_banner -y -i "$input" \
+    -map 0:v:0 -map 0:a:0? \
+    -vf "scale='min(1280,iw)':'min(1280,ih)':force_original_aspect_ratio=decrease:force_divisible_by=2" \
+    -r 30 \
+    -c:v libx264 -preset medium -crf 28 -profile:v main -pix_fmt yuv420p \
+    -c:a aac -b:a 96k -ac 2 \
+    -movflags +faststart \
+    "$output"
+
+printf '%s\n' "$output"

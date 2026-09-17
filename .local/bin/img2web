@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+if [[ $# -ne 1 ]]; then
+    printf 'Usage: %s IMAGE_FILE\n' "$0" >&2
+    exit 2
+fi
+
+input=$1
+if [[ ! -f $input ]]; then
+    printf 'File not found: %s\n' "$input" >&2
+    exit 1
+fi
+
+command -v convert >/dev/null || {
+    printf 'img2web requires ImageMagick (convert)\n' >&2
+    exit 1
+}
+
+dir=${input%/*}
+[[ $dir == "$input" ]] && dir=.
+name=${input##*/}
+stem=${name%.*}
+[[ -n $stem ]] || stem=$name
+output=$dir/${stem}-web.jpg
+
+convert "$input" \
+    -auto-orient \
+    -background white -alpha remove -alpha off \
+    -resize '2000x2000>' \
+    -colorspace sRGB \
+    -strip \
+    -sampling-factor 4:2:0 \
+    -interlace Plane \
+    -quality 82 \
+    "$output"
+
+printf '%s\n' "$output"
