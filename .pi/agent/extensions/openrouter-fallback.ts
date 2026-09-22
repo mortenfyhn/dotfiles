@@ -4,7 +4,8 @@ import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 const FALLBACK_PROVIDER = "openrouter";
 const FALLBACK_MODEL = "deepseek/deepseek-v4-flash-0731";
 
-const FAILURE = /(temporarily rate-limited|rate limit|too many requests|unavailable|overloaded|provider error|model .*not found|no available)/i;
+const FAILURE =
+	/(temporarily rate-limited|rate limit|too many requests|unavailable|overloaded|provider error|model .*not found|no available|no models match|model restrictions)/i;
 
 type SessionState = {
 	lastPrompt?: string;
