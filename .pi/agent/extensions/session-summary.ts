@@ -1,123 +1,152 @@
 import { uuidv7 } from "@earendil-works/pi-ai";
-import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
+import { convertToLlm, type ExtensionAPI, type ExtensionContext } from "@earendil-works/pi-coding-agent";
 
-const FIRST_REVIEW_AT = 4;
-const REVIEW_EVERY = 8;
-const MAX_TRANSCRIPT_CHARS = 7000;
 const STATE_TYPE = "session-summary-state";
+const MAX_TRANSCRIPT_CHARS = 24000;
+const HEAD_TRANSCRIPT_CHARS = 8000;
+const MAX_MESSAGE_CHARS = 2000;
+const MAX_TITLE_CHARS = 220;
 
-function text(content: unknown): string {
+const TITLE_INSTRUCTION = [
+	"Write a title for the conversation below to show in the session browser.",
+	"It should answer what the session is about in one short sentence of about 4-12 words.",
+	"Describe the overall topic, not just the last exchange.",
+	"Reply with only the title, no quotes, prefix, or trailing punctuation.",
+].join("\n");
+
+function contentText(content: unknown): string {
 	if (typeof content === "string") return content;
 	if (!Array.isArray(content)) return "";
-	return content.filter((p: any) => p?.type === "text" && typeof p.text === "string").map((p) => p.text).join("\n");
+	return content
+		.filter((p: any) => p?.type === "text" && typeof p.text === "string")
+		.map((p: any) => p.text)
+		.join("");
 }
 
-function transcript(branch: any[]): string {
+function toolNames(content: unknown): string[] {
+	if (!Array.isArray(content)) return [];
+	return content.filter((p: any) => p?.type === "toolCall" && typeof p.name === "string").map((p: any) => p.name);
+}
+
+function buildTranscript(messages: any[]): string {
 	const parts: string[] = [];
-	for (const e of branch) {
-		if (e.type !== "message") continue;
-		const role = e.message?.role;
-		if (role !== "user" && role !== "assistant") continue;
-		const t = text(e.message?.content).trim();
-		if (!t) continue;
-		parts.push(`${role === "user" ? "U" : "A"}: ${t.slice(0, 700)}`);
+	for (const m of messages) {
+		if (m.role === "user") {
+			const t = contentText(m.content).trim();
+			if (t) parts.push(`User: ${t.slice(0, MAX_MESSAGE_CHARS)}`);
+		} else if (m.role === "assistant") {
+			const t = contentText(m.content).trim();
+			if (t) parts.push(`Assistant: ${t.slice(0, MAX_MESSAGE_CHARS)}`);
+			const names = toolNames(m.content);
+			if (names.length) parts.push(`(Assistant used tools: ${names.join(", ")})`);
+		}
 	}
 	const joined = parts.join("\n\n");
-	return joined.length <= MAX_TRANSCRIPT_CHARS ? joined : joined.slice(-MAX_TRANSCRIPT_CHARS);
+	if (joined.length <= MAX_TRANSCRIPT_CHARS) return joined;
+	const head = joined.slice(0, HEAD_TRANSCRIPT_CHARS);
+	const tail = joined.slice(-(MAX_TRANSCRIPT_CHARS - HEAD_TRANSCRIPT_CHARS));
+	return `${head}\n\n[... omitted ...]\n\n${tail}`;
 }
 
 export default function (pi: ExtensionAPI) {
+	let autoTitled = false;
 	let lastAutoName: string | undefined;
-	let lastReviewedCount = 0;
-	let reviewing = false;
+	let running = false;
 
 	pi.on("session_start", (_event, ctx) => {
+		autoTitled = false;
 		lastAutoName = undefined;
-		lastReviewedCount = 0;
 		for (const e of ctx.sessionManager.getEntries() as any[]) {
 			if (e.type === "custom" && e.customType === STATE_TYPE) {
-				lastReviewedCount = e.data?.lastReviewedUserCount ?? 0;
+				autoTitled = true;
 				lastAutoName = e.data?.autoName;
 			}
 		}
 	});
 
-	async function doReview(ctx: ExtensionContext, force = false) {
-		if (reviewing) {
-			if (force && ctx.hasUI) ctx.ui.notify("Already reviewing title", "info");
+	async function retitle(ctx: ExtensionContext, force: boolean) {
+		const notify = (msg: string) => {
+			if (ctx.hasUI) ctx.ui.notify(msg, "info");
+		};
+		const fail = (msg: string) => {
+			if (force && ctx.hasUI) ctx.ui.notify(msg, "warning");
+		};
+
+		if (running) {
+			if (force) notify("Title generation already in progress");
 			return;
 		}
 		if (!ctx.sessionManager.isPersisted()) {
-			if (force && ctx.hasUI) ctx.ui.notify("Not a persisted session", "warning");
+			fail("Session is not persisted");
 			return;
 		}
-		// If the session has a name not set by us, it was manual — leave it alone.
-		if (!force && pi.getSessionName() && pi.getSessionName() !== lastAutoName) return;
+		// Auto-titling only once, and never over a name the user set by hand.
+		const current = pi.getSessionName();
+		if (!force && autoTitled) return;
+		if (!force && current && current !== lastAutoName) return;
 
-		const branch = ctx.sessionManager.getBranch() as any[];
-		const userCount = branch.filter((e) => e.type === "message" && e.message?.role === "user").length;
-		if (!force && userCount < FIRST_REVIEW_AT) return;
-		if (!force && userCount - lastReviewedCount < REVIEW_EVERY) return;
+		const model = ctx.model;
+		if (!model || !ctx.modelRegistry.hasConfiguredAuth(model)) {
+			fail("Active model is not available");
+			return;
+		}
 
-		reviewing = true;
+		running = true;
 		try {
-			const model = ctx.modelRegistry.find("openrouter", "openai/gpt-4.1-nano") ??
-				ctx.modelRegistry.find("openrouter", "openai/gpt-4o-mini") ??
-				ctx.model;
-			if (!model || !ctx.modelRegistry.hasConfiguredAuth(model)) return;
+			const messages = convertToLlm(ctx.sessionManager.buildSessionContext().messages);
+			if (!messages.some((m) => m.role === "user") || !messages.some((m) => m.role === "assistant")) return;
+			const transcript = buildTranscript(messages);
 
-			const current = pi.getSessionName() ?? "(first prompt)";
-			const prompt = [
-				"Review the session below and decide whether its title (shown in a session browser) should change.",
-				"The title must be a short label (2-6 words), not a full sentence.",
-				"Reply KEEP if the current title is still accurate, or UPDATE: followed by the new short title.",
-				"Example: UPDATE: Refactor auth module",
-				"",
-				`Current title: ${current}`,
-				"Session:",
-				transcript(branch),
-			].join("\n");
-
+			if (force) notify("Generating session title...");
 			const response = await ctx.modelRegistry.complete(
 				model,
-				{ messages: [{ role: "user", content: [{ type: "text", text: prompt }], timestamp: Date.now() }] },
-				{ reasoningEffort: "low", cacheRetention: "none", sessionId: uuidv7() },
+				{
+					messages: [
+						{
+							role: "user",
+							content: [{ type: "text", text: `${TITLE_INSTRUCTION}\n\nSession:\n${transcript}` }],
+							timestamp: Date.now(),
+						},
+					],
+				},
+				{ cacheRetention: "none", sessionId: uuidv7() },
 			);
-			const result = response.content
+			if (response.stopReason !== "stop") {
+				fail(`Title generation failed (${response.stopReason})`);
+				return;
+			}
+			const title = response.content
 				.filter((p: any) => p.type === "text")
 				.map((p: any) => p.text ?? "")
 				.join(" ")
+				.replace(/^["'`]+|["'`]+$/g, "")
+				.replace(/\s+/g, " ")
 				.trim();
-
-			if (/^UPDATE:/i.test(result)) {
-				const name = result.replace(/^UPDATE:\s*/i, "").replace(/[\r\n]+/g, " ").trim();
-				if (name && name.length <= 220) {
-					lastAutoName = name;
-					lastReviewedCount = userCount;
-					pi.setSessionName(name);
-					pi.appendEntry(STATE_TYPE, { lastReviewedUserCount: userCount, autoName: name });
-					if (ctx.hasUI) ctx.ui.notify(`Title: ${name}`, "info");
-				}
-			} else if (result.toUpperCase() === "KEEP") {
-				lastReviewedCount = userCount;
-				pi.appendEntry(STATE_TYPE, { lastReviewedUserCount: userCount, autoName: lastAutoName });
-				if (force && ctx.hasUI) ctx.ui.notify("Title unchanged", "info");
+			if (!title || title.length > MAX_TITLE_CHARS) {
+				fail("Title generation returned no usable title");
+				return;
 			}
+
+			autoTitled = true;
+			lastAutoName = title;
+			pi.setSessionName(title);
+			pi.appendEntry(STATE_TYPE, { autoName: title });
+			notify(`Title: ${title}`);
 		} catch {
-			// best effort
+			fail("Title generation failed");
 		} finally {
-			reviewing = false;
+			running = false;
 		}
 	}
 
 	pi.on("agent_settled", async (_event, ctx) => {
-		await doReview(ctx);
+		await retitle(ctx, false);
 	});
 
 	pi.registerCommand("summarize", {
-		description: "Update session browsing title",
+		description: "Regenerate the session title from the full context",
 		handler: async (_args, ctx) => {
-			await doReview(ctx, true);
+			await retitle(ctx, true);
 		},
 	});
 }
