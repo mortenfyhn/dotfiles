@@ -143,7 +143,7 @@ export default function (pi: ExtensionAPI) {
 		await retitle(ctx, false);
 	});
 
-	pi.registerCommand("summarize", {
+	pi.registerCommand("rename", {
 		description: "Regenerate the session title from the full context",
 		handler: async (_args, ctx) => {
 			await retitle(ctx, true);
