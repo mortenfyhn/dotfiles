@@ -56,14 +56,10 @@ else
     echo "Warning: zsh-autosuggestions not installed"
 fi
 
-# Make sure arrow up/down only scrolls history matching what I've already typed
-# https://superuser.com/a/585004
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey "^[[A" up-line-or-beginning-search
-bindkey "^[[B" down-line-or-beginning-search
+# Type a prefix (e.g. cd), then Up/Down cycles through matching history,
+# newest first, without executing it. With no prefix, browse all history.
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
 
 # Home/End keys
 bindkey "^[[H" beginning-of-line
