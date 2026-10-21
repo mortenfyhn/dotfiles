@@ -7,14 +7,12 @@ SAVEHIST=100000
 autoload -Uz compinit
 compinit
 
-# Enhanced completion menu
+# Repeated Tab cycles through completion candidates.
 zstyle ':completion:*' menu select
 
-# Fuzzy matching, don't have to type from the start
-# zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
+# Ignore case; try prefix matches first, then matches within names.
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'm:{a-zA-Z}={A-Za-z} r:|=*' 'm:{a-zA-Z}={A-Za-z} l:|=* r:|=*'
 setopt complete_in_word
-setopt auto_menu # Show all selections for tabbing
 
 # Change directory without typing cd
 setopt autocd
