@@ -60,7 +60,6 @@ bindkey "^[[3;5~" kill-word                      # Ctrl+Delete
 # Aliases
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias cl=claude
 alias d=dots
 alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias ga='git add'
