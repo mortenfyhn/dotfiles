@@ -46,28 +46,18 @@ else
     echo "Warning: zsh-autosuggestions not installed"
 fi
 
-# Type a prefix (e.g. cd), then Up/Down cycles through matching history,
-# newest first, without executing it. With no prefix, browse all history.
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
-
-# Handle both common Home/End key encodings.
-bindkey "^[[H" beginning-of-line
-bindkey "^[[F" end-of-line
-bindkey "^[[1~" beginning-of-line
-bindkey "^[[4~" end-of-line
-
-# Treat / . - as word separators so word jumping and deletion step through
-# path segments one at a time instead of swallowing a whole path.
-WORDCHARS=${WORDCHARS//[\/.-]/}
-
-# Ctrl+Left/Right for word jumping
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-
-# Ctrl+Backspace/Delete for word deletion
-bindkey "^H" backward-kill-word
-bindkey "^[[3;5~" kill-word
+# Keybindings
+WORDCHARS=${WORDCHARS//[\/.-]/}                  # Move/delete words one path segment at a time.
+bindkey "^[[A" history-beginning-search-backward # Up: recall older prefix matches; empty prefix matches all.
+bindkey "^[[B" history-beginning-search-forward  # Down: newer matches, then restore the typed prefix.
+bindkey "^[[H" beginning-of-line                 # Home
+bindkey "^[[F" end-of-line                       # End
+bindkey "^[[1~" beginning-of-line                # Home (alternate encoding)
+bindkey "^[[4~" end-of-line                      # End (alternate encoding)
+bindkey "^[[1;5C" forward-word                   # Ctrl+Right
+bindkey "^[[1;5D" backward-word                  # Ctrl+Left
+bindkey "^H" backward-kill-word                  # Ctrl+Backspace
+bindkey "^[[3;5~" kill-word                      # Ctrl+Delete
 
 # Aliases
 alias ...='cd ../..'
