@@ -108,7 +108,7 @@ typeset -U path
 # Use c to jump to frequently visited directories, if zoxide is installed.
 command -v zoxide >/dev/null && eval "$(zoxide init zsh --cmd c)"
 
-# Launch tmux in all new terminals
+# Exiting tmux closes the terminal.
 if [[ -z "$TMUX" ]] && command -v tmux >/dev/null; then
-    tmux new-session
+    exec tmux
 fi
