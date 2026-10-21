@@ -27,23 +27,15 @@ promptinit
 prompt pure
 setopt nocaseglob
 
-# Customize Pure's caret without reassigning PROMPT: current Pure bakes the path
-# and git info into PROMPT, so overriding it wipes them out (leaving only a caret).
-# Drive Pure's own knobs instead. Caret is green on success, red with the exit
-# code on failure (%? is the exit code; 34 is a nice green, 202 a nice red).
+# Bold caret: green on success, red with the exit code on failure.
 zstyle ':prompt:pure:prompt:success' color 34
 zstyle ':prompt:pure:prompt:error' color 202
 PURE_PROMPT_SYMBOL='%(?..%? )%B❯%b'
 
-if [[ -f /.dockerenv ]]; then
-    PURE_PROMPT_SYMBOL='%(?..%? )🐋 %B❯%b'
-fi
-
 # Show git stash
 zstyle :prompt:pure:git:stash show yes
 
-# Pure's default git branch color (242) is too dim on a dark background. Use the
-# theme's normal foreground (7) so the branch reads like normal text.
+# Keep the Git branch readable on a dark background.
 zstyle ':prompt:pure:git:branch' color 7
 
 # Autosuggestions
