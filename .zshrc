@@ -117,10 +117,10 @@ typeset -U path
 # Local machine-specific setup, not tracked.
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
+# Use c to jump to frequently visited directories, if zoxide is installed.
+command -v zoxide >/dev/null && eval "$(zoxide init zsh --cmd c)"
+
 # Launch tmux in all new terminals
 if [[ -z "$TMUX" ]] && command -v tmux >/dev/null; then
     tmux new-session
 fi
-
-# Guarded, so a machine without zoxide doesn't error on every shell
-command -v zoxide >/dev/null && eval "$(zoxide init zsh --cmd c)"
