@@ -17,8 +17,8 @@ setopt complete_in_word
 # Change directory without typing cd
 setopt autocd
 
-# Share history between tmux sessions
-setopt inc_append_history
+# Make commands from other terminals available in history searches.
+setopt share_history
 
 # Set up "Pure" prompt
 fpath+=($HOME/.zsh/pure)
