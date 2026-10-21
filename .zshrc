@@ -51,11 +51,11 @@ fi
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 
-# Home/End keys
+# Handle both common Home/End key encodings.
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
-bindkey "^[[1~" beginning-of-line # Alternative Home
-bindkey "^[[4~" end-of-line       # Alternative End
+bindkey "^[[1~" beginning-of-line
+bindkey "^[[4~" end-of-line
 
 # Treat / . - as word separators so word jumping and deletion step through
 # path segments one at a time instead of swallowing a whole path.
