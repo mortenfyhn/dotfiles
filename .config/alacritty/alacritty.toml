@@ -57,8 +57,7 @@ magenta = "#c678dd"
 cyan    = "#56b6c2"
 white   = "#ffffff"
 
-# Alacritty lacks xterm modifyOtherKeys, so apps in tmux never see modified
-# Enter keys without these bindings.
+# Preserve Shift+Enter and Alt+Enter through tmux.
 [[keyboard.bindings]]
 key = "Return"
 mods = "Shift"
