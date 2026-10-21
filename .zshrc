@@ -26,11 +26,9 @@ autoload -U promptinit
 promptinit
 prompt pure
 setopt nocaseglob
-
-# Bold caret: green on success, red with the exit code on failure.
-zstyle ':prompt:pure:prompt:success' color 34
-zstyle ':prompt:pure:prompt:error' color 202
-PURE_PROMPT_SYMBOL='%(?..%? )%B❯%b'
+zstyle ':prompt:pure:prompt:success' color 34  # Green
+zstyle ':prompt:pure:prompt:error' color 202   # Red
+PURE_PROMPT_SYMBOL='%(?..%? )%B❯%b'            # Nice caret
 
 # Show git stash
 zstyle :prompt:pure:git:stash show yes
