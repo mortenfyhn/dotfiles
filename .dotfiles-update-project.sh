@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Prints a Sublime project file showing exactly the files tracked in the dotfiles
-# repo, so the sidebar isn't buried in untracked stuff in $HOME. Regenerate after
+# Prints a Sublime project file showing tracked dotfiles plus .zshrc.local,
+# so the sidebar isn't buried in untracked stuff in $HOME. Regenerate after
 # tracking new files:
 #
 #     ~/.dotfiles-update-project.sh > ~/.dotfiles.sublime-project
@@ -22,10 +22,10 @@ else
 fi
 
 # A Sublime pattern starting with // is compared against the path relative to the
-# project root, so these match the tracked files and nothing else.
+# project root, so these match tracked files plus the machine-local .zshrc.local.
 # LC_ALL=C keeps the order identical everywhere, so the .ci.sh diff below only
 # fires on real drift and not on a different locale.
-names() { dots ls-files | sed 's|^|//|' | LC_ALL=C sort -u; }
+names() { { dots ls-files; printf '%s\n' '.zshrc.local'; } | sed 's|^|//|' | LC_ALL=C sort -u; }
 
 # Every directory holding a tracked file, plus its ancestors: Sublime hides a
 # folder unless the folder itself matches.

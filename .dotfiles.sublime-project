@@ -26,6 +26,7 @@
             [
                 "//.agents/AGENTS.md",
                 "//.agents/language.md",
+                "//.aliases",
                 "//.claude/CLAUDE.md",
                 "//.claude/claude.png",
                 "//.claude/language.md",
@@ -46,13 +47,18 @@
                 "//.local/bin/copy",
                 "//.local/bin/grim",
                 "//.local/bin/grom",
+                "//.local/bin/img2web",
                 "//.local/bin/radix",
+                "//.local/bin/vid2web",
                 "//.pi/agent/AGENTS.md",
+                "//.pi/agent/extensions/openrouter-fallback.ts",
+                "//.pi/agent/extensions/session-rename.ts",
                 "//.pi/agent/extensions/show-auto-model.ts",
                 "//.pi/agent/settings.json",
                 "//.semaphore/semaphore.yml",
                 "//.tmux.conf",
-                "//.zshrc"
+                "//.zshrc",
+                "//.zshrc.local"
             ]
         }
     ]
