@@ -45,9 +45,12 @@ else
 fi
 
 # Keybindings
-WORDCHARS=${WORDCHARS//[\/.-]/}                  # Move/delete words one path segment at a time.
-bindkey "^[[A" history-beginning-search-backward # Up: recall older prefix matches; empty prefix matches all.
-bindkey "^[[B" history-beginning-search-forward  # Down: newer matches, then restore the typed prefix.
+WORDCHARS=${WORDCHARS//[\/.-]/} # Move/delete words one path segment at a time.
+autoload -Uz history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^[[A" history-beginning-search-backward-end # Up: older prefix matches; empty prefix matches all.
+bindkey "^[[B" history-beginning-search-forward-end  # Down: newer matches, then restore the typed prefix.
 bindkey "^[[H" beginning-of-line                 # Home
 bindkey "^[[F" end-of-line                       # End
 bindkey "^[[1~" beginning-of-line                # Home (alternate encoding)
