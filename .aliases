@@ -29,5 +29,4 @@ alias o=xdg-open
 alias sa='subl --add'
 alias sn='subl --launch-or-new-window'
 alias t=trash
-alias z='source ~/.zshrc'
 alias wip='git add . && git commit -m "wip"'
