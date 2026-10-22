@@ -1,0 +1,33 @@
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias d=dots
+alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias ga='git add'
+alias gbd='git branch --delete'
+alias gbD='git branch --delete --force'
+# Delete local branches whose upstream is gone (merged + remote auto-deleted). -D since squash merges hide the merge from branch -d.
+alias gbgone='git fetch --prune && git branch -vv | grep ": gone]" | awk "{print \$1}" | xargs -r git branch -D'
+alias gca='git commit --amend'
+alias gcan='git commit --amend --no-edit'
+alias gch='git checkout'
+alias gchb='git checkout -b'
+alias gcm='git commit -m'
+alias gcp='git cherry-pick'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gl='git log --decorate --oneline --graph'
+alias gla='git log --all --decorate --oneline --graph'
+alias glas='git log --all --decorate --oneline --graph --simplify-by-decoration'
+alias gla20='gla -20'
+alias gs='git status'
+alias gsh='git show'
+alias j=jotta-cli
+alias l=ls
+alias la='ls -a'
+alias lg=lazygit
+alias o=xdg-open
+alias sa='subl --add'
+alias sn='subl --launch-or-new-window'
+alias t=trash
+alias z='source ~/.zshrc'
+alias wip='git add . && git commit -m "wip"'
