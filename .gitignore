@@ -1,1 +1,3 @@
 .dotfiles
+.claude/settings.json
+.pi/agent/settings.json
