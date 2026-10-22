@@ -78,8 +78,7 @@ fi
 echo "Done"
 
 bold_blue "Installing applications"
-# zoxide comes from a GitHub release below, since not every distro packages it
-core_packages=(bat ccache git tree zsh curl tmux trash-cli unzip)
+core_packages=(bat ccache git tree zsh zoxide curl tmux trash-cli unzip)
 if command -v apt >/dev/null; then # Ubuntu
     sudo apt-get --quiet --quiet update
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
@@ -139,10 +138,6 @@ else
     # See https://github.com/mortenfyhn/dotfiles/issues/89
     git config unset --global diff.external || :
 fi
-
-zoxide_version="0.10.0"
-install_release_binary zoxide "$zoxide_version" \
-    "https://github.com/ajeetdsouza/zoxide/releases/download/v${zoxide_version}/zoxide-${zoxide_version}-x86_64-unknown-linux-musl.tar.gz"
 
 bold_blue "Installing other tools"
 if ! command -v emoji >/dev/null; then

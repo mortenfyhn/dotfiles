@@ -10,11 +10,9 @@ My dotfiles and other computer setup stuff. Based on [this](https://www.atlassia
 | --- | --- | --- |
 | Fedora, latest release | full | no |
 | Ubuntu 24.04 | full | CI, every push |
-| Ubuntu 20.04 | `--headless` only, best-effort | no |
+| Ubuntu 22.04 | best-effort | no |
 
-Ubuntu 20.04 is only there for a work dev container. It packages neither zoxide
-nor alacritty: zoxide is installed from a GitHub release instead, and desktop
-packages are only installed without `--headless`.
+Ubuntu 22.04 is the oldest supported Ubuntu release.
 
 Plan: run the install in a container per supported OS in CI.
 
