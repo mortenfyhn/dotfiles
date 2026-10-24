@@ -68,8 +68,10 @@ fi
 bold_blue "Cloning dotfiles repo"
 grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >>~/.gitignore
 if [[ ! -d ~/.dotfiles ]]; then
-    git clone -q --bare git@github.com:mortenfyhn/dotfiles.git ~/.dotfiles
+    git clone -q --bare https://github.com/mortenfyhn/dotfiles.git ~/.dotfiles
+    # Clone over HTTPS so it works without an SSH key, push over SSH
     dots() { git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"; }
+    dots remote set-url --push origin git@github.com:mortenfyhn/dotfiles.git
     dots checkout --force
     dots config --local status.showUntrackedFiles no
     dots config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
@@ -81,8 +83,11 @@ chmod +x ~/.dotfiles/hooks/pre-push
 echo "Done"
 
 bold_blue "Installing applications"
-core_packages=(bat ccache git tree zsh zoxide curl tmux trash-cli unzip shellcheck shfmt)
+core_packages=(bat ccache git tree zsh zoxide curl tmux trash-cli unzip shellcheck shfmt diffutils)
 if command -v apt >/dev/null; then # Ubuntu
+    # add-apt-repository is missing on minimal installs
+    sudo apt-get --quiet --quiet update
+    sudo apt-get --quiet --quiet install software-properties-common
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
     sudo apt-get --quiet --quiet update
     sudo apt-get --quiet --quiet install "${core_packages[@]}"
@@ -149,31 +154,33 @@ if ! command -v emoji >/dev/null; then
 fi
 echo "Done"
 
-# Remap keyboard
-# Note: Patch returns 1 if the patch already has been applied, so I hide the exit code and then check the text output to make this idempotent
+if [[ "$headless" = false ]]; then
+    # Remap keyboard
+    # Note: Patch returns 1 if the patch already has been applied, so I hide the exit code and then check the text output to make this idempotent
 
-bold_blue "Remapping keyboard"
-echo "1. Remap caps lock to alt gr"
-pc_file="/usr/share/X11/xkb/symbols/pc"
-if grep -q 'key <CAPS>.*Caps_Lock' "$pc_file"; then
-    sudo sed -i.bak '/key <CAPS>/ s/Caps_Lock/ISO_Level3_Shift/' "$pc_file"
-    echo "Applied keyboard remap"
-elif grep -q 'key <CAPS>.*ISO_Level3_Shift' "$pc_file"; then
-    echo "Keyboard remap already applied"
-else
-    echo "Failed to apply keyboard remap"
-fi
-echo "2. Don't create non-breaking space for alt gr + space"
-if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/no --input="$HOME"/.config/dotfiles/non-breaking-space.patch); then
-    echo "Applied keyboard patch"
-else
-    if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"; then
-        echo "Keyboard patch already applied"
+    bold_blue "Remapping keyboard"
+    echo "1. Remap caps lock to alt gr"
+    pc_file="/usr/share/X11/xkb/symbols/pc"
+    if grep -q 'key <CAPS>.*Caps_Lock' "$pc_file"; then
+        sudo sed -i.bak '/key <CAPS>/ s/Caps_Lock/ISO_Level3_Shift/' "$pc_file"
+        echo "Applied keyboard remap"
+    elif grep -q 'key <CAPS>.*ISO_Level3_Shift' "$pc_file"; then
+        echo "Keyboard remap already applied"
     else
-        yellow "Failed to apply keyboard patch"
+        echo "Failed to apply keyboard remap"
     fi
+    echo "2. Don't create non-breaking space for alt gr + space"
+    if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/no --input="$HOME"/.config/dotfiles/non-breaking-space.patch); then
+        echo "Applied keyboard patch"
+    else
+        if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"; then
+            echo "Keyboard patch already applied"
+        else
+            yellow "Failed to apply keyboard patch"
+        fi
+    fi
+    echo "Done"
 fi
-echo "Done"
 
 # Logitech MX Keys Mini (YR0084) sends Super+Shift+O for its screenshot key
 # instead of Print, even with "Set OS: Linux" in Solaar
@@ -236,7 +243,7 @@ mkdir -p "$HOME/.zsh"
 if [[ -d "$HOME/.zsh/pure" ]]; then
     echo "Already installed"
 else
-    git clone git@github.com:sindresorhus/pure.git "$HOME/.zsh/pure"
+    git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
     echo "Done"
 fi
 
@@ -253,7 +260,7 @@ fi
 # Make ZSH the default shell
 bold_blue "Make ZSH default shell"
 need_relog=false
-if [[ "$SHELL" == "/usr/bin/zsh" ]]; then
+if [[ "${SHELL:-}" == "/usr/bin/zsh" ]]; then
     echo "Default shell is already ZSH"
 elif [[ -n "${CI:-}" ]]; then
     echo "Running in CI, skipping"
