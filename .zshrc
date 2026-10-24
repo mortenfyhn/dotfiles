@@ -79,6 +79,6 @@ typeset -U path
 command -v zoxide >/dev/null && eval "$(zoxide init zsh --cmd c)"
 
 # Exiting tmux closes the terminal.
-if [[ -z "$TMUX" ]] && command -v tmux >/dev/null; then
+if [[ -z "$TMUX" && -z "$ZSH_EXECUTION_STRING" ]] && command -v tmux >/dev/null; then
     exec tmux
 fi
