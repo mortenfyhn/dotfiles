@@ -76,7 +76,7 @@ typeset -U path
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 # Zoxide smart directory jumping
-command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
+command -v zoxide >/dev/null && eval "$(zoxide init zsh --cmd c)"
 
 # Exiting tmux closes the terminal.
 if [[ -z "$TMUX" ]] && command -v tmux >/dev/null; then
