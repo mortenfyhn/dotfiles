@@ -25,7 +25,12 @@ fi
 # project root, so these match tracked files plus the machine-local .zshrc.local.
 # LC_ALL=C keeps the order identical everywhere, so the .ci.sh diff below only
 # fires on real drift and not on a different locale.
-names() { { dots ls-files; printf '%s\n' '.zshrc.local'; } | sed 's|^|//|' | LC_ALL=C sort -u; }
+names() {
+    {
+        dots ls-files
+        echo .zshrc.local
+    } | sed 's|^|//|' | LC_ALL=C sort -u
+}
 
 # Every directory holding a tracked file, plus its ancestors: Sublime hides a
 # folder unless the folder itself matches.

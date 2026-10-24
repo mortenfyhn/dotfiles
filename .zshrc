@@ -26,9 +26,9 @@ autoload -U promptinit
 promptinit
 prompt pure
 setopt nocaseglob
-zstyle ':prompt:pure:prompt:success' color 34  # Green
-zstyle ':prompt:pure:prompt:error' color 202   # Red
-PURE_PROMPT_SYMBOL='%(?..%? )%B❯%b'            # Nice caret
+zstyle ':prompt:pure:prompt:success' color 34 # Green
+zstyle ':prompt:pure:prompt:error' color 202  # Red
+PURE_PROMPT_SYMBOL='%(?..%? )%B❯%b'           # Nice caret
 
 # Show git stash
 zstyle :prompt:pure:git:stash show yes
@@ -51,14 +51,14 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^[[A" history-beginning-search-backward-end # Up: older prefix matches; empty prefix matches all.
 bindkey "^[[B" history-beginning-search-forward-end  # Down: newer matches, then restore the typed prefix.
-bindkey "^[[H" beginning-of-line                 # Home
-bindkey "^[[F" end-of-line                       # End
-bindkey "^[[1~" beginning-of-line                # Home (alternate encoding)
-bindkey "^[[4~" end-of-line                      # End (alternate encoding)
-bindkey "^[[1;5C" forward-word                   # Ctrl+Right
-bindkey "^[[1;5D" backward-word                  # Ctrl+Left
-bindkey "^H" backward-kill-word                  # Ctrl+Backspace
-bindkey "^[[3;5~" kill-word                      # Ctrl+Delete
+bindkey "^[[H" beginning-of-line                     # Home
+bindkey "^[[F" end-of-line                           # End
+bindkey "^[[1~" beginning-of-line                    # Home (alternate encoding)
+bindkey "^[[4~" end-of-line                          # End (alternate encoding)
+bindkey "^[[1;5C" forward-word                       # Ctrl+Right
+bindkey "^[[1;5D" backward-word                      # Ctrl+Left
+bindkey "^H" backward-kill-word                      # Ctrl+Backspace
+bindkey "^[[3;5~" kill-word                          # Ctrl+Delete
 
 # Aliases
 source $HOME/.aliases
