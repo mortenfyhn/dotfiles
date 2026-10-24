@@ -20,14 +20,14 @@ blocks:
       prologue:
         commands:
           - docker run --detach --name box -e CI -e DEBIAN_FRONTEND=noninteractive ubuntu:24.04 sleep infinity
-          - docker exec box bash -c 'apt-get -qq update && apt-get -qq install sudo wget'
+          - docker exec box bash -c 'apt-get -qq update && apt-get -qq install sudo wget xkb-data fontconfig patch'
       jobs:
         - name: "Install and check"
           commands: &install
             # Install the same way I would, from GitHub without cloning first
-            - docker exec box bash -c "bash <(wget -qO- https://raw.githubusercontent.com/mortenfyhn/dotfiles/$SEMAPHORE_GIT_SHA/.dotfiles-install.sh) --headless"
+            - docker exec box bash -c "bash <(wget -qO- https://raw.githubusercontent.com/mortenfyhn/dotfiles/$SEMAPHORE_GIT_SHA/.dotfiles-install.sh)"
             - docker exec box git --git-dir=/root/.dotfiles --work-tree=/root checkout --force $SEMAPHORE_GIT_SHA
-            - docker exec box zsh -i -c '~/.dotfiles-install.sh --headless'
+            - docker exec box zsh -i -c '~/.dotfiles-install.sh'
             - docker exec box /root/.dotfiles-check.sh
 
   - name: "Fedora 44"
@@ -36,7 +36,7 @@ blocks:
       prologue:
         commands:
           - docker run --detach --name box -e CI fedora:44 sleep infinity
-          - docker exec box dnf -yq install sudo wget
+          - docker exec box dnf -yq install sudo wget xkeyboard-config fontconfig patch
       jobs:
         - name: "Install and check"
           commands: *install

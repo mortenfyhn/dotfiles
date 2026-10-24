@@ -32,20 +32,6 @@ install_release_binary() {
     echo "Done"
 }
 
-headless=false
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-    --headless)
-        headless=true
-        shift
-        ;;
-    *)
-        echo "Error: Invalid option '$1'"
-        exit 1
-        ;;
-    esac
-done
-
 # Grant sudo right away
 sudo -v
 echo "Sudo granted"
@@ -91,20 +77,16 @@ if command -v apt >/dev/null; then # Ubuntu
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
     sudo apt-get --quiet --quiet update
     sudo apt-get --quiet --quiet install "${core_packages[@]}"
-    if [[ "$headless" = false ]]; then
-        # Not in every release I use, so this is allowed to fail
-        sudo apt-get --quiet --quiet install alacritty neofetch gnome-shell-extensions ||
-            yellow "Skipped desktop packages"
-        # Route x-terminal-emulator consumers to Alacritty (Debian/Ubuntu only)
-        if command -v alacritty >/dev/null; then
-            sudo update-alternatives --set x-terminal-emulator /usr/bin/alacritty
-        fi
+    # Not in every release I use, so this is allowed to fail
+    sudo apt-get --quiet --quiet install alacritty neofetch gnome-shell-extensions ||
+        yellow "Skipped desktop packages"
+    # Route x-terminal-emulator consumers to Alacritty (Debian/Ubuntu only)
+    if command -v alacritty >/dev/null; then
+        sudo update-alternatives --set x-terminal-emulator /usr/bin/alacritty
     fi
 elif command -v dnf >/dev/null; then # Fedora
     sudo dnf --assumeyes --quiet install "${core_packages[@]}"
-    if [[ "$headless" = false ]]; then
-        sudo dnf --assumeyes --quiet install alacritty || yellow "Skipped alacritty"
-    fi
+    sudo dnf --assumeyes --quiet install alacritty || yellow "Skipped alacritty"
 else
     echo "I only support apt and dnf"
 fi
@@ -116,25 +98,21 @@ git config --global fetch.prune true
 git config --global pull.ff only
 git config --global help.autocorrect 20
 git config --global init.defaultBranch master
-if [[ "$headless" = false ]]; then
-    git config --global core.editor "subl -n -w"
-fi
+git config --global core.editor "subl -n -w"
 echo "Done"
 
-if [[ "$headless" = false ]]; then
-    # Install Iosevka font (for my editor)
-    bold_blue "Installing Iosevka font"
-    if [[ -f ~/.local/share/fonts/Iosevka.ttc ]]; then
-        echo "Already installed"
-    else
-        pushd "$(mktemp --directory)" >/dev/null
-        wget -q https://github.com/be5invis/Iosevka/releases/download/v33.2.3/SuperTTC-Iosevka-33.2.3.zip -O Iosevka.zip
-        unzip Iosevka.zip
-        mkdir -p ~/.local/share/fonts
-        mv Iosevka.ttc ~/.local/share/fonts
-        fc-cache -f
-        popd >/dev/null
-    fi
+# Install Iosevka font (for my editor)
+bold_blue "Installing Iosevka font"
+if [[ -f ~/.local/share/fonts/Iosevka.ttc ]]; then
+    echo "Already installed"
+else
+    pushd "$(mktemp --directory)" >/dev/null
+    wget -q https://github.com/be5invis/Iosevka/releases/download/v33.2.3/SuperTTC-Iosevka-33.2.3.zip -O Iosevka.zip
+    unzip Iosevka.zip
+    mkdir -p ~/.local/share/fonts
+    mv Iosevka.ttc ~/.local/share/fonts
+    fc-cache -f
+    popd >/dev/null
 fi
 
 difft_version="0.67.0"
@@ -154,87 +132,81 @@ if ! command -v emoji >/dev/null; then
 fi
 echo "Done"
 
-if [[ "$headless" = false ]]; then
-    # Remap keyboard
-    # Note: Patch returns 1 if the patch already has been applied, so I hide the exit code and then check the text output to make this idempotent
+# Remap keyboard
+# Note: Patch returns 1 if the patch already has been applied, so I hide the exit code and then check the text output to make this idempotent
 
-    bold_blue "Remapping keyboard"
-    echo "1. Remap caps lock to alt gr"
-    pc_file="/usr/share/X11/xkb/symbols/pc"
-    if grep -q 'key <CAPS>.*Caps_Lock' "$pc_file"; then
-        sudo sed -i.bak '/key <CAPS>/ s/Caps_Lock/ISO_Level3_Shift/' "$pc_file"
-        echo "Applied keyboard remap"
-    elif grep -q 'key <CAPS>.*ISO_Level3_Shift' "$pc_file"; then
-        echo "Keyboard remap already applied"
-    else
-        echo "Failed to apply keyboard remap"
-    fi
-    echo "2. Don't create non-breaking space for alt gr + space"
-    if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/no --input="$HOME"/.config/dotfiles/non-breaking-space.patch); then
-        echo "Applied keyboard patch"
-    else
-        if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"; then
-            echo "Keyboard patch already applied"
-        else
-            yellow "Failed to apply keyboard patch"
-        fi
-    fi
-    echo "Done"
+bold_blue "Remapping keyboard"
+echo "1. Remap caps lock to alt gr"
+pc_file="/usr/share/X11/xkb/symbols/pc"
+if grep -q 'key <CAPS>.*Caps_Lock' "$pc_file"; then
+    sudo sed -i.bak '/key <CAPS>/ s/Caps_Lock/ISO_Level3_Shift/' "$pc_file"
+    echo "Applied keyboard remap"
+elif grep -q 'key <CAPS>.*ISO_Level3_Shift' "$pc_file"; then
+    echo "Keyboard remap already applied"
+else
+    echo "Failed to apply keyboard remap"
 fi
+echo "2. Don't create non-breaking space for alt gr + space"
+if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/no --input="$HOME"/.config/dotfiles/non-breaking-space.patch); then
+    echo "Applied keyboard patch"
+else
+    if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"; then
+        echo "Keyboard patch already applied"
+    else
+        yellow "Failed to apply keyboard patch"
+    fi
+fi
+echo "Done"
 
 # Logitech MX Keys Mini (YR0084) sends Super+Shift+O for its screenshot key
 # instead of Print, even with "Set OS: Linux" in Solaar
-if [[ "$headless" = false ]]; then
-    bold_blue "Configuring screenshot shortcut"
-    if [[ "${XDG_CURRENT_DESKTOP:-}" != *"GNOME"* ]]; then
-        yellow "Skipping (not GNOME). Screenshot shortcut may need manual setup."
-    else
-        gsettings set org.gnome.shell.keybindings show-screenshot-ui "['Print', '<Super><Shift>o']"
-        echo "Done"
-    fi
+bold_blue "Configuring screenshot shortcut"
+if [[ "${XDG_CURRENT_DESKTOP:-}" != *"GNOME"* ]]; then
+    yellow "Skipping (not GNOME). Screenshot shortcut may need manual setup."
+else
+    gsettings set org.gnome.shell.keybindings show-screenshot-ui "['Print', '<Super><Shift>o']"
+    echo "Done"
 fi
 
 # Configure GNOME
 # automount-open pops open a Files window every time removable media (e.g. my
 # phone's storage) is plugged in. Keep automount so devices still mount, but
 # don't open a window.
-if [[ "$headless" = false ]] && command -v gsettings >/dev/null; then
+if [[ "${XDG_CURRENT_DESKTOP:-}" == *"GNOME"* ]]; then
     bold_blue "Configuring GNOME"
     gsettings set org.gnome.desktop.media-handling automount-open false
     echo "Done"
 fi
 
 # Make Alacritty the default terminal
-if [[ "$headless" = false ]]; then
-    bold_blue "Setting Alacritty as default terminal"
-    if [[ "${XDG_CURRENT_DESKTOP:-}" != *"GNOME"* ]]; then
-        yellow "Skipping (not GNOME)."
-    else
-        # For legacy apps that read the (deprecated) gsettings key
-        gsettings set org.gnome.desktop.default-applications.terminal exec 'alacritty'
-        gsettings set org.gnome.desktop.default-applications.terminal exec-arg '-e'
+bold_blue "Setting Alacritty as default terminal"
+if [[ "${XDG_CURRENT_DESKTOP:-}" != *"GNOME"* ]]; then
+    yellow "Skipping (not GNOME)."
+else
+    # For legacy apps that read the (deprecated) gsettings key
+    gsettings set org.gnome.desktop.default-applications.terminal exec 'alacritty'
+    gsettings set org.gnome.desktop.default-applications.terminal exec-arg '-e'
 
-        # For "Open in Terminal" etc. (xdg-terminal-exec spec, GNOME 48+)
-        echo "Alacritty.desktop" >~/.config/xdg-terminals.list
+    # For "Open in Terminal" etc. (xdg-terminal-exec spec, GNOME 48+)
+    echo "Alacritty.desktop" >~/.config/xdg-terminals.list
 
-        # Ctrl+Alt+T: GNOME has no built-in terminal shortcut, so add a
-        # custom keybinding (idempotent — reuses a fixed dconf path)
-        kb="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/alacritty/"
-        schema="org.gnome.settings-daemon.plugins.media-keys"
-        list=$(gsettings get "$schema" custom-keybindings)
-        if [[ "$list" != *"$kb"* ]]; then
-            if [[ "$list" == "@as []" ]]; then
-                gsettings set "$schema" custom-keybindings "['$kb']"
-            else
-                gsettings set "$schema" custom-keybindings "${list%]}, '$kb']"
-            fi
+    # Ctrl+Alt+T: GNOME has no built-in terminal shortcut, so add a
+    # custom keybinding (idempotent — reuses a fixed dconf path)
+    kb="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/alacritty/"
+    schema="org.gnome.settings-daemon.plugins.media-keys"
+    list=$(gsettings get "$schema" custom-keybindings)
+    if [[ "$list" != *"$kb"* ]]; then
+        if [[ "$list" == "@as []" ]]; then
+            gsettings set "$schema" custom-keybindings "['$kb']"
+        else
+            gsettings set "$schema" custom-keybindings "${list%]}, '$kb']"
         fi
-        kb_schema="$schema.custom-keybinding:$kb"
-        gsettings set "$kb_schema" name 'Terminal'
-        gsettings set "$kb_schema" command 'alacritty'
-        gsettings set "$kb_schema" binding '<Control><Alt>t'
-        echo "Done"
     fi
+    kb_schema="$schema.custom-keybinding:$kb"
+    gsettings set "$kb_schema" name 'Terminal'
+    gsettings set "$kb_schema" command 'alacritty'
+    gsettings set "$kb_schema" binding '<Control><Alt>t'
+    echo "Done"
 fi
 
 # Install ZSH prompt (pure)
@@ -274,6 +246,6 @@ bold_green "All done!"
 if [[ $need_relog == true ]]; then
     bold "Log out and back in again."
 fi
-if [[ "$headless" = false ]] && command -v dnf >/dev/null; then # Fedora
+if command -v dnf >/dev/null; then # Fedora
     echo "Manual UI setup: https://github.com/mortenfyhn/dotfiles/issues/83"
 fi

@@ -11,7 +11,7 @@ My dotfiles and other computer setup stuff. Based on [this](https://www.atlassia
 | Ubuntu 24.04 | CI, every push |
 | Fedora 44 | CI, every push |
 
-CI runs the install in a clean container per OS. Desktop setup (`--headless` off) is not tested.
+CI runs the install in a clean container per OS. GNOME settings and keyboard patches are not tested.
 
 ### Prerequisites
 
@@ -24,8 +24,6 @@ CI runs the install in a clean container per OS. Desktop setup (`--headless` off
 bash <(wget -qO- -o /dev/null \
   https://raw.githubusercontent.com/mortenfyhn/dotfiles/master/.dotfiles-install.sh)
 ```
-
-Append `--headless` when needed.
 
 ### Re-install
 
