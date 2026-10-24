@@ -124,32 +124,6 @@ if ! command -v emoji >/dev/null; then
 fi
 echo "Done"
 
-# Remap keyboard
-bold_blue "Remapping keyboard"
-echo "1. Remap caps lock to alt gr"
-pc_file="/usr/share/X11/xkb/symbols/pc"
-if grep -q 'key <CAPS>.*Caps_Lock' "$pc_file"; then
-    sudo sed -i.bak '/key <CAPS>/ s/Caps_Lock/ISO_Level3_Shift/' "$pc_file"
-    echo "Applied keyboard remap"
-elif grep -q 'key <CAPS>.*ISO_Level3_Shift' "$pc_file"; then
-    echo "Keyboard remap already applied"
-else
-    echo "Failed to apply keyboard remap"
-fi
-echo "2. Don't create non-breaking space for alt gr + space"
-# If the patch is applied already, patch gives an error. Thus, the script
-# examines the output to find the cause.
-if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/no --input="$HOME"/.config/dotfiles/non-breaking-space.patch); then
-    echo "Applied keyboard patch"
-else
-    if echo "$patch_output" | grep -q "Reversed (or previously applied) patch detected!"; then
-        echo "Keyboard patch already applied"
-    else
-        yellow "Failed to apply keyboard patch"
-    fi
-fi
-echo "Done"
-
 # Logitech MX Keys Mini (YR0084) sends Super+Shift+O for its screenshot key
 # instead of Print, even with "Set OS: Linux" in Solaar
 bold_blue "Configuring screenshot shortcut"
@@ -167,6 +141,9 @@ fi
 if [[ "${XDG_CURRENT_DESKTOP:-}" == *"GNOME"* ]]; then
     bold_blue "Configuring GNOME"
     gsettings set org.gnome.desktop.media-handling automount-open false
+    # Caps Lock is AltGr. AltGr+Space gives a usual space, not a non-breaking
+    # space.
+    gsettings set org.gnome.desktop.input-sources xkb-options "['lv3:caps_switch', 'nbsp:none']"
     echo "Done"
 fi
 

@@ -20,7 +20,7 @@ blocks:
       prologue:
         commands:
           - docker run --detach --name box -e CI -e DEBIAN_FRONTEND=noninteractive ubuntu:24.04 sleep infinity
-          - docker exec box bash -c 'apt-get -qq update && apt-get -qq install sudo wget xkb-data fontconfig patch'
+          - docker exec box bash -c 'apt-get -qq update && apt-get -qq install sudo wget fontconfig'
       jobs:
         - name: "Install and check"
           commands: &install
@@ -36,7 +36,7 @@ blocks:
       prologue:
         commands:
           - docker run --detach --name box -e CI fedora:44 sleep infinity
-          - docker exec box dnf -yq install sudo wget xkeyboard-config fontconfig patch
+          - docker exec box dnf -yq install sudo wget fontconfig
       jobs:
         - name: "Install and check"
           commands: *install
