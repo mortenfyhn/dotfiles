@@ -133,8 +133,6 @@ fi
 echo "Done"
 
 # Remap keyboard
-# Note: Patch returns 1 if the patch already has been applied, so I hide the exit code and then check the text output to make this idempotent
-
 bold_blue "Remapping keyboard"
 echo "1. Remap caps lock to alt gr"
 pc_file="/usr/share/X11/xkb/symbols/pc"
@@ -147,6 +145,8 @@ else
     echo "Failed to apply keyboard remap"
 fi
 echo "2. Don't create non-breaking space for alt gr + space"
+# If the patch is applied already, patch gives an error. Thus, the script
+# examines the output to find the cause.
 if patch_output=$(sudo patch --unified --backup --forward --reject-file=- /usr/share/X11/xkb/symbols/no --input="$HOME"/.config/dotfiles/non-breaking-space.patch); then
     echo "Applied keyboard patch"
 else

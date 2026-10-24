@@ -6,7 +6,8 @@
 #
 #     ~/.dotfiles-update-project.sh > ~/.dotfiles.sublime-project
 #
-# .ci.sh checks the committed project file still matches this output.
+# .dotfiles-check.sh makes sure that the committed project file is the same as
+# this output.
 
 set -Eeuo pipefail
 
@@ -23,8 +24,8 @@ fi
 
 # A Sublime pattern starting with // is compared against the path relative to the
 # project root, so these match tracked files plus the machine-local .zshrc.local.
-# LC_ALL=C keeps the order identical everywhere, so the .ci.sh diff below only
-# fires on real drift and not on a different locale.
+# LC_ALL=C gives the same sort order with all locales. Thus, the diff in
+# .dotfiles-check.sh fails only when the tracked files change.
 names() {
     {
         dots ls-files

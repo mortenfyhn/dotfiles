@@ -1,9 +1,9 @@
 # Alacritty config, tracked in dotfiles for an identical terminal on all machines.
 # Font: Iosevka (installed by .dotfiles-install.sh).
-# Only color and font keys are used here on purpose: they are stable across
-# Alacritty versions, whereas keys like `import`/`live_config_reload` moved under
-# a [general] section in 0.14, which would break this single file across the
-# different versions on Ubuntu (0.13.x) and Fedora (newer).
+# Use only keys that are the same in all Alacritty versions. Alacritty 0.14
+# moved keys such as `import` and `live_config_reload` into a [general] section.
+# Ubuntu has 0.13.x and Fedora has a newer version. Thus, these keys cannot work
+# on both.
 
 [window.dimensions]
 columns = 80
