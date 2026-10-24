@@ -17,6 +17,9 @@ setopt complete_in_word
 # Change directory without typing cd
 setopt autocd
 
+# Ignore case in file name patterns
+setopt nocaseglob
+
 # Make commands from other terminals available in history searches.
 setopt share_history
 
@@ -25,7 +28,6 @@ fpath+=($HOME/.zsh/pure)
 autoload -U promptinit
 promptinit
 prompt pure
-setopt nocaseglob
 zstyle ':prompt:pure:prompt:success' color 34 # Green
 zstyle ':prompt:pure:prompt:error' color 202  # Red
 PURE_PROMPT_SYMBOL='%(?..%? )%B❯%b'           # Nice caret
