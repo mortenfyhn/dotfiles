@@ -36,12 +36,17 @@ sudo -v
 echo "Sudo granted"
 
 bold_blue "Installing applications"
-core_packages=(bat ccache git tree zsh zoxide curl tmux trash-cli unzip shellcheck shfmt diffutils)
+core_packages=(bat ccache git tree zsh zoxide curl tmux trash-cli unzip shellcheck shfmt diffutils sublime-text)
 if command -v apt-get >/dev/null; then # Ubuntu
     # add-apt-repository is missing on minimal installs
     sudo apt-get --quiet --quiet update
     sudo apt-get --quiet --quiet install software-properties-common
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
+    # Add the Sublime Text repository
+    wget -qO- https://download.sublimetext.com/sublimehq-pub.gpg |
+        sudo tee /etc/apt/keyrings/sublimehq-pub.asc >/dev/null
+    printf 'Types: deb\nURIs: https://download.sublimetext.com/\nSuites: apt/stable/\nSigned-By: /etc/apt/keyrings/sublimehq-pub.asc\n' |
+        sudo tee /etc/apt/sources.list.d/sublime-text.sources >/dev/null
     sudo apt-get --quiet --quiet update
     sudo apt-get --quiet --quiet install "${core_packages[@]}"
     # Not in every release I use, so this is allowed to fail
@@ -52,6 +57,8 @@ if command -v apt-get >/dev/null; then # Ubuntu
         sudo update-alternatives --set x-terminal-emulator /usr/bin/alacritty
     fi
 elif command -v dnf >/dev/null; then # Fedora
+    # Add the Sublime Text repository. dnf imports its key on the first install.
+    sudo wget -qO /etc/yum.repos.d/sublime-text.repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
     sudo dnf --assumeyes --quiet install "${core_packages[@]}"
     sudo dnf --assumeyes --quiet install alacritty || yellow "Skipped alacritty"
 else

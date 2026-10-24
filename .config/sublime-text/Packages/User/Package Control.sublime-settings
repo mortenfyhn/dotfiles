@@ -1,0 +1,20 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Clang Format",
+		"Dockerfile Syntax Highlighting",
+		"INI",
+		"Just",
+		"Kotlin",
+		"OctaveSupport",
+		"Package Control",
+		"python-black",
+		"Solarized Color Scheme",
+		"Svelte",
+		"Typst",
+	],
+}

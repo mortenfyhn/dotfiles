@@ -34,6 +34,7 @@
                 "//.config/dotfiles/non-breaking-space.patch",
                 "//.config/sublime-text/Packages/Dotfiles/Preferences.sublime-settings",
                 "//.config/sublime-text/Packages/User/Default (Linux).sublime-keymap",
+                "//.config/sublime-text/Packages/User/Package Control.sublime-settings",
                 "//.dotfiles-check.sh",
                 "//.dotfiles-install.sh",
                 "//.dotfiles-update-project.sh",
