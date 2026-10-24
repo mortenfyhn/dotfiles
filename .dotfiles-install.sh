@@ -80,8 +80,8 @@ echo "Done"
 bold_blue "Installing applications"
 core_packages=(bat ccache git tree zsh zoxide curl tmux trash-cli unzip)
 if command -v apt >/dev/null; then # Ubuntu
-    sudo apt-get --quiet --quiet update
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
+    sudo apt-get --quiet --quiet update
     sudo apt-get --quiet --quiet install "${core_packages[@]}"
     if [[ "$headless" = false ]]; then
         # Not in every release I use, so this is allowed to fail
