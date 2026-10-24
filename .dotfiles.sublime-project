@@ -50,6 +50,7 @@
                 "//.pi/agent/extensions/openrouter-fallback.ts",
                 "//.pi/agent/extensions/session-rename.ts",
                 "//.pi/agent/extensions/show-auto-model.ts",
+                "//.semaphore/notify-failure.sh",
                 "//.semaphore/semaphore.yml",
                 "//.tmux.conf",
                 "//.zshrc",

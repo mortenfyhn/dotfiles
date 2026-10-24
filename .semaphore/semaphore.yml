@@ -20,7 +20,8 @@ global_job_config:
   epilogue:
     on_fail:
       commands:
-        - 'curl -s -H "Authorization: Bearer $NTFY_TOKEN" -H "Email: yes" -H "Title: Dotfiles CI failed" -d "$SEMAPHORE_BLOCK_NAME failed on $SEMAPHORE_GIT_BRANCH: https://fyhn.semaphoreci.com/workflows/$SEMAPHORE_WORKFLOW_ID" https://ntfy.sh/mortenfyhn-dotfiles-ci'
+        - checkout
+        - .semaphore/notify-failure.sh
 
 blocks:
   - name: "Ubuntu 24.04"
