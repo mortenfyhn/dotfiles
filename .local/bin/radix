@@ -4,20 +4,20 @@
 show_bits=0
 args=()
 for arg in "$@"; do
-  case "$arg" in
-    -b|--bits) show_bits=1 ;;
+    case "$arg" in
+    -b | --bits) show_bits=1 ;;
     *) args+=("$arg") ;;
-  esac
+    esac
 done
 set -- "${args[@]}"
 
 if [[ $# -lt 1 ]]; then
-  echo "Usage: radix [-b] <number>"
-  echo "  radix 255    (decimal)"
-  echo "  radix 0xff   (hex)"
-  echo "  radix 0b1010 (binary)"
-  echo "  -b, --bits   list which bits are set"
-  exit 1
+    echo "Usage: radix [-b] <number>"
+    echo "  radix 255    (decimal)"
+    echo "  radix 0xff   (hex)"
+    echo "  radix 0b1010 (binary)"
+    echo "  -b, --bits   list which bits are set"
+    exit 1
 fi
 
 input="$*"
@@ -25,11 +25,11 @@ input="${input// /}"
 
 # Parse input to decimal
 if [[ "$input" == 0b* ]]; then
-  dec=$(( 2#${input#0b} ))
+    dec=$((2#${input#0b}))
 elif [[ "$input" == 0x* || "$input" == 0X* ]]; then
-  dec=$(( 16#${input#0[xX]} ))
+    dec=$((16#${input#0[xX]}))
 else
-  dec=$(( 10#$input ))
+    dec=$((10#$input))
 fi
 
 # Decimal and hex
@@ -38,24 +38,24 @@ hex=$(printf '0x%X' "$dec")
 # Binary with nibble separators
 bin=""
 if [[ $dec -eq 0 ]]; then
-  bin="0000"
+    bin="0000"
 else
-  n=$dec
-  while [[ $n -gt 0 ]]; do
-    bin=$(( n & 1 ))$bin
-    n=$(( n >> 1 ))
-  done
-  # Pad to multiple of 4
-  while [[ $(( ${#bin} % 4 )) -ne 0 ]]; do
-    bin="0$bin"
-  done
+    n=$dec
+    while [[ $n -gt 0 ]]; do
+        bin=$((n & 1))$bin
+        n=$((n >> 1))
+    done
+    # Pad to multiple of 4
+    while [[ $((${#bin} % 4)) -ne 0 ]]; do
+        bin="0$bin"
+    done
 fi
 
 # Insert nibble separators
 formatted=""
-for (( i=0; i<${#bin}; i+=4 )); do
-  [[ -n "$formatted" ]] && formatted+="'"
-  formatted+="${bin:i:4}"
+for ((i = 0; i < ${#bin}; i += 4)); do
+    [[ -n "$formatted" ]] && formatted+="'"
+    formatted+="${bin:i:4}"
 done
 
 echo "dec: $dec"
@@ -63,13 +63,13 @@ echo "hex: $hex"
 echo "bin: 0b$formatted"
 
 if [[ $show_bits -eq 1 ]]; then
-  bits=""
-  n=$dec
-  i=0
-  while [[ $n -gt 0 ]]; do
-    (( n & 1 )) && bits="$i $bits"
-    n=$(( n >> 1 ))
-    (( i++ ))
-  done
-  echo "set: ${bits:-none}"
+    bits=""
+    n=$dec
+    i=0
+    while [[ $n -gt 0 ]]; do
+        ((n & 1)) && bits="$i $bits"
+        n=$((n >> 1))
+        ((i++))
+    done
+    echo "set: ${bits:-none}"
 fi

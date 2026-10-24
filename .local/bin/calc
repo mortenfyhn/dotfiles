@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ $# -eq 0 ]; then
-    read -p "> " expr
+    read -r -p "> " expr
     python3 -c "from math import *; print($expr)"
 else
     python3 -c "from math import *; print($*)"

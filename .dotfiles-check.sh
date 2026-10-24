@@ -9,7 +9,9 @@ set -Eeuo pipefail
 # different directory.
 cd "$(dirname "$0")"
 
-scripts=(.dotfiles-check.sh .dotfiles-update-project.sh .dotfiles-install.sh)
+# Lint all tracked files that start with a bash or sh shebang
+mapfile -t scripts < <(git --git-dir="$HOME"/.dotfiles ls-files -z |
+    xargs -0 awk 'FNR == 1 && /^#!(.*[\/ ])?(ba)?sh$/ { print FILENAME } { nextfile }')
 shellcheck "${scripts[@]}"
 shfmt -i 4 -d "${scripts[@]}"
 
