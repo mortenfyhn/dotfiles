@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-# The single source of truth for the checks: .semaphore/semaphore.yml just runs
-# this script, so CI and a local pre-push run can't drift apart. Installs
-# nothing, so it stays fast.
+# The single source of truth for the checks: CI and the pre-push hook both run
+# this script, so they can't drift apart. Installs nothing, so it stays fast.
 
 set -Eeuo pipefail
 

@@ -6,19 +6,16 @@ My dotfiles and other computer setup stuff. Based on [this](https://www.atlassia
 
 ### Supported operating systems
 
-| OS | Support | Tested |
-| --- | --- | --- |
-| Fedora, latest release | full | no |
-| Ubuntu 24.04 | full | CI, every push |
-| Ubuntu 22.04 | best-effort | no |
+| OS | Tested |
+| --- | --- |
+| Ubuntu 24.04 | CI, every push |
+| Fedora 44 | CI, every push |
 
-Ubuntu 22.04 is the oldest supported Ubuntu release.
-
-Plan: run the install in a container per supported OS in CI.
+CI runs the install in a clean container per OS. Desktop setup (`--headless` off) is not tested.
 
 ### Prerequisites
 
-* [Connect to GitHub with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+* [Connect to GitHub with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh), to push changes
 * Install `wget`
 
 ### First install

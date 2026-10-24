@@ -14,25 +14,29 @@ auto_cancel:
     when: true
 
 blocks:
-  - name: "Checks"
+  - name: "Ubuntu 24.04"
+    dependencies: []
     task:
+      prologue:
+        commands:
+          - docker run --detach --name box -e CI -e DEBIAN_FRONTEND=noninteractive ubuntu:24.04 sleep infinity
+          - docker exec box bash -c 'apt-get -qq update && apt-get -qq install sudo wget'
       jobs:
-      - name: "Install"
-        commands:
-          # Install the same way I would, from GitHub without cloning first
-          - bash <(wget -qO- -o /dev/null https://raw.githubusercontent.com/mortenfyhn/dotfiles/${SEMAPHORE_GIT_SHA}/.dotfiles-install.sh)
-          # Try sourcing .zshrc succeeds (`zsh -i` does so)
-          # and re-run the install script in ZSH to test idempotency
-          - echo 'echo "Sourced .zshrc"' >> ~/.zshrc
-          - zsh -i -c './.dotfiles-install.sh'
+        - name: "Install and check"
+          commands: &install
+            # Install the same way I would, from GitHub without cloning first
+            - docker exec box bash -c "bash <(wget -qO- https://raw.githubusercontent.com/mortenfyhn/dotfiles/$SEMAPHORE_GIT_SHA/.dotfiles-install.sh) --headless"
+            - docker exec box git --git-dir=/root/.dotfiles --work-tree=/root checkout --force $SEMAPHORE_GIT_SHA
+            - docker exec box zsh -i -c '~/.dotfiles-install.sh --headless'
+            - docker exec box /root/.dotfiles-check.sh
 
-      - name: "Check"
+  - name: "Fedora 44"
+    dependencies: []
+    task:
+      prologue:
         commands:
-          - checkout
-            # Apparently shellcheck is pre-installed
-          - shellcheck --version
-          - wget https://github.com/patrickvane/shfmt/releases/download/master/shfmt_linux_amd64 -O shfmt
-          - chmod +x shfmt
-          - sudo mv shfmt /usr/local/bin/
-          - shfmt --version
-          - ./.dotfiles-check.sh
+          - docker run --detach --name box -e CI fedora:44 sleep infinity
+          - docker exec box dnf -yq install sudo wget
+      jobs:
+        - name: "Install and check"
+          commands: *install
