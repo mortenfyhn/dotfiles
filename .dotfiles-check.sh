@@ -5,8 +5,8 @@
 
 set -Eeuo pipefail
 
-# Work on the repo this script lives in: $HOME when run locally, the checkout
-# when run in CI.
+# Go to the directory of this script. The pre-push hook can start in a
+# different directory.
 cd "$(dirname "$0")"
 
 scripts=(.dotfiles-check.sh .dotfiles-update-project.sh .dotfiles-install.sh)
