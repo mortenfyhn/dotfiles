@@ -32,7 +32,6 @@
                 "//.claude/language.md",
                 "//.config/alacritty/alacritty.toml",
                 "//.config/dotfiles/non-breaking-space.patch",
-                "//.config/dotfiles/remap-caps-lock.patch",
                 "//.config/sublime-text/Packages/Dotfiles/Preferences.sublime-settings",
                 "//.config/sublime-text/Packages/User/Default (Linux).sublime-keymap",
                 "//.dotfiles-check.sh",
