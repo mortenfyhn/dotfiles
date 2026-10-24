@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 set -Eeuo pipefail
-shopt -s expand_aliases
 
 yellow() { echo -e "\e[33m$*\e[0m"; }
 bold() { echo -e "\e[1m$*\e[0m"; }
@@ -36,41 +35,9 @@ install_release_binary() {
 sudo -v
 echo "Sudo granted"
 
-# Install git at the start for the git clone below
-if ! command -v git >/dev/null; then
-    bold_blue "Installing git"
-    if command -v apt-get >/dev/null; then # Ubuntu
-        sudo apt-get --quiet --quiet update
-        sudo apt-get --quiet --quiet install git
-    elif command -v dnf >/dev/null; then # Fedora
-        sudo dnf --assumeyes --quiet install git
-    else
-        echo "I only support apt and dnf"
-        exit 1
-    fi
-fi
-
-# Clone dotfiles
-bold_blue "Cloning dotfiles repo"
-grep -sqxF ".dotfiles" ~/.gitignore || echo ".dotfiles" >>~/.gitignore
-if [[ ! -d ~/.dotfiles ]]; then
-    git clone -q --bare https://github.com/mortenfyhn/dotfiles.git ~/.dotfiles
-    # Clone over HTTPS so it works without an SSH key, push over SSH
-    dots() { git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"; }
-    dots remote set-url --push origin git@github.com:mortenfyhn/dotfiles.git
-    dots checkout --force
-    dots config --local status.showUntrackedFiles no
-    dots config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-    dots fetch
-fi
-# Run the CI checks locally before every push
-printf '#!/bin/sh\nexec ~/.dotfiles-check.sh\n' >~/.dotfiles/hooks/pre-push
-chmod +x ~/.dotfiles/hooks/pre-push
-echo "Done"
-
 bold_blue "Installing applications"
 core_packages=(bat ccache git tree zsh zoxide curl tmux trash-cli unzip shellcheck shfmt diffutils)
-if command -v apt >/dev/null; then # Ubuntu
+if command -v apt-get >/dev/null; then # Ubuntu
     # add-apt-repository is missing on minimal installs
     sudo apt-get --quiet --quiet update
     sudo apt-get --quiet --quiet install software-properties-common
@@ -89,7 +56,25 @@ elif command -v dnf >/dev/null; then # Fedora
     sudo dnf --assumeyes --quiet install alacritty || yellow "Skipped alacritty"
 else
     echo "I only support apt and dnf"
+    exit 1
 fi
+
+# Clone dotfiles
+bold_blue "Cloning dotfiles repo"
+if [[ ! -d ~/.dotfiles ]]; then
+    # Clone over HTTPS so it works without an SSH key, push over SSH
+    git clone -q --bare https://github.com/mortenfyhn/dotfiles.git ~/.dotfiles
+    dots() { git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"; }
+    dots remote set-url --push origin git@github.com:mortenfyhn/dotfiles.git
+    dots checkout --force
+    dots config --local status.showUntrackedFiles no
+    dots config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+    dots fetch
+fi
+# Run the CI checks locally before every push
+printf '#!/bin/sh\nexec ~/.dotfiles-check.sh\n' >~/.dotfiles/hooks/pre-push
+chmod +x ~/.dotfiles/hooks/pre-push
+echo "Done"
 
 bold_blue "Configure git"
 git config --global user.name "Morten Fyhn Amundsen"
@@ -221,7 +206,6 @@ fi
 
 # Install zsh-autosuggestions
 bold_blue "Installing zsh-autosuggestions"
-mkdir -p "$HOME/.zsh"
 if [[ -d "$HOME/.zsh/zsh-autosuggestions" ]]; then
     echo "Already installed"
 else
