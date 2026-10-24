@@ -13,6 +13,15 @@ auto_cancel:
   queued:
     when: true
 
+# Send an email for each failed job
+global_job_config:
+  secrets:
+    - name: ntfy-token
+  epilogue:
+    on_fail:
+      commands:
+        - 'curl -s -H "Authorization: Bearer $NTFY_TOKEN" -H "Email: yes" -H "Title: Dotfiles CI failed" -d "$SEMAPHORE_BLOCK_NAME failed on $SEMAPHORE_GIT_BRANCH: https://fyhn.semaphoreci.com/workflows/$SEMAPHORE_WORKFLOW_ID" https://ntfy.sh/mortenfyhn-dotfiles-ci'
+
 blocks:
   - name: "Ubuntu 24.04"
     dependencies: []
