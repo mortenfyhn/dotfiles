@@ -75,10 +75,13 @@ if [[ ! -d ~/.dotfiles ]]; then
     dots config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
     dots fetch
 fi
+# Run the CI checks locally before every push
+printf '#!/bin/sh\nexec ~/.dotfiles-check.sh\n' >~/.dotfiles/hooks/pre-push
+chmod +x ~/.dotfiles/hooks/pre-push
 echo "Done"
 
 bold_blue "Installing applications"
-core_packages=(bat ccache git tree zsh zoxide curl tmux trash-cli unzip)
+core_packages=(bat ccache git tree zsh zoxide curl tmux trash-cli unzip shellcheck shfmt)
 if command -v apt >/dev/null; then # Ubuntu
     sudo add-apt-repository --yes --no-update ppa:git-core/ppa
     sudo apt-get --quiet --quiet update
