@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# Show or set brightness of all DDC/CI-capable monitors plus the laptop panel.
+
+set -Eeuo pipefail
+
+if [[ ${1:-} == -h || ${1:-} == --help ]]; then
+    echo "Usage: $(basename "$0") [0-100]"
+    exit 0
+fi
+
+# Print the I2C bus of each connected external monitor. Do not use the buses of
+# disconnected connectors. DDC traffic on these buses can stop the system.
+buses() {
+    for connector in /sys/class/drm/card*-*; do
+        [[ $connector != *-eDP-* && $(<"$connector/status") == connected ]] || continue
+        # DisplayPort has an AUX bus as a child. HDMI has a ddc link.
+        for bus in "$connector"/i2c-* "$connector"/ddc; do
+            if [[ -e $bus ]]; then
+                basename "$(realpath "$bus")" | sed 's/^i2c-//'
+                break
+            fi
+        done
+    done
+}
+
+# Internal panel: first backlight device, if any. Controlled via logind so it
+# works without root (the active session user is allowed to set brightness).
+backlight=$(find /sys/class/backlight -mindepth 1 -maxdepth 1 -printf '%f\n' -quit 2>/dev/null || true)
+
+if [[ $# -gt 0 ]]; then
+    if [[ -n $backlight ]]; then
+        max=$(<"/sys/class/backlight/$backlight/max_brightness")
+        busctl call org.freedesktop.login1 /org/freedesktop/login1/session/auto \
+            org.freedesktop.login1.Session SetBrightness ssu \
+            backlight "$backlight" "$(($1 * max / 100))"
+    fi
+    for bus in $(buses); do
+        ddcutil --bus "$bus" --noverify setvcp 10 "$1"
+    done
+    exit 0
+fi
+
+if [[ -n $backlight ]]; then
+    cur=$(<"/sys/class/backlight/$backlight/brightness")
+    max=$(<"/sys/class/backlight/$backlight/max_brightness")
+    echo "Laptop ($backlight): $((cur * 100 / max))"
+fi
+
+for bus in $(buses); do
+    echo "Bus $bus: $(ddcutil --bus "$bus" getvcp 10 --brief | awk '{print $4}')"
+done

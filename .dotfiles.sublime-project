@@ -44,6 +44,7 @@
                 "//.local/bin/calc",
                 "//.local/bin/copy",
                 "//.local/bin/img2web",
+                "//.local/bin/monitor-brightness",
                 "//.local/bin/radix",
                 "//.local/bin/vid2web",
                 "//.pi/agent/AGENTS.md",
