@@ -6,12 +6,8 @@ My dotfiles and other computer setup stuff. Based on [this](https://www.atlassia
 
 ### Supported operating systems
 
-| OS | Tested |
-| --- | --- |
-| Ubuntu 24.04 | CI, every push |
-| Fedora 44 | CI, every push |
-
-CI runs the install in a clean container per OS. GNOME settings and keyboard patches are not tested.
+* Ubuntu 24.04
+* Fedora 44
 
 ### Prerequisites
 
