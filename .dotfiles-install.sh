@@ -36,7 +36,7 @@ sudo -v
 echo "Sudo granted"
 
 bold_blue "Installing applications"
-core_packages=(bat ccache git tree zsh zoxide curl tmux trash-cli unzip shellcheck shfmt diffutils sublime-text)
+core_packages=(bat ccache git jq tree zsh zoxide curl tmux trash-cli unzip shellcheck shfmt diffutils sublime-text)
 if command -v apt-get >/dev/null; then # Ubuntu
     # add-apt-repository is missing on minimal installs
     sudo apt-get --quiet --quiet update
@@ -177,6 +177,13 @@ else
     gsettings set "$kb_schema" binding '<Control><Alt>t'
     echo "Done"
 fi
+
+bold_blue "Configuring Claude Code"
+settings=~/.claude/settings.json
+[[ -f $settings ]] || echo '{}' >"$settings"
+jq '.statusLine = {type: "command", command: "bash ~/.claude/statusline-command.sh"}' "$settings" >"$settings.tmp"
+mv "$settings.tmp" "$settings"
+echo "Done"
 
 # Install ZSH prompt (pure)
 bold_blue "Installing 'Pure' prompt"
