@@ -181,7 +181,12 @@ fi
 bold_blue "Configuring Claude Code"
 settings=~/.claude/settings.json
 [[ -f $settings ]] || echo '{}' >"$settings"
-jq '.statusLine = {type: "command", command: "bash ~/.claude/statusline-command.sh"}' "$settings" >"$settings.tmp"
+# shellcheck disable=SC2016 # Expand when the hook runs
+notify='t=$(bash ~/.claude/session-title.sh); notify-send --app-name "Claude Code" --icon ~/.claude/claude.png --transient "${t:-Claude Code}" "Ready ✨"'
+jq --arg notify "$notify" '
+    .statusLine = {type: "command", command: "bash ~/.claude/statusline-command.sh"}
+    | .hooks.Stop = [{hooks: [{type: "command", command: $notify}]}]
+' "$settings" >"$settings.tmp"
 mv "$settings.tmp" "$settings"
 echo "Done"
 
