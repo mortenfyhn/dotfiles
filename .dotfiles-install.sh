@@ -61,6 +61,9 @@ elif command -v dnf >/dev/null; then # Fedora
     sudo wget -qO /etc/yum.repos.d/sublime-text.repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
     sudo dnf --assumeyes --quiet install "${core_packages[@]}"
     sudo dnf --assumeyes --quiet install alacritty || yellow "Skipped alacritty"
+    if [[ "${XDG_CURRENT_DESKTOP:-}" == *"GNOME"* ]]; then
+        sudo dnf --assumeyes --quiet install gnome-tweaks gnome-extensions-app
+    fi
 else
     echo "I only support apt and dnf"
     exit 1
@@ -144,6 +147,23 @@ if [[ "${XDG_CURRENT_DESKTOP:-}" == *"GNOME"* ]]; then
     # Caps Lock is AltGr. AltGr+Space gives a usual space, not a non-breaking
     # space.
     gsettings set org.gnome.desktop.input-sources xkb-options "['lv3:caps_switch', 'nbsp:none']"
+    # Alt+Tab switches windows, Super+Tab switches applications
+    gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Super>Tab']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt>Tab']"
+    gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
+    gsettings set org.gnome.nautilus.list-view use-tree-view true
+    for ext in window-list apps-menu places-menu; do
+        gnome-extensions enable "$ext@gnome-shell-extensions.gcampax.github.com"
+    done
+    gsettings set org.gnome.shell.extensions.window-list show-on-all-monitors true
+    # Ptyxis creates its default profile on first launch
+    ptyxis_profile=$(gsettings get org.gnome.Ptyxis default-profile-uuid 2>/dev/null || :)
+    ptyxis_profile=${ptyxis_profile//\'/}
+    if [[ -n "$ptyxis_profile" ]]; then
+        gsettings set org.gnome.Ptyxis use-system-font false
+        gsettings set org.gnome.Ptyxis font-name 'Iosevka Term 12'
+        dconf write "/org/gnome/Ptyxis/Profiles/$ptyxis_profile/palette-id" "'nord'"
+    fi
     echo "Done"
 fi
 
@@ -225,7 +245,4 @@ echo "Done"
 bold_green "All done!"
 if [[ $need_relog == true ]]; then
     bold "Log out and back in again."
-fi
-if command -v dnf >/dev/null; then # Fedora
-    echo "Manual UI setup: https://github.com/mortenfyhn/dotfiles/issues/83"
 fi
