@@ -198,6 +198,46 @@ else
     echo "Done"
 fi
 
+# Framework 13 AMD: the BIOS exposes a phantom ACP mic, which makes UCM hide the
+# real mic and split outputs into four profiles. Per-user fix, see issue #106.
+if [[ "$(cat /sys/class/dmi/id/board_name 2>/dev/null)" == "FRANMGCP07" ]]; then
+    bold_blue "Applying Framework 13 audio fix"
+    # Ignore UCM for the ALC285, so outputs and mics become ports of one profile
+    mkdir -p ~/.config/wireplumber/wireplumber.conf.d
+    cat >~/.config/wireplumber/wireplumber.conf.d/51-alc285-no-ucm.conf <<'EOF'
+monitor.alsa.rules = [
+  {
+    matches = [ { device.name = "alsa_card.pci-0000_c1_00.6" } ]
+    actions = {
+      update-props = {
+        api.alsa.use-ucm = false
+      }
+    }
+  }
+]
+EOF
+    # ACP_PATHS_DIR replaces the stock path directory, so mirror it by symlink
+    # (regenerated on every run to pick up new files) and override two files:
+    # the speaker stays selectable with the jack in, and headphones outrank it
+    src=/usr/share/alsa-card-profile/mixer/paths
+    dst=~/.config/alsa-card-profile/paths
+    rm -rf "$dst"
+    mkdir -p "$dst"
+    ln -s "$src"/* "$dst"/
+    rm "$dst/analog-output-speaker.conf" "$dst/analog-output-headphones.conf"
+    sed 's/^state\.plugged = no$/state.plugged = unknown/' \
+        "$src/analog-output-speaker.conf" >"$dst/analog-output-speaker.conf"
+    sed -e 's/^priority = 99$/priority = 101/' \
+        -e 's/^description-key = analog-output-headphones$/description = 3.5 mm output/' \
+        "$src/analog-output-headphones.conf" >"$dst/analog-output-headphones.conf"
+    mkdir -p ~/.config/systemd/user/pipewire.service.d
+    printf '[Service]\nEnvironment=ACP_PATHS_DIR=%%h/.config/alsa-card-profile/paths\n' \
+        >~/.config/systemd/user/pipewire.service.d/acp-paths.conf
+    systemctl --user daemon-reload
+    systemctl --user restart pipewire.service pipewire-pulse.service wireplumber.service
+    echo "Done"
+fi
+
 bold_blue "Configuring Claude Code"
 settings=~/.claude/settings.json
 [[ -f $settings ]] || echo '{}' >"$settings"
