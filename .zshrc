@@ -30,7 +30,8 @@ promptinit
 prompt pure
 zstyle ':prompt:pure:prompt:success' color 34 # Green
 zstyle ':prompt:pure:prompt:error' color 202  # Red
-PURE_PROMPT_SYMBOL='%(?..%? )%B❯%b'           # Nice caret
+# Pure escapes % in PURE_PROMPT_SYMBOL, so add the exit code and bold to PROMPT itself.
+PROMPT=${PROMPT/'${prompt_pure_state[prompt]}'/'%(?..%? )%B${prompt_pure_state[prompt]}%b'}
 
 # Show git stash
 zstyle :prompt:pure:git:stash show yes
